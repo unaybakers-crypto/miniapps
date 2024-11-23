@@ -1,6 +1,7 @@
 import { EventEmitter } from "eventemitter3";
 import { FrameSDK, Emitter, EventMap } from "./types";
 import { frameHost } from "./frameHost";
+import { provider } from "./provider";
 
 export function createEmitter(): Emitter {
   const emitter = new EventEmitter<EventMap>();
@@ -36,6 +37,9 @@ export const sdk: FrameSDK = {
     close: frameHost.close.bind(frameHost),
     openUrl: frameHost.openUrl.bind(frameHost),
   },
+  wallet: {
+    ethProvider: provider,
+  }
 };
 
 document.addEventListener("FarcasterFrameEvent", (event) => {

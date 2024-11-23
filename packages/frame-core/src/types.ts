@@ -20,14 +20,12 @@ export type AccountLocation = {
 export type FrameContext = {
   user: {
     fid: number;
-    custodyAddress: [];
     username?: string;
     displayName?: string;
     /**
      * Profile image URL
      */
     pfpUrl?: string;
-    location?: AccountLocation;
   }
 };
 

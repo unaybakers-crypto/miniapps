@@ -27,6 +27,6 @@
     "react-native-webview": ">=13.0.0"
   },
   "dependencies": {
-    "@farcaster/frame-core": "^0.0.1"
+    "@farcaster/frame-core": "^0.0.3"
   }
 }

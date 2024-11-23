@@ -1,5 +1,6 @@
 import type { EventEmitter } from "eventemitter3";
-import type { FrameContext, SetPrimaryButton } from "@farcaster/frame-core";
+import type { Provider } from "ox";
+import type { FrameContext } from "@farcaster/frame-core";
 
 declare global {
   interface Window {
@@ -11,7 +12,7 @@ declare global {
 }
 
 /** Combines members of an intersection into a readable type. */
-// https://twitter.com/mattpocockuk/status/1622730173446557697?s=20&t=NdpAcmEFXY01xkqU3KO0Mg
+// https://twitter.com/mattpocockuk/status/1622730173446557697?s=20&t=v01xkqU3KO0Mg
 export type Compute<type> = { [key in keyof type]: type[key] } & unknown;
 
 export type EventMap = {
@@ -20,6 +21,13 @@ export type EventMap = {
 
 export type Emitter = Compute<EventEmitter<EventMap>>;
 
+export type SetPrimaryButton = (options: {
+    text: string;
+    loading?: boolean;
+    disabled?: boolean;
+    hidden?: boolean;
+}) => Promise<void>;
+
 export type FrameSDK = {
   context: Promise<FrameContext>;
   actions: {
@@ -27,5 +35,8 @@ export type FrameSDK = {
     openUrl: (url: string) => Promise<void>;
     close: () => Promise<void>;
     setPrimaryButton: SetPrimaryButton;
+  };
+  wallet: {
+    ethProvider: Provider.Provider
   };
 } & Emitter;
