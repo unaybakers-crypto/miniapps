@@ -1,4 +1,4 @@
-# @farcaster/frame-kit
+# @farcaster/frame-host
 
 ## 0.0.2
 
