@@ -11,23 +11,25 @@ export type EthProviderRequest = Provider.RequestFn<RpcSchema.Default>;
 
 export type AccountLocation = {
   placeId: string;
- /**
-  * Human-readable string describing the location
-  */
+  /**
+   * Human-readable string describing the location
+   */
   description: string;
-}
+};
 
 export type FrameContext = {
-  fid: number;
-  custodyAddress: [];
-  username?: string;
-  displayName?: string;
- /**
-  * Profile image URL
-  */
-  pfpUrl?: string;
-  location?: AccountLocation;
-}
+  user: {
+    fid: number;
+    custodyAddress: [];
+    username?: string;
+    displayName?: string;
+    /**
+     * Profile image URL
+     */
+    pfpUrl?: string;
+    location?: AccountLocation;
+  }
+};
 
 export type FrameHost = {
   context: FrameContext;
@@ -36,5 +38,4 @@ export type FrameHost = {
   openUrl: (url: string) => void;
   setPrimaryButton: SetPrimaryButton;
   ethProviderRequest: EthProviderRequest;
-}
-
+};

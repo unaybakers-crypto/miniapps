@@ -14,24 +14,33 @@ export type WebViewEndpoint = Comlink.Endpoint & {
 /**
  * An endpoint of communicating with WebView
  */
-export function createWebViewRpcEndpoint(ref: RefObject<WebView>): WebViewEndpoint & { emit: (data: any) => void } {
+export function createWebViewRpcEndpoint(
+  ref: RefObject<WebView>,
+): WebViewEndpoint & { emit: (data: any) => void } {
   const listeners: EventListenerOrEventListenerObject[] = [];
   return {
     addEventListener: (type, listener) => {
       if (type !== "message") {
-        throw Error(`Got an unexpected event type "${type}". Expected "message".`);
+        throw Error(
+          `Got an unexpected event type "${type}". Expected "message".`,
+        );
       }
       listeners.push(listener);
     },
     removeEventListener: (type, listener) => {
       if (type !== "message") {
-        throw Error(`Got an unexpected event type "${type}". Expected "message".`);
+        throw Error(
+          `Got an unexpected event type "${type}". Expected "message".`,
+        );
       }
       listeners.splice(listeners.findIndex((l) => l === listener));
     },
     postMessage: (data) => {
       if (!ref.current) {
-        if ("value" in data && data.value === SYMBOL_IGNORING_RPC_RESPONSE_ERROR) {
+        if (
+          "value" in data &&
+          data.value === SYMBOL_IGNORING_RPC_RESPONSE_ERROR
+        ) {
           return;
         }
         throw Error("Failed to return RPC response to WebView via postMessage");

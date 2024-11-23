@@ -1,13 +1,19 @@
 import * as Comlink from "comlink";
 import { RefObject, useCallback, useEffect, useRef } from "react";
-import WebView, { WebViewMessageEvent, WebViewProps } from "react-native-webview";
+import WebView, {
+  WebViewMessageEvent,
+  WebViewProps,
+} from "react-native-webview";
 import { WebViewEndpoint, createWebViewRpcEndpoint } from "./endpoint";
 import type { FrameHost } from "@farcaster/frame-core";
 
 /**
  * Returns a handler of RPC message from WebView.
  */
-export function useWebViewRpcAdapter(webViewRef: RefObject<WebView>, sdk: FrameHost) {
+export function useWebViewRpcAdapter(
+  webViewRef: RefObject<WebView>,
+  sdk: FrameHost,
+) {
   const endpointRef = useRef<
     WebViewEndpoint & {
       emit: (data: any) => void;

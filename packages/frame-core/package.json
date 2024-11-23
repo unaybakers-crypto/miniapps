@@ -6,8 +6,7 @@
     "clean": "rm -rf dist",
     "prebuild": "npm run clean",
     "build": "tsc",
-    "preversion": "npm run build",
-    "postversion": "git push --follow-tags"
+    "typecheck": "tsc --noEmit"
   },
   "files": [
     "dist",
@@ -19,5 +18,8 @@
   },
   "dependencies": {
     "ox": "^0.1.6"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
