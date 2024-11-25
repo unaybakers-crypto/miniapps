@@ -16,9 +16,11 @@ export const provider = Provider.from({
 
 export type ProviderType = typeof provider;
 
-document.addEventListener("FarcasterFrameEvent", (event) => {
-  if (event instanceof MessageEvent) {
-    // TODO narrow to EventMap types and emit
-    // emitter.emit(event.type as (keyof Provider.EventMap), event.data);
-  }
-});
+// Required to pass SSR
+if (typeof document !== 'undefined')
+  document.addEventListener("FarcasterFrameEvent", (event) => {
+    if (event instanceof MessageEvent) {
+      // TODO narrow to EventMap types and emit
+      // emitter.emit(event.type as (keyof Provider.EventMap), event.data);
+    }
+  });

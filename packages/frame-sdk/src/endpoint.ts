@@ -1,5 +1,17 @@
 import { type Endpoint, windowEndpoint } from "comlink";
 
+const mockEndpoint: Endpoint = {
+  postMessage() {
+    // noop
+  },
+  addEventListener: () => {
+    // noop
+  },
+  removeEventListener: () => {
+    // noop
+  },
+}
+
 const webViewEndpoint: Endpoint = {
   postMessage: (data: unknown) => {
     console.debug("[webview:req]", data);
@@ -13,7 +25,10 @@ const webViewEndpoint: Endpoint = {
   },
 };
 
-export const endpoint = window?.ReactNativeWebView
-  ? webViewEndpoint
-  : // TODO fallback cleanly when not in iFrame or webview
-    windowEndpoint(window?.parent ?? window);
+export const endpoint = (() => {
+  // No actions are actually gonna take place during SSR, thus it's safe to return mocked endpoint
+  if (typeof window === 'undefined') return mockEndpoint
+  return window?.ReactNativeWebView
+    ? webViewEndpoint
+    : windowEndpoint(window?.parent ?? window);
+})()
