@@ -42,10 +42,12 @@ export const sdk: FrameSDK = {
   }
 };
 
-document.addEventListener("FarcasterFrameEvent", (event) => {
-  if (event instanceof MessageEvent) {
-    if (event.data.type === "primaryButtonClicked") {
-      emitter.emit("primaryButtonClicked");
+// Required to pass SSR
+if (typeof document !== 'undefined')
+  document.addEventListener("FarcasterFrameEvent", (event) => {
+    if (event instanceof MessageEvent) {
+      if (event.data.type === "primaryButtonClicked") {
+        emitter.emit("primaryButtonClicked");
+      }
     }
-  }
-});
+  });
