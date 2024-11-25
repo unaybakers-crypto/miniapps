@@ -1,6 +1,6 @@
 import { type Endpoint, windowEndpoint } from "comlink";
 
-const mockEndpoint = {
+const mockEndpoint: Endpoint = {
   postMessage() {
     // noop
   },
