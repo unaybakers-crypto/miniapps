@@ -5,7 +5,9 @@
   "scripts": {
     "clean": "rm -rf dist",
     "prebuild": "npm run clean",
-    "build": "tsc",
+    "build": "yarn build:cjs && yarn build:umd",
+    "build:cjs": "tsc",
+    "build:umd": "node scripts/build.js",
     "typecheck": "tsc --noEmit"
   },
   "files": [
@@ -14,13 +16,14 @@
   ],
   "devDependencies": {
     "@farcaster/tsconfig": "*",
-    "ox": "^0.2.2",
+    "esbuild": "^0.24.0",
     "typescript": "^5.6.3"
   },
   "dependencies": {
     "@farcaster/frame-core": "^0.0.4",
     "comlink": "^4.4.2",
-    "eventemitter3": "^5.0.1"
+    "eventemitter3": "^5.0.1",
+    "ox": "^0.2.2"
   },
   "peerDependencies": {
     "ox": "^0.2.2"
