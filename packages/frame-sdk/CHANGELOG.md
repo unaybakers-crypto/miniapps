@@ -1,5 +1,11 @@
 # @farcaster/frame-kit
 
+## 0.0.4
+
+### Patch Changes
+
+- a17c2f1: include umd bundle
+
 ## 0.0.3
 
 ### Patch Changes
