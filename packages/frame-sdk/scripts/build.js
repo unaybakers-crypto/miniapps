@@ -6,6 +6,7 @@ esbuild.buildSync({
   minify: true,
   sourcemap: true,
   format: 'iife',
+  target: 'esnext',
   globalName: 'frame', 
-  outfile: 'dist/index.umd.js'
+  outfile: 'dist/index.min.js'
 })
