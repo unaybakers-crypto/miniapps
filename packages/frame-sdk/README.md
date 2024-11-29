@@ -10,9 +10,12 @@ Install using your favorite manager:
 npm install @farcaster/frame-sdk
 ```
 
-Or include via a CDN:
+Or include via a CDN and access via `frame`:
 
 ```
-https://cdn.jsdelivr.net/npm/@farcaster/frame-sdk/dist/index.min.js
+<script src="https://cdn.jsdelivr.net/npm/@farcaster/frame-sdk/dist/index.min.js"></script>
+<script>
+  frame.sdk.actions.ready();
+</script>
 ```
 
