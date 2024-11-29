@@ -1,5 +1,11 @@
 # @farcaster/frame-kit
 
+## 0.0.5
+
+### Patch Changes
+
+- 5b5f68d: export sdk under named export
+
 ## 0.0.4
 
 ### Patch Changes
