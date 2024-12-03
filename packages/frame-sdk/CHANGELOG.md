@@ -1,5 +1,13 @@
 # @farcaster/frame-kit
 
+## 0.0.6
+
+### Patch Changes
+
+- a258394: Add support for adding frames, notifications and events
+- Updated dependencies [a258394]
+  - @farcaster/frame-core@0.0.5
+
 ## 0.0.5
 
 ### Patch Changes
