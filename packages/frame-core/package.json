@@ -1,6 +1,6 @@
 {
   "name": "@farcaster/frame-core",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "main": "dist/index.js",
   "scripts": {
     "clean": "rm -rf dist",
@@ -17,7 +17,8 @@
     "typescript": "^5.6.3"
   },
   "dependencies": {
-    "ox": "^0.1.6"
+    "ox": "^0.1.6",
+    "zod": "^3.23.8"
   },
   "publishConfig": {
     "access": "public"
