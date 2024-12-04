@@ -1,5 +1,11 @@
 # @farcaster/frame-core
 
+## 0.0.6
+
+### Patch Changes
+
+- 886a9bb: Add location type=notification context
+
 ## 0.0.5
 
 ### Patch Changes
