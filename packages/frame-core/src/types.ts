@@ -1,4 +1,4 @@
-import type { Provider, RpcSchema } from "ox";
+import type { Address, Provider, RpcRequest, RpcResponse, RpcSchema } from "ox";
 import { z } from "zod";
 
 export type SetPrimaryButton = (options: {
@@ -69,10 +69,9 @@ export type FrameHost = {
   openUrl: (url: string) => void;
   setPrimaryButton: SetPrimaryButton;
   ethProviderRequest: EthProviderRequest;
+  ethProviderRequestV2: RpcTransport;
   addFrame: AddFrame;
 };
-
-// Webhook event format (= JSON Farcaster Signature)
 
 export const eventSchema = z.object({
   header: z.string(),
@@ -153,3 +152,37 @@ export const sendNotificationResponseSchema = z.object({
 export type SendNotificationResponse = z.infer<
   typeof sendNotificationResponseSchema
 >;
+
+export type RpcTransport = (
+  request: RpcRequest.RpcRequest
+) => Promise<RpcResponse.RpcResponse>;
+
+export type ProviderRpcError = {
+  code: number;
+  details?: string;
+  message?: string;
+}
+
+export type EthProviderWireEvent = {
+  event: "accountsChanged",
+  params: [readonly Address.Address[]]
+} | {
+  event: "chainChanged",
+  params: [string]
+} | {
+  event: "connect",
+  params: [Provider.ConnectInfo]
+} | {
+  event: "disconnect",
+  params: [ProviderRpcError]
+} | {
+  event: "message",
+  params: [Provider.Message]
+};
+
+export type EmitEthProvider = <
+  event extends EthProviderWireEvent['event']
+>(
+  event: event,
+  params: Extract<EthProviderWireEvent, { event: event }>['params']
+) => void;

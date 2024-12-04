@@ -23,9 +23,6 @@
     "@farcaster/frame-core": "^0.0.5",
     "comlink": "^4.4.2",
     "eventemitter3": "^5.0.1",
-    "ox": "^0.2.2"
-  },
-  "peerDependencies": {
-    "ox": "^0.2.2"
+    "ox": "^0.4.0"
   }
 }

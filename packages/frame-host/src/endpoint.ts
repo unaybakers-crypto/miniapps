@@ -1,3 +1,4 @@
+import { EmitEthProvider, EthProviderWireEvent } from "@farcaster/frame-core";
 import * as Comlink from "comlink";
 import { RefObject } from "react";
 import WebView, { WebViewMessageEvent } from "react-native-webview";
@@ -9,6 +10,8 @@ export type WebViewEndpoint = Comlink.Endpoint & {
    * Manually distribute events to listeners as an alternative to `document.addEventHandler` which is unavailable in React Native.
    */
   onMessage: (e: WebViewMessageEvent) => void;
+  emit: (data: any) => void;
+  emitEthProvider: EmitEthProvider;
 };
 
 /**
@@ -16,7 +19,7 @@ export type WebViewEndpoint = Comlink.Endpoint & {
  */
 export function createWebViewRpcEndpoint(
   ref: RefObject<WebView>,
-): WebViewEndpoint & { emit: (data: any) => void } {
+): WebViewEndpoint {
   const listeners: EventListenerOrEventListenerObject[] = [];
   return {
     addEventListener: (type, listener) => {
@@ -75,6 +78,18 @@ export function createWebViewRpcEndpoint(
       return ref.current.injectJavaScript(`
         console.debug('[webview:emit]', ${dataStr});
         document.dispatchEvent(new MessageEvent('FarcasterFrameEvent', { data: ${dataStr} }));
+      `);
+    },
+    emitEthProvider: (event, params) => {
+      if (!ref.current) {
+        throw Error("Failed to send EthProvider Event to WebView via postMessage");
+      }
+      console.debug("[emit:ethProvider]", event, params);
+      const wireEvent = { event, params };
+      const dataStr = JSON.stringify(wireEvent);
+      return ref.current.injectJavaScript(`
+        console.debug('[webview:emit:ethProvider]', ${dataStr});
+        document.dispatchEvent(new MessageEvent('FarcasterFrameEthProviderEvent', { data: ${dataStr} }));
       `);
     },
   };
