@@ -1,5 +1,13 @@
 # @farcaster/frame-kit
 
+## 0.0.8
+
+### Patch Changes
+
+- e716b1c: Support Ethereum Provider events, preserve errors over the wire
+- Updated dependencies [e716b1c]
+  - @farcaster/frame-core@0.0.7
+
 ## 0.0.7
 
 ### Patch Changes

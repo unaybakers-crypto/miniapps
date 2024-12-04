@@ -1,6 +1,6 @@
 {
   "name": "@farcaster/frame-sdk",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "main": "dist/index.js",
   "scripts": {
     "clean": "rm -rf dist",
@@ -20,7 +20,7 @@
     "typescript": "^5.6.3"
   },
   "dependencies": {
-    "@farcaster/frame-core": "^0.0.6",
+    "@farcaster/frame-core": "^0.0.7",
     "comlink": "^4.4.2",
     "eventemitter3": "^5.0.1",
     "ox": "^0.4.0"
