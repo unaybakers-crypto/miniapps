@@ -18,6 +18,17 @@ export type AccountLocation = {
   description: string;
 };
 
+export type FrameLocationNotificationContext = {
+  type: "notification";
+  notification: {
+    notificationId: string;
+    title: string;
+    body: string;
+  };
+};
+
+export type FrameLocationContext = FrameLocationNotificationContext;
+
 export type FrameContext = {
   user: {
     fid: number;
@@ -28,6 +39,7 @@ export type FrameContext = {
      */
     pfpUrl?: string;
   };
+  location?: FrameLocationContext;
 };
 
 export const notificationDetailsSchema = z.object({
