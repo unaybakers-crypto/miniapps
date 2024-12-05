@@ -1,6 +1,6 @@
 import { RefObject } from "react";
 import WebView, { WebViewMessageEvent } from "react-native-webview";
-import { HostEndpoint } from "./types";
+import { HostEndpoint } from "@farcaster/frame-host";
 
 export const SYMBOL_IGNORING_RPC_RESPONSE_ERROR: symbol = Symbol();
 
