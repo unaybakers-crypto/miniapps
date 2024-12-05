@@ -1,13 +1,12 @@
-import * as Comlink from "comlink";
 import { RefObject, useCallback, useEffect, useRef } from "react";
+import type { Provider } from "ox";
 import WebView, {
   WebViewMessageEvent,
   WebViewProps,
 } from "react-native-webview";
-import { WebViewEndpoint, createWebViewRpcEndpoint } from "./endpoint";
 import type { FrameHost } from "@farcaster/frame-core";
-import { wrapProviderRequest, forwardProviderEvents } from "./helpers/provider";
-import { Provider } from "ox";
+import { WebViewEndpoint, createWebViewRpcEndpoint } from "./webview";
+import { exposeToEndpoint } from "./helpers/endpoint";
 
 /**
  * Returns a handler of RPC message from WebView.
@@ -30,18 +29,7 @@ export function useWebViewRpcAdapter(
     const endpoint = createWebViewRpcEndpoint(webViewRef);
     endpointRef.current = endpoint;
 
-    const extendedSdk = sdk as FrameHost;
-
-    if (provider) {
-      extendedSdk.ethProviderRequestV2 = wrapProviderRequest(provider);
-    }
-
-    Comlink.expose(extendedSdk, endpoint);
-
-    let cleanup: () => void | undefined;
-    if (provider) {
-      cleanup = forwardProviderEvents(provider, endpoint);
-    }
+    const cleanup = exposeToEndpoint(endpoint, sdk, provider);
 
     return () => {
       cleanup?.()

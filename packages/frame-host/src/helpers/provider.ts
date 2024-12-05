@@ -1,24 +1,23 @@
 import { Provider, RpcRequest, RpcResponse } from "ox";
-import { WebViewEndpoint } from "../endpoint";
-import { EventMap } from "ox/_types/core/Provider";
+import { HostEndpoint } from "../types";
 
 export function forwardProviderEvents(
   provider: Provider.Provider, 
-  endpoint: WebViewEndpoint
+  endpoint: HostEndpoint
 ) {
-  let accountsChanged: EventMap['accountsChanged'] = (accounts) => {
+  let accountsChanged: Provider.EventMap['accountsChanged'] = (accounts) => {
     endpoint.emitEthProvider('accountsChanged', [accounts]);
   };
-  let chainChanged: EventMap['chainChanged'] = (chainId) => {
+  let chainChanged: Provider.EventMap['chainChanged'] = (chainId) => {
     endpoint.emitEthProvider('chainChanged', [chainId]);
   };
-  let connect: EventMap['connect'] = (connectInfo) => {
+  let connect: Provider.EventMap['connect'] = (connectInfo) => {
     endpoint.emitEthProvider('connect', [connectInfo]);
   };
-  let disconnect: EventMap['disconnect'] = (providerRpcError) => {
+  let disconnect: Provider.EventMap['disconnect'] = (providerRpcError) => {
     endpoint.emitEthProvider('disconnect', [providerRpcError]);
   };
-  let message: EventMap['message'] = (message) => {
+  let message: Provider.EventMap['message'] = (message) => {
     endpoint.emitEthProvider('message', [message]);
   };
 

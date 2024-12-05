@@ -65,11 +65,26 @@ export const provider: Provider.Provider = Provider.from({
 
 // Required to pass SSR
 if (typeof document !== 'undefined') {
+  // react native webview events
   document.addEventListener("FarcasterFrameEthProviderEvent", (event) => {
     if (event instanceof MessageEvent) {
       const ethProviderEvent = event.data as EthProviderWireEvent;
       // @ts-expect-error 
       emitter.emit(ethProviderEvent.event, ...ethProviderEvent.params);
+    }
+  });
+}
+
+// Required to pass SSR
+if (typeof window !== 'undefined') {
+  // web events
+  window.addEventListener("message", (event) => {
+    if (event instanceof MessageEvent) {
+      if (event.data.type === 'frameEthProviderEvent') {
+        const ethProviderEvent = event.data as EthProviderWireEvent;
+        // @ts-expect-error 
+        emitter.emit(ethProviderEvent.event, ...ethProviderEvent.params);
+      }
     }
   });
 }

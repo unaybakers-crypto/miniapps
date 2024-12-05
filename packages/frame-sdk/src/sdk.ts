@@ -44,7 +44,8 @@ export const sdk: FrameSDK = {
 };
 
 // Required to pass SSR
-if (typeof document !== 'undefined')
+if (typeof document !== 'undefined') {
+  // react native webview events
   document.addEventListener("FarcasterFrameEvent", (event) => {
     if (event instanceof MessageEvent) {
       if (event.data.type === "primaryButtonClicked") {
@@ -52,3 +53,18 @@ if (typeof document !== 'undefined')
       }
     }
   });
+}
+
+// Required to pass SSR
+if (typeof window !== 'undefined') {
+  // web events
+  window.addEventListener("message", (event) => {
+    if (event instanceof MessageEvent) {
+      if (event.data.type === 'frameEvent') {
+        if (event.data.event === "primaryButtonClicked") {
+          emitter.emit("primaryButtonClicked");
+        }
+      }
+    }
+  });
+}

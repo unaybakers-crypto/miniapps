@@ -1,17 +1,14 @@
-import { EmitEthProvider, EthProviderWireEvent } from "@farcaster/frame-core";
-import * as Comlink from "comlink";
 import { RefObject } from "react";
 import WebView, { WebViewMessageEvent } from "react-native-webview";
+import { HostEndpoint } from "./types";
 
 export const SYMBOL_IGNORING_RPC_RESPONSE_ERROR: symbol = Symbol();
 
-export type WebViewEndpoint = Comlink.Endpoint & {
+export type WebViewEndpoint = HostEndpoint & {
   /**
    * Manually distribute events to listeners as an alternative to `document.addEventHandler` which is unavailable in React Native.
    */
   onMessage: (e: WebViewMessageEvent) => void;
-  emit: (data: any) => void;
-  emitEthProvider: EmitEthProvider;
 };
 
 /**
