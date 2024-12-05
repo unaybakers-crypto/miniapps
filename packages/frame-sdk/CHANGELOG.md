@@ -1,5 +1,13 @@
 # @farcaster/frame-kit
 
+## 0.0.10
+
+### Patch Changes
+
+- c4815e8: split out React Native host into its own package
+- Updated dependencies [c4815e8]
+  - @farcaster/frame-core@0.0.9
+
 ## 0.0.9
 
 ### Patch Changes
