@@ -5,8 +5,8 @@ import WebView, {
   WebViewProps,
 } from "react-native-webview";
 import type { FrameHost } from "@farcaster/frame-core";
+import { exposeToEndpoint } from "@farcaster/frame-host";
 import { WebViewEndpoint, createWebViewRpcEndpoint } from "./webview";
-import { exposeToEndpoint } from "./helpers/endpoint";
 
 /**
  * Returns a handler of RPC message from WebView.
