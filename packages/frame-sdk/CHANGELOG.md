@@ -1,5 +1,13 @@
 # @farcaster/frame-kit
 
+## 0.0.9
+
+### Patch Changes
+
+- 5e70f39: support iframe channel in host and sdk
+- Updated dependencies [5e70f39]
+  - @farcaster/frame-core@0.0.8
+
 ## 0.0.8
 
 ### Patch Changes
