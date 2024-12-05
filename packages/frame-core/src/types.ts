@@ -153,6 +153,10 @@ export type SendNotificationResponse = z.infer<
   typeof sendNotificationResponseSchema
 >;
 
+export type FrameEthProviderEventData = {
+  type: 'frameEthProviderEvent',
+} & EthProviderWireEvent;
+
 export type RpcTransport = (
   request: RpcRequest.RpcRequest
 ) => Promise<RpcResponse.RpcResponse>;
