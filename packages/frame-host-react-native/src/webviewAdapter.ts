@@ -11,11 +11,15 @@ import { WebViewEndpoint, createWebViewRpcEndpoint } from "./webview";
 /**
  * Returns a handler of RPC message from WebView.
  */
-export function useWebViewRpcAdapter(
-  webViewRef: RefObject<WebView>,
-  sdk: Omit<FrameHost, 'ethProviderRequestV2'>,
-  provider?: Provider.Provider,
-) {
+export function useWebViewRpcAdapter({
+  webViewRef,
+  sdk,
+  ethProvider
+}: {
+  webViewRef: RefObject<WebView>;
+  sdk: Omit<FrameHost, 'ethProviderRequestV2'>;
+  ethProvider?: Provider.Provider;
+}) {
   const endpointRef = useRef<WebViewEndpoint>();
 
   const onMessage: WebViewProps["onMessage"] = useCallback(
@@ -29,13 +33,18 @@ export function useWebViewRpcAdapter(
     const endpoint = createWebViewRpcEndpoint(webViewRef);
     endpointRef.current = endpoint;
 
-    const cleanup = exposeToEndpoint(endpoint, sdk, provider);
+    const cleanup = exposeToEndpoint({
+      endpoint, 
+      sdk, 
+      ethProvider,
+      frameOrigin: 'ReactNativeWebView'
+    });
 
     return () => {
       cleanup?.()
       endpointRef.current = undefined;
     };
-  }, [webViewRef, sdk, provider]);
+  }, [webViewRef, sdk, ethProvider]);
 
   return {
     onMessage,

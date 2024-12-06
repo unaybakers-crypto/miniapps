@@ -1,6 +1,6 @@
 {
   "name": "@farcaster/frame-host-react-native",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "main": "dist/index.js",
   "scripts": {
     "clean": "rm -rf dist",
@@ -15,19 +15,17 @@
   "devDependencies": {
     "@farcaster/tsconfig": "*",
     "@types/react": "^18.3.12",
-    "comlink": "^4.4.2",
     "react": "^18.3.1",
     "react-native": "^0.76.3",
     "react-native-webview": "^13.12.4",
     "typescript": "^5.6.3"
   },
   "peerDependencies": {
-    "comlink": ">=4.0.0",
     "react": ">=18.0.0",
     "react-native-webview": ">=13.0.0"
   },
   "dependencies": {
-    "@farcaster/frame-host": "^0.0.7",
+    "@farcaster/frame-host": "^0.0.9",
     "ox": "^0.4.0"
   }
 }

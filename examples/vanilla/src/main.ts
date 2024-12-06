@@ -20,8 +20,9 @@ const frameHost: FrameHost = {
   }
 } as FrameHost;
 
-exposeToIframe(
- document.querySelector<HTMLIFrameElement>('#frame')!,
- frameHost,
- window.ethereum
-)
+exposeToIframe({
+ iframe: document.querySelector<HTMLIFrameElement>('#frame')!,
+ sdk: frameHost,
+ ethProvider: window.ethereum,
+ frameOrigin: window.origin,
+})

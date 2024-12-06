@@ -1,5 +1,20 @@
 # @farcaster/frame-host
 
+## 0.0.9
+
+### Patch Changes
+
+- 6f46ca8: cleanup comlink exposures
+
+  vendors comlink so that we can modify expose to return a function
+  that will clean up the expose call
+
+## 0.0.8
+
+### Patch Changes
+
+- 6527fcb: require frame origin to restrict xsite messaging
+
 ## 0.0.7
 
 ### Patch Changes

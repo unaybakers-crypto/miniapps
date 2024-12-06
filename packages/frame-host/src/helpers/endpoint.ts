@@ -1,4 +1,4 @@
-import * as Comlink from "comlink";
+import * as Comlink from "../comlink";
 import { FrameHost } from "@farcaster/frame-core";
 import { Provider } from "ox";
 import { forwardProviderEvents, wrapProviderRequest } from "./provider";
@@ -7,22 +7,29 @@ import { HostEndpoint } from "../types";
 /**
   * @returns function to cleanup provider listeners
   */
-export function exposeToEndpoint(
+export function exposeToEndpoint({ 
+  endpoint,
+  sdk, 
+  frameOrigin,
+  ethProvider, 
+}: {
   endpoint: HostEndpoint,
   sdk: Omit<FrameHost, 'ethProviderRequestV2'>,
-  provider?: Provider.Provider,
-) {
+  frameOrigin: string;
+  ethProvider?: Provider.Provider,
+}) {
   const extendedSdk = sdk as FrameHost;
 
   let cleanup: () => void | undefined;
-  if (provider) {
-    extendedSdk.ethProviderRequestV2 = wrapProviderRequest(provider);
-    cleanup = forwardProviderEvents(provider, endpoint);
+  if (ethProvider) {
+    extendedSdk.ethProviderRequestV2 = wrapProviderRequest(ethProvider);
+    cleanup = forwardProviderEvents(ethProvider, endpoint);
   }
 
-  Comlink.expose(extendedSdk, endpoint);
+  const unexpose = Comlink.expose(extendedSdk, endpoint, [frameOrigin]);
 
   return () => {
     cleanup?.();
+    unexpose();
   }
 }
