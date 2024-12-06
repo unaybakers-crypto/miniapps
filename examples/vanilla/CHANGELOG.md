@@ -1,5 +1,13 @@
 # vanilla
 
+## 0.0.3
+
+### Patch Changes
+
+- 6527fcb: require frame origin to restrict xsite messaging
+- Updated dependencies [6527fcb]
+  - @farcaster/frame-host@0.0.8
+
 ## 0.0.2
 
 ### Patch Changes
