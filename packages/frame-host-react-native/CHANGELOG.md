@@ -1,5 +1,17 @@
 # @farcaster/frame-host
 
+## 0.0.4
+
+### Patch Changes
+
+- 6f46ca8: cleanup comlink exposures
+
+  vendors comlink so that we can modify expose to return a function
+  that will clean up the expose call
+
+- Updated dependencies [6f46ca8]
+  - @farcaster/frame-host@0.0.9
+
 ## 0.0.3
 
 ### Patch Changes
