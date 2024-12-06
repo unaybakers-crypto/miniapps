@@ -1,4 +1,4 @@
-import * as Comlink from "comlink";
+import * as Comlink from "./comlink";
 import type { Provider } from "ox";
 import { FrameHost } from "@farcaster/frame-core";
 import { HostEndpoint } from "./types";

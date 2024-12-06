@@ -15,11 +15,7 @@
   "devDependencies": {
     "@farcaster/tsconfig": "*",
     "@types/react": "^18.3.12",
-    "comlink": "^4.4.2",
     "typescript": "^5.6.3"
-  },
-  "peerDependencies": {
-    "comlink": ">=4.0.0"
   },
   "dependencies": {
     "@farcaster/frame-core": "^0.0.9",

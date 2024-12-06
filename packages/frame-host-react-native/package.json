@@ -15,14 +15,12 @@
   "devDependencies": {
     "@farcaster/tsconfig": "*",
     "@types/react": "^18.3.12",
-    "comlink": "^4.4.2",
     "react": "^18.3.1",
     "react-native": "^0.76.3",
     "react-native-webview": "^13.12.4",
     "typescript": "^5.6.3"
   },
   "peerDependencies": {
-    "comlink": ">=4.0.0",
     "react": ">=18.0.0",
     "react-native-webview": ">=13.0.0"
   },

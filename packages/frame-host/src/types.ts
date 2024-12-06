@@ -1,7 +1,7 @@
-import type * as Comlink from "comlink";
+import type { Endpoint } from "./comlink";
 import type { EmitEthProvider } from "@farcaster/frame-core";
 
-export type HostEndpoint = Comlink.Endpoint & {
+export type HostEndpoint = Endpoint & {
   emit: (data: any) => void;
   emitEthProvider: EmitEthProvider;
 };
