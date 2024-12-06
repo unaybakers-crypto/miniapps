@@ -7,10 +7,15 @@ import { exposeToEndpoint } from "./helpers/endpoint";
 /**
  * An endpoint of communicating with an iFrame
  */
-export function createIframeEndpoint(
-  iframe: HTMLIFrameElement,
+export function createIframeEndpoint({
+  iframe,
+  targetOrigin,
   debug = true
-): HostEndpoint {
+}: {
+  iframe: HTMLIFrameElement;
+  targetOrigin: string;
+  debug?: boolean;
+}): HostEndpoint {
   return {
     // when is contentWindow null
     ...Comlink.windowEndpoint(iframe.contentWindow!),
@@ -24,7 +29,7 @@ export function createIframeEndpoint(
         event
       };
 
-      iframe.contentWindow?.postMessage(wireEvent, '*');
+      iframe.contentWindow?.postMessage(wireEvent, targetOrigin);
     },
     emitEthProvider: (event, params) => {
       if (debug) {
@@ -37,18 +42,29 @@ export function createIframeEndpoint(
         params 
       };
 
-      iframe.contentWindow?.postMessage(wireEvent, '*')
+      iframe.contentWindow?.postMessage(wireEvent, targetOrigin)
     },
   };
 }
 
-export function exposeToIframe(
-  iframe: HTMLIFrameElement,
-  sdk: Omit<FrameHost, 'ethProviderRequestV2'>,
-  provider?: Provider.Provider,
-) {
-  const endpoint = createIframeEndpoint(iframe);
-  const cleanup = exposeToEndpoint(endpoint, sdk, provider);
+export function exposeToIframe({
+  iframe,
+  sdk,
+  ethProvider,
+  frameOrigin, 
+}: {
+  iframe: HTMLIFrameElement;
+  sdk: Omit<FrameHost, 'ethProviderRequestV2'>;
+  frameOrigin: string;
+  ethProvider?: Provider.Provider;
+}) {
+  const endpoint = createIframeEndpoint({ iframe, targetOrigin: frameOrigin });
+  const cleanup = exposeToEndpoint({
+    endpoint, 
+    sdk, 
+    ethProvider,
+    frameOrigin
+  });
 
   return {
     endpoint,

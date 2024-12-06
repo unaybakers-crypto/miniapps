@@ -8,19 +8,27 @@ import { HostEndpoint } from "../types";
   * @returns function to cleanup provider listeners
   */
 export function exposeToEndpoint(
-  endpoint: HostEndpoint,
-  sdk: Omit<FrameHost, 'ethProviderRequestV2'>,
-  provider?: Provider.Provider,
+  { 
+    endpoint,
+    sdk, 
+    frameOrigin,
+    ethProvider, 
+  }: {
+    endpoint: HostEndpoint,
+    sdk: Omit<FrameHost, 'ethProviderRequestV2'>,
+    frameOrigin: string;
+    ethProvider?: Provider.Provider,
+  }
 ) {
   const extendedSdk = sdk as FrameHost;
 
   let cleanup: () => void | undefined;
-  if (provider) {
-    extendedSdk.ethProviderRequestV2 = wrapProviderRequest(provider);
-    cleanup = forwardProviderEvents(provider, endpoint);
+  if (ethProvider) {
+    extendedSdk.ethProviderRequestV2 = wrapProviderRequest(ethProvider);
+    cleanup = forwardProviderEvents(ethProvider, endpoint);
   }
 
-  Comlink.expose(extendedSdk, endpoint);
+  Comlink.expose(extendedSdk, endpoint, [frameOrigin]);
 
   return () => {
     cleanup?.();
