@@ -14,12 +14,10 @@ import { WebViewEndpoint, createWebViewRpcEndpoint } from "./webview";
 export function useWebViewRpcAdapter({
   webViewRef,
   sdk,
-  frameOrigin,
   ethProvider
 }: {
   webViewRef: RefObject<WebView>;
   sdk: Omit<FrameHost, 'ethProviderRequestV2'>;
-  frameOrigin: string;
   ethProvider?: Provider.Provider;
 }) {
   const endpointRef = useRef<WebViewEndpoint>();
@@ -39,14 +37,14 @@ export function useWebViewRpcAdapter({
       endpoint, 
       sdk, 
       ethProvider,
-      frameOrigin
+      frameOrigin: 'ReactNativeWebView'
     });
 
     return () => {
       cleanup?.()
       endpointRef.current = undefined;
     };
-  }, [webViewRef, sdk, ethProvider, frameOrigin]);
+  }, [webViewRef, sdk, ethProvider]);
 
   return {
     onMessage,
