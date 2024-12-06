@@ -52,18 +52,21 @@ export function exposeToIframe({
   sdk,
   ethProvider,
   frameOrigin, 
+  debug = false
 }: {
   iframe: HTMLIFrameElement;
   sdk: Omit<FrameHost, 'ethProviderRequestV2'>;
   frameOrigin: string;
   ethProvider?: Provider.Provider;
+  debug?: boolean;
 }) {
-  const endpoint = createIframeEndpoint({ iframe, targetOrigin: frameOrigin });
+  const endpoint = createIframeEndpoint({ iframe, targetOrigin: frameOrigin, debug });
   const cleanup = exposeToEndpoint({
     endpoint, 
     sdk, 
     ethProvider,
-    frameOrigin
+    frameOrigin,
+    debug,
   });
 
   return {

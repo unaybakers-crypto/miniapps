@@ -1,10 +1,13 @@
 import { Provider, RpcRequest, RpcResponse } from "ox";
 import { HostEndpoint } from "../types";
 
-export function forwardProviderEvents(
+export function forwardProviderEvents({
+  provider,
+  endpoint
+}: {
   provider: Provider.Provider, 
   endpoint: HostEndpoint
-) {
+}) {
   let accountsChanged: Provider.EventMap['accountsChanged'] = (accounts) => {
     endpoint.emitEthProvider('accountsChanged', [accounts]);
   };
@@ -45,16 +48,33 @@ export function forwardProviderEvents(
   * Wraps a provider's request function with a result format that can transfer
   * errors across scripting boundaries.
   */
-export const wrapProviderRequest = (provider: Provider.Provider) => 
+export const wrapProviderRequest = ({
+  provider,
+  debug = false
+}: {
+  provider: Provider.Provider,
+  debug?: boolean
+}) => 
  async (request: RpcRequest.RpcRequest) => {
   try {
+    if (debug) {
+      console.debug("[frame-host] eth provider req: ", request)
+    }
     const result = await provider.request(request);
-
-    return RpcResponse.from(
+    const response = RpcResponse.from(
       { result }, 
       { request }
     );
+
+    if (debug) {
+      console.debug("[frame-host] eth provider res: ", response)
+    }
+
+    return response;
   } catch (e) {
+    if (debug) {
+      console.error("provider request error", e)
+    }
     if (e instanceof Provider.ProviderRpcError) {
       return RpcResponse.from(
         {
