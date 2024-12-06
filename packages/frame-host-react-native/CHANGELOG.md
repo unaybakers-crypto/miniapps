@@ -1,5 +1,13 @@
 # @farcaster/frame-host
 
+## 0.0.5
+
+### Patch Changes
+
+- 1b966fc: add debug flag to log activity
+- Updated dependencies [1b966fc]
+  - @farcaster/frame-host@0.0.10
+
 ## 0.0.4
 
 ### Patch Changes
