@@ -1,5 +1,11 @@
 # @farcaster/frame-core
 
+## 0.0.10
+
+### Patch Changes
+
+- 840776c: add ready options with disableNativeGestures
+
 ## 0.0.9
 
 ### Patch Changes
