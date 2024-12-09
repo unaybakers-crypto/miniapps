@@ -65,7 +65,13 @@ export type AddFrame = () => Promise<AddFrameResult>;
 export type FrameHost = {
   context: FrameContext;
   close: () => void;
-  ready: () => void;
+  ready: (options: Partial<{ 
+    /**
+      * Disable native gestures. Use this option if your frame uses gestures
+      * that conflict with native gestures. 
+      */
+    disableNativeGestures: boolean; 
+  }>) => void;
   openUrl: (url: string) => void;
   setPrimaryButton: SetPrimaryButton;
   ethProviderRequest: EthProviderRequest;

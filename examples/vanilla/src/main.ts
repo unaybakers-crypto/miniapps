@@ -15,7 +15,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 `
 
 const frameHost: FrameHost = {
-  ready: () => {
+  ready: (_options) => {
     document.querySelector<HTMLDivElement>('#splash')!.hidden = true;
   }
 } as FrameHost;

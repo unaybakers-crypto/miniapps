@@ -1,6 +1,6 @@
 import type { EventEmitter } from "eventemitter3";
 import type { Provider } from "ox";
-import type { FrameContext, AddFrame } from "@farcaster/frame-core";
+import type { FrameContext, AddFrame, FrameHost } from "@farcaster/frame-core";
 
 declare global {
   interface Window {
@@ -31,7 +31,7 @@ export type SetPrimaryButton = (options: {
 export type FrameSDK = {
   context: Promise<FrameContext>;
   actions: {
-    ready: () => Promise<void>;
+    ready: FrameHost['ready'];
     openUrl: (url: string) => Promise<void>;
     close: () => Promise<void>;
     setPrimaryButton: SetPrimaryButton;
