@@ -92,7 +92,7 @@ export type ReadyOptions = {
   disableNativeGestures: boolean;
 };
 
-export const DEFAUL_READY_OPTIONS: ReadyOptions = {
+export const DEFAULT_READY_OPTIONS: ReadyOptions = {
   disableNativeGestures: false,
 }
 
