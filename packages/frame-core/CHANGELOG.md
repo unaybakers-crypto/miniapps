@@ -1,5 +1,11 @@
 # @farcaster/frame-core
 
+## 0.0.12
+
+### Patch Changes
+
+- a2e727d: add zod schemas for all data forms
+
 ## 0.0.11
 
 ### Patch Changes
