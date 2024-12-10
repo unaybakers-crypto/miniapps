@@ -1,5 +1,11 @@
 # @farcaster/frame-core
 
+## 0.0.13
+
+### Patch Changes
+
+- 4e2a50f: consistent schema names, domain manifest version
+
 ## 0.0.12
 
 ### Patch Changes
