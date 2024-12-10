@@ -160,7 +160,7 @@ export type FrameEvent = z.infer<typeof eventPayloadSchema>;
 // Notifications API request and response formats
 
 export const sendNotificationRequestSchema = z.object({
-  notificationId: z.string().uuid(),
+  notificationId: z.string().max(128),
   title: z.string().max(32),
   body: z.string().max(128),
   targetUrl: z.string().max(256),
