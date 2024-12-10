@@ -4,7 +4,11 @@ export const secureUrlSchema = z.string().url().startsWith('https://', { message
 
 export const frameNameSchema = z.string().max(32);
 
-export const colorValueSchema = z.string().max(9).optional();
+export const hexColorSchema = z.string()
+  .regex(/^#([0-9A-F]{3}|[0-9A-F]{6})$/i, {
+    message: "Invalid hex color code. It should be in the format #RRGGBB or #RGB.",
+  });
+
 
 export const encodedJsonFarcasterSignatureSchema = z.object({
   header: z.string(),

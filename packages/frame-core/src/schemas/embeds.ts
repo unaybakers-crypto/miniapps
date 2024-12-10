@@ -1,12 +1,12 @@
 import { z } from 'zod';
-import { colorValueSchema, frameNameSchema, secureUrlSchema } from './shared';
+import { hexColorSchema, frameNameSchema, secureUrlSchema } from './shared';
 
 export const actionLaunchFrameSchema = z.object({
   type: z.literal('launch_frame'),
   name: frameNameSchema,
   url: secureUrlSchema,
   splashImageUrl: secureUrlSchema.optional(),
-  splashBackgroundColor: colorValueSchema.optional(),
+  splashBackgroundColor: hexColorSchema.optional(),
 });
 
 export const actionSchema = z.discriminatedUnion('type', [actionLaunchFrameSchema]);
