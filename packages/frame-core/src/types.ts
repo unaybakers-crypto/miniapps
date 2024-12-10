@@ -1,5 +1,5 @@
 import type { Address, Provider, RpcRequest, RpcResponse, RpcSchema } from "ox";
-import { z } from "zod";
+import { FrameNotificationDetails } from "./schemas";
 
 export type SetPrimaryButton = (options: {
   text: string;
@@ -43,14 +43,6 @@ export type FrameLocationContext =
   | FrameLocationContextCastEmbed
   | FrameLocationContextNotification
   | FrameLocationContextLauncher;
-
-export const notificationDetailsSchema = z.object({
-  url: z.string(),
-  token: z.string(),
-});
-export type FrameNotificationDetails = z.infer<
-  typeof notificationDetailsSchema
->;
 
 export type FrameContext = {
   user: {
@@ -106,86 +98,6 @@ export type FrameHost = {
   ethProviderRequestV2: RpcTransport;
   addFrame: AddFrame;
 };
-
-export const eventSchema = z.object({
-  header: z.string(),
-  payload: z.string(),
-  signature: z.string(),
-});
-export type EventSchema = z.infer<typeof eventSchema>;
-
-// JSON Farcaster Signature header after decoding
-
-export const eventHeaderSchema = z.object({
-  fid: z.number(),
-  type: z.literal("app_key"),
-  key: z.string().startsWith("0x"),
-});
-export type EventHeader = z.infer<typeof eventHeaderSchema>;
-
-// Webhook event payload after decoding
-
-export const eventFrameAddedPayloadSchema = z.object({
-  event: z.literal("frame_added"),
-  notificationDetails: notificationDetailsSchema.optional(),
-});
-export type EventFrameAddedPayload = z.infer<
-  typeof eventFrameAddedPayloadSchema
->;
-
-export const eventFrameRemovedPayloadSchema = z.object({
-  event: z.literal("frame_removed"),
-});
-export type EventFrameRemovedPayload = z.infer<
-  typeof eventFrameRemovedPayloadSchema
->;
-
-export const eventNotificationsEnabledPayloadSchema = z.object({
-  event: z.literal("notifications_enabled"),
-  notificationDetails: notificationDetailsSchema.required(),
-});
-export type EventNotificationsEnabledPayload = z.infer<
-  typeof eventNotificationsEnabledPayloadSchema
->;
-
-export const notificationsDisabledPayloadSchema = z.object({
-  event: z.literal("notifications_disabled"),
-});
-export type EventNotificationsDisabledPayload = z.infer<
-  typeof notificationsDisabledPayloadSchema
->;
-
-export const eventPayloadSchema = z.discriminatedUnion("event", [
-  eventFrameAddedPayloadSchema,
-  eventFrameRemovedPayloadSchema,
-  eventNotificationsEnabledPayloadSchema,
-  notificationsDisabledPayloadSchema,
-]);
-export type FrameEvent = z.infer<typeof eventPayloadSchema>;
-
-// Notifications API request and response formats
-
-export const sendNotificationRequestSchema = z.object({
-  notificationId: z.string().max(128),
-  title: z.string().max(32),
-  body: z.string().max(128),
-  targetUrl: z.string().max(256),
-  tokens: z.string().array().max(100),
-});
-export type SendNotificationRequest = z.infer<
-  typeof sendNotificationRequestSchema
->;
-
-export const sendNotificationResponseSchema = z.object({
-  result: z.object({
-    successfulTokens: z.array(z.string()),
-    invalidTokens: z.array(z.string()),
-    rateLimitedTokens: z.array(z.string()),
-  }),
-});
-export type SendNotificationResponse = z.infer<
-  typeof sendNotificationResponseSchema
->;
 
 export type FrameEthProviderEventData = {
   type: "frame_eth_provider_event";
