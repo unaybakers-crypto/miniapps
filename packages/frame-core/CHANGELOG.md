@@ -1,5 +1,13 @@
 # @farcaster/frame-core
 
+## 0.0.11
+
+### Patch Changes
+
+- 06ca566: optional ready options
+- 7f35aa5: Switch notificationId to a string from a UUID
+- aaf9e0e: Standardize literals to snake_cast and add cast_embed location context + client context
+
 ## 0.0.10
 
 ### Patch Changes
