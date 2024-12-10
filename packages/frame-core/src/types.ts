@@ -82,18 +82,24 @@ export type AddFrameResult =
 
 export type AddFrame = () => Promise<AddFrameResult>;
 
+export type ReadyOptions = {
+  /**
+   * Disable native gestures. Use this option if your frame uses gestures
+   * that conflict with native gestures.
+   *
+   * @defaultValue false
+   */
+  disableNativeGestures: boolean;
+};
+
+export const DEFAUL_READY_OPTIONS: ReadyOptions = {
+  disableNativeGestures: false,
+}
+
 export type FrameHost = {
   context: FrameContext;
   close: () => void;
-  ready: (
-    options: Partial<{
-      /**
-       * Disable native gestures. Use this option if your frame uses gestures
-       * that conflict with native gestures.
-       */
-      disableNativeGestures: boolean;
-    }>
-  ) => void;
+  ready: (options?: Partial<ReadyOptions>) => void;
   openUrl: (url: string) => void;
   setPrimaryButton: SetPrimaryButton;
   ethProviderRequest: EthProviderRequest;
@@ -197,11 +203,11 @@ export type ProviderRpcError = {
 
 export type EthProviderWireEvent =
   | {
-      event: "accounts_changed";
+      event: "accountsChanged";
       params: [readonly Address.Address[]];
     }
   | {
-      event: "chain_changed";
+      event: "chainChanged";
       params: [string];
     }
   | {
