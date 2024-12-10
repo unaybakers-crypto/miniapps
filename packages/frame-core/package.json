@@ -1,11 +1,14 @@
 {
   "name": "@farcaster/frame-core",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "main": "dist/index.js",
+  "module": "esm/index.js",
   "scripts": {
-    "clean": "rm -rf dist",
+    "clean": "rm -rf dist esm",
     "prebuild": "npm run clean",
-    "build": "tsc",
+    "build": "yarn build:cjs & yarn build:esm",
+    "build:cjs": "tsc -p tsconfig.node.json",
+    "build:esm": "tsc -p tsconfig.json",
     "typecheck": "tsc --noEmit"
   },
   "files": [
@@ -14,6 +17,7 @@
   ],
   "devDependencies": {
     "@farcaster/tsconfig": "*",
+    "tsup": "^8.3.5",
     "typescript": "^5.6.3"
   },
   "dependencies": {
