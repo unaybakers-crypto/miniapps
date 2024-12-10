@@ -18,7 +18,15 @@ export type AccountLocation = {
   description: string;
 };
 
-export type FrameLocationNotificationContext = {
+export type FrameLocationContextCastEmbed = {
+  type: "cast_embed";
+  cast: {
+    fid: number;
+    hash: string;
+  };
+};
+
+export type FrameLocationContextNotification = {
   type: "notification";
   notification: {
     notificationId: string;
@@ -27,7 +35,22 @@ export type FrameLocationNotificationContext = {
   };
 };
 
-export type FrameLocationContext = FrameLocationNotificationContext;
+export type FrameLocationContextLauncher = {
+  type: "launcher";
+};
+
+export type FrameLocationContext =
+  | FrameLocationContextCastEmbed
+  | FrameLocationContextNotification
+  | FrameLocationContextLauncher;
+
+export const notificationDetailsSchema = z.object({
+  url: z.string(),
+  token: z.string(),
+});
+export type FrameNotificationDetails = z.infer<
+  typeof notificationDetailsSchema
+>;
 
 export type FrameContext = {
   user: {
@@ -40,15 +63,12 @@ export type FrameContext = {
     pfpUrl?: string;
   };
   location?: FrameLocationContext;
+  client: {
+    clientFid: number;
+    added: boolean;
+    notificationDetails?: FrameNotificationDetails;
+  };
 };
-
-export const notificationDetailsSchema = z.object({
-  url: z.string(),
-  token: z.string(),
-});
-export type FrameNotificationDetails = z.infer<
-  typeof notificationDetailsSchema
->;
 
 export type AddFrameResult =
   | {
@@ -57,7 +77,7 @@ export type AddFrameResult =
     }
   | {
       added: false;
-      reason: "invalid-domain-manifest" | "rejected-by-user";
+      reason: "invalid_domain_manifest" | "rejected_by_user";
     };
 
 export type AddFrame = () => Promise<AddFrameResult>;
@@ -65,13 +85,15 @@ export type AddFrame = () => Promise<AddFrameResult>;
 export type FrameHost = {
   context: FrameContext;
   close: () => void;
-  ready: (options: Partial<{ 
-    /**
-      * Disable native gestures. Use this option if your frame uses gestures
-      * that conflict with native gestures. 
-      */
-    disableNativeGestures: boolean; 
-  }>) => void;
+  ready: (
+    options: Partial<{
+      /**
+       * Disable native gestures. Use this option if your frame uses gestures
+       * that conflict with native gestures.
+       */
+      disableNativeGestures: boolean;
+    }>
+  ) => void;
   openUrl: (url: string) => void;
   setPrimaryButton: SetPrimaryButton;
   ethProviderRequest: EthProviderRequest;
@@ -98,7 +120,7 @@ export type EventHeader = z.infer<typeof eventHeaderSchema>;
 // Webhook event payload after decoding
 
 export const eventFrameAddedPayloadSchema = z.object({
-  event: z.literal("frame-added"),
+  event: z.literal("frame_added"),
   notificationDetails: notificationDetailsSchema.optional(),
 });
 export type EventFrameAddedPayload = z.infer<
@@ -106,14 +128,14 @@ export type EventFrameAddedPayload = z.infer<
 >;
 
 export const eventFrameRemovedPayloadSchema = z.object({
-  event: z.literal("frame-removed"),
+  event: z.literal("frame_removed"),
 });
 export type EventFrameRemovedPayload = z.infer<
   typeof eventFrameRemovedPayloadSchema
 >;
 
 export const eventNotificationsEnabledPayloadSchema = z.object({
-  event: z.literal("notifications-enabled"),
+  event: z.literal("notifications_enabled"),
   notificationDetails: notificationDetailsSchema.required(),
 });
 export type EventNotificationsEnabledPayload = z.infer<
@@ -121,7 +143,7 @@ export type EventNotificationsEnabledPayload = z.infer<
 >;
 
 export const notificationsDisabledPayloadSchema = z.object({
-  event: z.literal("notifications-disabled"),
+  event: z.literal("notifications_disabled"),
 });
 export type EventNotificationsDisabledPayload = z.infer<
   typeof notificationsDisabledPayloadSchema
@@ -160,7 +182,7 @@ export type SendNotificationResponse = z.infer<
 >;
 
 export type FrameEthProviderEventData = {
-  type: 'frameEthProviderEvent',
+  type: "frame_eth_provider_event";
 } & EthProviderWireEvent;
 
 export type RpcTransport = (
@@ -171,28 +193,31 @@ export type ProviderRpcError = {
   code: number;
   details?: string;
   message?: string;
-}
-
-export type EthProviderWireEvent = {
-  event: "accountsChanged",
-  params: [readonly Address.Address[]]
-} | {
-  event: "chainChanged",
-  params: [string]
-} | {
-  event: "connect",
-  params: [Provider.ConnectInfo]
-} | {
-  event: "disconnect",
-  params: [ProviderRpcError]
-} | {
-  event: "message",
-  params: [Provider.Message]
 };
 
-export type EmitEthProvider = <
-  event extends EthProviderWireEvent['event']
->(
+export type EthProviderWireEvent =
+  | {
+      event: "accounts_changed";
+      params: [readonly Address.Address[]];
+    }
+  | {
+      event: "chain_changed";
+      params: [string];
+    }
+  | {
+      event: "connect";
+      params: [Provider.ConnectInfo];
+    }
+  | {
+      event: "disconnect";
+      params: [ProviderRpcError];
+    }
+  | {
+      event: "message";
+      params: [Provider.Message];
+    };
+
+export type EmitEthProvider = <event extends EthProviderWireEvent["event"]>(
   event: event,
-  params: Extract<EthProviderWireEvent, { event: event }>['params']
+  params: Extract<EthProviderWireEvent, { event: event }>["params"]
 ) => void;
