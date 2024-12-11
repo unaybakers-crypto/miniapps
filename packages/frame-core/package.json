@@ -13,6 +13,7 @@
   },
   "files": [
     "dist",
+    "esm",
     "src"
   ],
   "devDependencies": {
