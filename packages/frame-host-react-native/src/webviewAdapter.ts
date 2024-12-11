@@ -15,10 +15,10 @@ export function useWebViewRpcAdapter({
   webViewRef,
   sdk,
   ethProvider,
-  debug = false
+  debug = false,
 }: {
   webViewRef: RefObject<WebView>;
-  sdk: Omit<FrameHost, 'ethProviderRequestV2'>;
+  sdk: Omit<FrameHost, "ethProviderRequestV2">;
   ethProvider?: Provider.Provider;
   debug?: boolean;
 }) {
@@ -28,7 +28,7 @@ export function useWebViewRpcAdapter({
     (e: WebViewMessageEvent) => {
       endpointRef.current?.onMessage(e);
     },
-    [endpointRef],
+    [endpointRef]
   );
 
   useEffect(() => {
@@ -36,15 +36,15 @@ export function useWebViewRpcAdapter({
     endpointRef.current = endpoint;
 
     const cleanup = exposeToEndpoint({
-      endpoint, 
-      sdk, 
+      endpoint,
+      sdk,
       ethProvider,
-      frameOrigin: 'ReactNativeWebView',
-      debug
+      frameOrigin: "ReactNativeWebView",
+      debug,
     });
 
     return () => {
-      cleanup?.()
+      cleanup?.();
       endpointRef.current = undefined;
     };
   }, [webViewRef, sdk, ethProvider]);

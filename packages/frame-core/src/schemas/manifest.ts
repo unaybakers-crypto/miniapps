@@ -1,20 +1,21 @@
-import { z } from 'zod';
-import { secureUrlSchema, frameNameSchema, hexColorSchema, encodedJsonFarcasterSignatureSchema } from './shared';
+import { z } from "zod";
+import {
+  secureUrlSchema,
+  frameNameSchema,
+  hexColorSchema,
+  encodedJsonFarcasterSignatureSchema,
+} from "./shared";
 
 export const domainFrameConfigSchema = z.object({
   // 0.0.0 and 0.0.1 are not technically part of the spec but kept for
   // backwards compatibilty
-  version: z.union([
-    z.literal('0.0.0'),
-    z.literal('0.0.1'),
-    z.literal('1')
-  ]),
+  version: z.union([z.literal("0.0.0"), z.literal("0.0.1"), z.literal("1")]),
   name: frameNameSchema,
   iconUrl: secureUrlSchema,
   homeUrl: secureUrlSchema,
   splashImageUrl: secureUrlSchema.optional(),
   splashBackgroundColor: hexColorSchema.optional(),
-  webhookUrl: secureUrlSchema.optional()
+  webhookUrl: secureUrlSchema.optional(),
 });
 
 export const domainManifestSchema = z.object({

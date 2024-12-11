@@ -1,6 +1,10 @@
 import type { EventEmitter } from "eventemitter3";
 import type { Provider } from "ox";
-import type { FrameContext, AddFrame, ReadyOptions } from "@farcaster/frame-core";
+import type {
+  FrameContext,
+  AddFrame,
+  ReadyOptions,
+} from "@farcaster/frame-core";
 
 declare global {
   interface Window {
@@ -22,10 +26,10 @@ export type EventMap = {
 export type Emitter = Compute<EventEmitter<EventMap>>;
 
 export type SetPrimaryButton = (options: {
-    text: string;
-    loading?: boolean;
-    disabled?: boolean;
-    hidden?: boolean;
+  text: string;
+  loading?: boolean;
+  disabled?: boolean;
+  hidden?: boolean;
 }) => Promise<void>;
 
 export type FrameSDK = {
@@ -35,9 +39,9 @@ export type FrameSDK = {
     openUrl: (url: string) => Promise<void>;
     close: () => Promise<void>;
     setPrimaryButton: SetPrimaryButton;
-    addFrame: AddFrame
+    addFrame: AddFrame;
   };
   wallet: {
-    ethProvider: Provider.Provider
+    ethProvider: Provider.Provider;
   };
 } & Emitter;
