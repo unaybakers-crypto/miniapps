@@ -86,7 +86,7 @@ export type ReadyOptions = {
 
 export const DEFAULT_READY_OPTIONS: ReadyOptions = {
   disableNativeGestures: false,
-}
+};
 
 export type FrameHost = {
   context: FrameContext;

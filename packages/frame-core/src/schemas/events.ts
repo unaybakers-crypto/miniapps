@@ -1,5 +1,5 @@
-import { z } from 'zod';
-import { notificationDetailsSchema } from './notifications';
+import { z } from "zod";
+import { notificationDetailsSchema } from "./notifications";
 
 export const eventFrameAddedPayloadSchema = z.object({
   event: z.literal("frame_added"),
@@ -43,5 +43,3 @@ export const eventPayloadSchema = z.discriminatedUnion("event", [
 ]);
 
 export type FrameEvent = z.infer<typeof eventPayloadSchema>;
-
-

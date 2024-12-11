@@ -18,4 +18,3 @@ Or include via a CDN and access via `frame`:
   frame.sdk.actions.ready();
 </script>
 ```
-

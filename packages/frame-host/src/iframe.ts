@@ -10,7 +10,7 @@ import { exposeToEndpoint } from "./helpers/endpoint";
 export function createIframeEndpoint({
   iframe,
   targetOrigin,
-  debug = true
+  debug = true,
 }: {
   iframe: HTMLIFrameElement;
   targetOrigin: string;
@@ -24,9 +24,9 @@ export function createIframeEndpoint({
         console.debug("frameEvent", event);
       }
 
-      const wireEvent = { 
-        type: 'frameEvent',
-        event
+      const wireEvent = {
+        type: "frameEvent",
+        event,
       };
 
       iframe.contentWindow?.postMessage(wireEvent, targetOrigin);
@@ -36,13 +36,13 @@ export function createIframeEndpoint({
         console.debug("fc:emitEthProvider", event, params);
       }
 
-      const wireEvent = { 
-        type: 'frameEthProviderEvent',
-        event, 
-        params 
+      const wireEvent = {
+        type: "frameEthProviderEvent",
+        event,
+        params,
       };
 
-      iframe.contentWindow?.postMessage(wireEvent, targetOrigin)
+      iframe.contentWindow?.postMessage(wireEvent, targetOrigin);
     },
   };
 }
@@ -51,19 +51,23 @@ export function exposeToIframe({
   iframe,
   sdk,
   ethProvider,
-  frameOrigin, 
-  debug = false
+  frameOrigin,
+  debug = false,
 }: {
   iframe: HTMLIFrameElement;
-  sdk: Omit<FrameHost, 'ethProviderRequestV2'>;
+  sdk: Omit<FrameHost, "ethProviderRequestV2">;
   frameOrigin: string;
   ethProvider?: Provider.Provider;
   debug?: boolean;
 }) {
-  const endpoint = createIframeEndpoint({ iframe, targetOrigin: frameOrigin, debug });
+  const endpoint = createIframeEndpoint({
+    iframe,
+    targetOrigin: frameOrigin,
+    debug,
+  });
   const cleanup = exposeToEndpoint({
-    endpoint, 
-    sdk, 
+    endpoint,
+    sdk,
     ethProvider,
     frameOrigin,
     debug,
@@ -71,6 +75,6 @@ export function exposeToIframe({
 
   return {
     endpoint,
-    cleanup
-  }
+    cleanup,
+  };
 }

@@ -5,26 +5,29 @@ import { forwardProviderEvents, wrapProviderRequest } from "./provider";
 import { HostEndpoint } from "../types";
 
 /**
-  * @returns function to cleanup provider listeners
-  */
-export function exposeToEndpoint({ 
+ * @returns function to cleanup provider listeners
+ */
+export function exposeToEndpoint({
   endpoint,
-  sdk, 
+  sdk,
   frameOrigin,
-  ethProvider, 
-  debug = false
+  ethProvider,
+  debug = false,
 }: {
-  endpoint: HostEndpoint,
-  sdk: Omit<FrameHost, 'ethProviderRequestV2'>,
+  endpoint: HostEndpoint;
+  sdk: Omit<FrameHost, "ethProviderRequestV2">;
   frameOrigin: string;
-  ethProvider?: Provider.Provider,
-  debug?: boolean
+  ethProvider?: Provider.Provider;
+  debug?: boolean;
 }) {
   const extendedSdk = sdk as FrameHost;
 
   let cleanup: () => void | undefined;
   if (ethProvider) {
-    extendedSdk.ethProviderRequestV2 = wrapProviderRequest({ provider: ethProvider, debug });
+    extendedSdk.ethProviderRequestV2 = wrapProviderRequest({
+      provider: ethProvider,
+      debug,
+    });
     cleanup = forwardProviderEvents({ provider: ethProvider, endpoint });
   }
 
@@ -33,5 +36,5 @@ export function exposeToEndpoint({
   return () => {
     cleanup?.();
     unexpose();
-  }
+  };
 }

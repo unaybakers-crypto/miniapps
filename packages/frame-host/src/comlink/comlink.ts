@@ -381,7 +381,7 @@ export function expose(
         });
         ep.postMessage({ ...wireValue, id }, transferables);
       });
-  };
+  }
 
   ep.addEventListener("message", callback as any);
   if (ep.start) {
@@ -394,7 +394,7 @@ export function expose(
     if (finalizer in obj && typeof obj[finalizer] === "function") {
       obj[finalizer]();
     }
-  }
+  };
 }
 
 function isMessagePort(endpoint: Endpoint): endpoint is MessagePort {
@@ -406,7 +406,7 @@ function closeEndPoint(endpoint: Endpoint) {
 }
 
 export function wrap<T>(ep: Endpoint, target?: any): Remote<T> {
-  const pendingListeners : PendingListenersMap = new Map();
+  const pendingListeners: PendingListenersMap = new Map();
 
   ep.addEventListener("message", function handleMessage(ev: Event) {
     const { data } = ev as MessageEvent;
@@ -644,7 +644,7 @@ function requestResponseMessage(
       ep.start();
     }
     ep.postMessage({ id, ...msg }, transfers);
-});
+  });
 }
 
 function generateUUID(): string {

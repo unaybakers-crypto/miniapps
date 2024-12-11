@@ -10,7 +10,7 @@ const mockEndpoint: Endpoint = {
   removeEventListener: () => {
     // noop
   },
-}
+};
 
 const webViewEndpoint: Endpoint = {
   postMessage: (data: unknown) => {
@@ -27,8 +27,8 @@ const webViewEndpoint: Endpoint = {
 
 export const endpoint = (() => {
   // No actions are actually gonna take place during SSR, thus it's safe to return mocked endpoint
-  if (typeof window === 'undefined') return mockEndpoint
+  if (typeof window === "undefined") return mockEndpoint;
   return window?.ReactNativeWebView
     ? webViewEndpoint
     : windowEndpoint(window?.parent ?? window);
-})()
+})();
