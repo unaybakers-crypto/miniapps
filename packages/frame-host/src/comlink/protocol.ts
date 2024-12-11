@@ -8,13 +8,13 @@ export interface EventSource {
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: {}
+    options?: {},
   ): void;
 
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: {}
+    options?: {},
   ): void;
 }
 
@@ -22,7 +22,7 @@ export interface PostMessageWithOrigin {
   postMessage(
     message: any,
     targetOrigin: string,
-    transfer?: Transferable[]
+    transfer?: Transferable[],
   ): void;
 }
 

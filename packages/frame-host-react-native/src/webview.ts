@@ -15,14 +15,14 @@ export type WebViewEndpoint = HostEndpoint & {
  * An endpoint of communicating with WebView
  */
 export function createWebViewRpcEndpoint(
-  ref: RefObject<WebView>
+  ref: RefObject<WebView>,
 ): WebViewEndpoint {
   const listeners: EventListenerOrEventListenerObject[] = [];
   return {
     addEventListener: (type, listener) => {
       if (type !== "message") {
         throw Error(
-          `Got an unexpected event type "${type}". Expected "message".`
+          `Got an unexpected event type "${type}". Expected "message".`,
         );
       }
       listeners.push(listener);
@@ -30,7 +30,7 @@ export function createWebViewRpcEndpoint(
     removeEventListener: (type, listener) => {
       if (type !== "message") {
         throw Error(
-          `Got an unexpected event type "${type}". Expected "message".`
+          `Got an unexpected event type "${type}". Expected "message".`,
         );
       }
       listeners.splice(listeners.findIndex((l) => l === listener));
@@ -80,7 +80,7 @@ export function createWebViewRpcEndpoint(
     emitEthProvider: (event, params) => {
       if (!ref.current) {
         throw Error(
-          "Failed to send EthProvider Event to WebView via postMessage"
+          "Failed to send EthProvider Event to WebView via postMessage",
         );
       }
       console.debug("[emit:ethProvider]", event, params);
