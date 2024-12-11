@@ -1,0 +1,35 @@
+{
+  "name": "@farcaster/frame-node",
+  "version": "0.0.1",
+  "main": "dist/index.js",
+  "module": "esm/index.js",
+  "scripts": {
+    "clean": "rm -rf dist esm",
+    "prebuild": "npm run clean",
+    "build": "yarn build:cjs & yarn build:esm",
+    "build:cjs": "tsc -p tsconfig.node.json",
+    "build:esm": "tsc -p tsconfig.json",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest --coverage"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "devDependencies": {
+    "@farcaster/tsconfig": "*",
+    "@vitest/coverage-v8": "^2.1.8",
+    "tsup": "^8.3.5",
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.8"
+  },
+  "dependencies": {
+    "@farcaster/frame-core": "^0.0.14",
+    "ox": "^0.4.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
