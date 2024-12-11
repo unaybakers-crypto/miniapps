@@ -82,7 +82,7 @@ export const wrapProviderRequest =
               details: e.details,
             },
           },
-          { request }
+          { request },
         );
       }
 
@@ -105,7 +105,7 @@ export const wrapProviderRequest =
                   : undefined,
             },
           },
-          { request }
+          { request },
         );
       }
 
@@ -117,7 +117,7 @@ export const wrapProviderRequest =
             code: 1000,
           },
         },
-        { request }
+        { request },
       );
     }
   };

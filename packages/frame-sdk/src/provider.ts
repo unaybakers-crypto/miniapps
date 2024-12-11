@@ -28,7 +28,7 @@ export function toProviderRpcError({
     default:
       return new Provider.ProviderRpcError(
         code,
-        details ?? "Unknown provider RPC error"
+        details ?? "Unknown provider RPC error",
       );
   }
 }

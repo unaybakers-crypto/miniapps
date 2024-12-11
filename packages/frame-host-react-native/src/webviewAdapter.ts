@@ -28,7 +28,7 @@ export function useWebViewRpcAdapter({
     (e: WebViewMessageEvent) => {
       endpointRef.current?.onMessage(e);
     },
-    [endpointRef]
+    [endpointRef],
   );
 
   useEffect(() => {

@@ -104,7 +104,7 @@ export type FrameEthProviderEventData = {
 } & EthProviderWireEvent;
 
 export type RpcTransport = (
-  request: RpcRequest.RpcRequest
+  request: RpcRequest.RpcRequest,
 ) => Promise<RpcResponse.RpcResponse>;
 
 export type ProviderRpcError = {
@@ -137,5 +137,5 @@ export type EthProviderWireEvent =
 
 export type EmitEthProvider = <event extends EthProviderWireEvent["event"]>(
   event: event,
-  params: Extract<EthProviderWireEvent, { event: event }>["params"]
+  params: Extract<EthProviderWireEvent, { event: event }>["params"],
 ) => void;
