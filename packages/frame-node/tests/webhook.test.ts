@@ -68,7 +68,7 @@ describe("parseWebhookEvent", () => {
     }
   });
 
-  it.only("throws on invalid event payload", async () => {
+  it("throws on invalid event payload", async () => {
     const data = {
       header: Buffer.from(
         JSON.stringify({

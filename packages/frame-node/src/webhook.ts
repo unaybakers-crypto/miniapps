@@ -37,7 +37,7 @@ export async function parseWebhookEvent(
     );
   }
 
-  const event = eventPayloadSchema.safeParse(payload);
+  const event = eventPayloadSchema.safeParse(payloadJson);
   if (event.success === false) {
     throw new InvalidEventDataError("Invalid event payload", event.error);
   }
