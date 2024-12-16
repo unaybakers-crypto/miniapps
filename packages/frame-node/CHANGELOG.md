@@ -1,5 +1,11 @@
 # @farcaster/frame-node
 
+## 0.0.3
+
+### Patch Changes
+
+- 9d3418a: Fix webhook parsing and skipped tests
+
 ## 0.0.2
 
 ### Patch Changes
