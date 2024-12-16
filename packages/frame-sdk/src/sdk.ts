@@ -35,6 +35,7 @@ export const sdk: FrameSDK = {
     setPrimaryButton: frameHost.setPrimaryButton.bind(frameHost),
     ready: frameHost.ready.bind(frameHost),
     close: frameHost.close.bind(frameHost),
+    signIn: frameHost.signIn.bind(frameHost),
     openUrl: (url: string) => {
       return frameHost.openUrl(url.trim());
     },

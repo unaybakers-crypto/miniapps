@@ -88,11 +88,51 @@ export const DEFAULT_READY_OPTIONS: ReadyOptions = {
   disableNativeGestures: false,
 };
 
+export type SignInOptions  = {
+ /**
+  * A random string used to prevent replay attacks.
+  */
+  nonce: string;
+
+ /**
+  * Start time at which the signature becomes valid. 
+  * ISO 8601 datetime.	
+  */
+  notBefore?: string;
+
+  /**
+   * Expiration time at which the signature is no longer valid. 
+   * ISO 8601 datetime.	
+   */
+  expirationTime?: string;
+};
+
+
+
+export type SignInNotSupported  = {
+  type: 'not_supported'
+};
+
+export type SignInRejectedByUser  = {
+  type: 'rejected_by_user'
+};
+
+export type SignInFailureReason = SignInNotSupported | SignInRejectedByUser;
+
+export type SignInResult = {
+  success: true;
+  result: { token: string; };
+} | {
+  success: false;
+  failureReason: SignInFailureReason;
+}
+
 export type FrameHost = {
   context: FrameContext;
   close: () => void;
   ready: (options?: Partial<ReadyOptions>) => void;
   openUrl: (url: string) => void;
+  signIn: (options: SignInOptions) => Promise<SignInResult>;
   setPrimaryButton: SetPrimaryButton;
   ethProviderRequest: EthProviderRequest;
   ethProviderRequestV2: RpcTransport;

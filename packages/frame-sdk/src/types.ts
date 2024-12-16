@@ -4,6 +4,7 @@ import type {
   FrameContext,
   AddFrame,
   ReadyOptions,
+  SignInOptions
 } from "@farcaster/frame-core";
 
 declare global {
@@ -37,6 +38,7 @@ export type FrameSDK = {
   actions: {
     ready: (options?: Partial<ReadyOptions>) => Promise<void>;
     openUrl: (url: string) => Promise<void>;
+    signIn: (options: SignInOptions) => Promise<{ token: string }>;
     close: () => Promise<void>;
     setPrimaryButton: SetPrimaryButton;
     addFrame: AddFrame;
