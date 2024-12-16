@@ -1,5 +1,11 @@
 # @farcaster/frame-core
 
+## 0.0.16
+
+### Patch Changes
+
+- fdcc36a: Add imageUrl and buttonTitle to domain manifest frame config
+
 ## 0.0.15
 
 ### Patch Changes

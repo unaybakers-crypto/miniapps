@@ -1,5 +1,12 @@
 # @farcaster/frame-node
 
+## 0.0.4
+
+### Patch Changes
+
+- Updated dependencies [fdcc36a]
+  - @farcaster/frame-core@0.0.16
+
 ## 0.0.3
 
 ### Patch Changes
