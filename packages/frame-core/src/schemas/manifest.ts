@@ -4,6 +4,7 @@ import {
   frameNameSchema,
   hexColorSchema,
   encodedJsonFarcasterSignatureSchema,
+  buttonTitleSchema,
 } from "./shared";
 
 export const domainFrameConfigSchema = z.object({
@@ -13,6 +14,8 @@ export const domainFrameConfigSchema = z.object({
   name: frameNameSchema,
   iconUrl: secureUrlSchema,
   homeUrl: secureUrlSchema,
+  imageUrl: secureUrlSchema.optional(),
+  buttonTitle: buttonTitleSchema.optional(),
   splashImageUrl: secureUrlSchema.optional(),
   splashBackgroundColor: hexColorSchema.optional(),
   webhookUrl: secureUrlSchema.optional(),
