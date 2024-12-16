@@ -1,5 +1,12 @@
 # @farcaster/frame-kit
 
+## 0.0.18
+
+### Patch Changes
+
+- Updated dependencies [2a5ec00]
+  - @farcaster/frame-core@0.0.17
+
 ## 0.0.17
 
 ### Patch Changes

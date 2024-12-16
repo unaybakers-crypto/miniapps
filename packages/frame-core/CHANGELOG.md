@@ -1,5 +1,11 @@
 # @farcaster/frame-core
 
+## 0.0.17
+
+### Patch Changes
+
+- 2a5ec00: accept next as a valid frame schema version
+
 ## 0.0.16
 
 ### Patch Changes
