@@ -2,6 +2,7 @@ import { EventEmitter } from "eventemitter3";
 import { FrameSDK, Emitter, EventMap } from "./types";
 import { frameHost } from "./frameHost";
 import { provider } from "./provider";
+import { SignIn } from "@farcaster/frame-core";
 
 export function createEmitter(): Emitter {
   const emitter = new EventEmitter<EventMap>();
@@ -35,7 +36,19 @@ export const sdk: FrameSDK = {
     setPrimaryButton: frameHost.setPrimaryButton.bind(frameHost),
     ready: frameHost.ready.bind(frameHost),
     close: frameHost.close.bind(frameHost),
-    signIn: frameHost.signIn.bind(frameHost),
+    signIn: async (options) => {
+      const response = await frameHost.signIn(options);
+      console.log(response);
+      if (response.result) {
+        return response.result
+      }
+
+      if (response.error.type === 'rejected_by_user') {
+        throw new SignIn.RejectedByUser();
+      }
+
+      throw new Error("Unreachable");
+    },
     openUrl: (url: string) => {
       return frameHost.openUrl(url.trim());
     },

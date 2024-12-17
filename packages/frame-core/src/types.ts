@@ -1,5 +1,6 @@
-import type { Address, Provider, RpcRequest, RpcResponse, RpcSchema } from "ox";
+import type { Address, Provider, RpcRequest, RpcResponse, RpcSchema, Siwe } from "ox";
 import { FrameNotificationDetails } from "./schemas";
+import * as SignIn from "./actions/signIn";
 
 export type SetPrimaryButton = (options: {
   text: string;
@@ -107,32 +108,24 @@ export type SignInOptions  = {
   expirationTime?: string;
 };
 
-
-
-export type SignInNotSupported  = {
-  type: 'not_supported'
+export type WireFrameHost = {
+  context: FrameContext;
+  close: () => void;
+  ready: (options?: Partial<ReadyOptions>) => void;
+  openUrl: (url: string) => void;
+  signIn: SignIn.WireSignIn;
+  setPrimaryButton: SetPrimaryButton;
+  ethProviderRequest: EthProviderRequest;
+  ethProviderRequestV2: RpcTransport;
+  addFrame: AddFrame;
 };
-
-export type SignInRejectedByUser  = {
-  type: 'rejected_by_user'
-};
-
-export type SignInFailureReason = SignInNotSupported | SignInRejectedByUser;
-
-export type SignInResult = {
-  success: true;
-  result: { token: string; };
-} | {
-  success: false;
-  failureReason: SignInFailureReason;
-}
 
 export type FrameHost = {
   context: FrameContext;
   close: () => void;
   ready: (options?: Partial<ReadyOptions>) => void;
   openUrl: (url: string) => void;
-  signIn: (options: SignInOptions) => Promise<SignInResult>;
+  signIn: SignIn.SignIn;
   setPrimaryButton: SetPrimaryButton;
   ethProviderRequest: EthProviderRequest;
   ethProviderRequestV2: RpcTransport;

@@ -1,8 +1,9 @@
-import * as Comlink from "../comlink";
 import { FrameHost } from "@farcaster/frame-core";
 import { Provider } from "ox";
-import { forwardProviderEvents, wrapProviderRequest } from "./provider";
+import * as Comlink from "../comlink";
 import { HostEndpoint } from "../types";
+import { forwardProviderEvents, wrapProviderRequest } from "./provider";
+import { wrapHandlers } from "./sdk";
 
 /**
  * @returns function to cleanup provider listeners
@@ -20,7 +21,7 @@ export function exposeToEndpoint({
   ethProvider?: Provider.Provider;
   debug?: boolean;
 }) {
-  const extendedSdk = sdk as FrameHost;
+  const extendedSdk = wrapHandlers(sdk as FrameHost);
 
   let cleanup: () => void | undefined;
   if (ethProvider) {
