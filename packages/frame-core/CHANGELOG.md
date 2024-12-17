@@ -1,5 +1,11 @@
 # @farcaster/frame-core
 
+## 0.0.18
+
+### Patch Changes
+
+- 27e8fca: add sign in action
+
 ## 0.0.17
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @farcaster/frame-kit
 
+## 0.0.19
+
+### Patch Changes
+
+- 27e8fca: add sign in action
+- Updated dependencies [27e8fca]
+  - @farcaster/frame-core@0.0.18
+
 ## 0.0.18
 
 ### Patch Changes
