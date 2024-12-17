@@ -2,7 +2,7 @@ import { EventEmitter } from "eventemitter3";
 import { FrameSDK, Emitter, EventMap } from "./types";
 import { frameHost } from "./frameHost";
 import { provider } from "./provider";
-import { SignIn } from "@farcaster/frame-core";
+import { FrameClientEvent, SignIn } from "@farcaster/frame-core";
 
 export function createEmitter(): Emitter {
   const emitter = new EventEmitter<EventMap>();
@@ -40,10 +40,10 @@ export const sdk: FrameSDK = {
       const response = await frameHost.signIn(options);
       console.log(response);
       if (response.result) {
-        return response.result
+        return response.result;
       }
 
-      if (response.error.type === 'rejected_by_user') {
+      if (response.error.type === "rejected_by_user") {
         throw new SignIn.RejectedByUser();
       }
 
@@ -64,8 +64,23 @@ if (typeof document !== "undefined") {
   // react native webview events
   document.addEventListener("FarcasterFrameEvent", (event) => {
     if (event instanceof MessageEvent) {
-      if (event.data.type === "primaryButtonClicked") {
+      const frameEvent = event.data as FrameClientEvent;
+      if (frameEvent.event === "primary_button_clicked") {
         emitter.emit("primaryButtonClicked");
+      } else if (frameEvent.event === "frame_added") {
+        emitter.emit("frameAdded", {
+          notificationDetails: frameEvent.notificationDetails,
+        });
+      } else if (frameEvent.event === "frame_add_rejected") {
+        emitter.emit("frameAddRejected", { reason: frameEvent.reason });
+      } else if (frameEvent.event === "frame_removed") {
+        emitter.emit("frameRemoved");
+      } else if (frameEvent.event === "notifications_enabled") {
+        emitter.emit("notificationsEnabled", {
+          notificationDetails: frameEvent.notificationDetails,
+        });
+      } else if (frameEvent.event === "notifications_disabled") {
+        emitter.emit("notificationsDisabled");
       }
     }
   });
@@ -77,8 +92,23 @@ if (typeof window !== "undefined") {
   window.addEventListener("message", (event) => {
     if (event instanceof MessageEvent) {
       if (event.data.type === "frameEvent") {
-        if (event.data.event === "primaryButtonClicked") {
+        const frameEvent = event.data.event as FrameClientEvent;
+        if (frameEvent.event === "primary_button_clicked") {
           emitter.emit("primaryButtonClicked");
+        } else if (frameEvent.event === "frame_added") {
+          emitter.emit("frameAdded", {
+            notificationDetails: frameEvent.notificationDetails,
+          });
+        } else if (frameEvent.event === "frame_add_rejected") {
+          emitter.emit("frameAddRejected", { reason: frameEvent.reason });
+        } else if (frameEvent.event === "frame_removed") {
+          emitter.emit("frameRemoved");
+        } else if (frameEvent.event === "notifications_enabled") {
+          emitter.emit("notificationsEnabled", {
+            notificationDetails: frameEvent.notificationDetails,
+          });
+        } else if (frameEvent.event === "notifications_disabled") {
+          emitter.emit("notificationsDisabled");
         }
       }
     }
