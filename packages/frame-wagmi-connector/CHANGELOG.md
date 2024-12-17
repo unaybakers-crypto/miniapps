@@ -1,5 +1,11 @@
 # @farcaster/frame-wagmi-connector
 
+## 0.0.5
+
+### Patch Changes
+
+- 6ae1e8a: fix esm build
+
 ## 0.0.4
 
 ### Patch Changes
