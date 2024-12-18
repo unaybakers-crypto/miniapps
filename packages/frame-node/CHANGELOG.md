@@ -1,5 +1,11 @@
 # @farcaster/frame-node
 
+## 0.0.8
+
+### Patch Changes
+
+- 8fdafa4: add esm to frame-node package.json files
+
 ## 0.0.7
 
 ### Patch Changes
