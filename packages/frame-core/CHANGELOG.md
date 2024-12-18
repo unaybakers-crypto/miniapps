@@ -1,5 +1,11 @@
 # @farcaster/frame-core
 
+## 0.0.19
+
+### Patch Changes
+
+- f5457ab: Add real-time eventing from host to frame
+
 ## 0.0.18
 
 ### Patch Changes
