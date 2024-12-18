@@ -1,5 +1,12 @@
 # @farcaster/frame-node
 
+## 0.0.7
+
+### Patch Changes
+
+- Updated dependencies [f5457ab]
+  - @farcaster/frame-core@0.0.19
+
 ## 0.0.6
 
 ### Patch Changes
