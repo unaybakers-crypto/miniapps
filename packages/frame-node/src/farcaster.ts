@@ -38,15 +38,16 @@ const hubResponseSchema = z.object({
   ),
 });
 
-export const createVerifyAppKeyWithHub: (hubUrl: string) => VerifyAppKey =
-  (hubUrl) =>
+export const createVerifyAppKeyWithHub: (
+  hubUrl: string,
+  requestOptions?: RequestInit
+) => VerifyAppKey =
+  (hubUrl, requestOptions) =>
   async (fid: number, appKey: string): Promise<VerifyAppKeyResult> => {
     const url = new URL("/v1/onChainSignersByFid", hubUrl);
     url.searchParams.append("fid", fid.toString());
 
-    const response = await fetch(url, {
-      method: "GET",
-    });
+    const response = await fetch(url, requestOptions);
 
     if (response.status !== 200) {
       throw new BaseError(
