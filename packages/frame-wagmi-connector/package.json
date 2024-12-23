@@ -14,8 +14,8 @@
     "src"
   ],
   "devDependencies": {
-    "@farcaster/frame-sdk": "^0.0.20",
-    "@farcaster/tsconfig": "*",
+    "@farcaster/frame-sdk": "workspace:*",
+    "@farcaster/tsconfig": "workspace:*",
     "tsup": "^8.3.5",
     "typescript": "^5.6.3",
     "viem": "^2.21.55",

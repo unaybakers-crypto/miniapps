@@ -6,7 +6,7 @@
   "scripts": {
     "clean": "rm -rf dist esm",
     "prebuild": "npm run clean",
-    "build": "yarn build:cjs & yarn build:esm",
+    "build": "pnpm build:cjs & pnpm build:esm",
     "build:cjs": "tsc -p tsconfig.node.json",
     "build:esm": "tsc -p tsconfig.json",
     "typecheck": "tsc --noEmit"
@@ -17,7 +17,7 @@
     "src"
   ],
   "devDependencies": {
-    "@farcaster/tsconfig": "*",
+    "@farcaster/tsconfig": "workspace:*",
     "tsup": "^8.3.5",
     "typescript": "^5.6.3"
   },

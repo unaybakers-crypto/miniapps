@@ -1,13 +1,10 @@
 # Logs
 logs
 *.log
-yarn-debug.log*
-yarn-error.log*
 
 node_modules
 dist
 esm
-dist-ssr
 *.local
 
 # Editor directories and files
