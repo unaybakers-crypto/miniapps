@@ -57,6 +57,14 @@ export type FrameLocationContext =
   | FrameLocationContextNotification
   | FrameLocationContextLauncher;
 
+
+export type SafeAreaInsets = {
+  top: number;
+  bottom: number;
+  left: number;
+  right: number;
+}
+
 export type FrameContext = {
   user: {
     fid: number;
@@ -73,6 +81,7 @@ export type FrameContext = {
     clientFid: number;
     added: boolean;
     notificationDetails?: FrameNotificationDetails;
+    safeAreaInsets?: SafeAreaInsets;
   };
 };
 
