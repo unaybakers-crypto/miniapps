@@ -1,5 +1,12 @@
 # @farcaster/frame-core
 
+## 0.0.20
+
+### Patch Changes
+
+- 6f9253d: add safeAreaInsets to client context
+- 2a68a88: add embed to cast_embed location context
+
 ## 0.0.19
 
 ### Patch Changes

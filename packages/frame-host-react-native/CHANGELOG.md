@@ -1,5 +1,11 @@
 # @farcaster/frame-host
 
+## 0.0.15
+
+### Patch Changes
+
+- @farcaster/frame-host@0.0.20
+
 ## 0.0.14
 
 ### Patch Changes
