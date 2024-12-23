@@ -33,6 +33,7 @@ export type AccountLocation = {
 
 export type FrameLocationContextCastEmbed = {
   type: "cast_embed";
+  embed: string;
   cast: {
     fid: number;
     hash: string;
