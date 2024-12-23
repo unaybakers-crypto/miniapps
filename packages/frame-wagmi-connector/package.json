@@ -1,6 +1,6 @@
 {
   "name": "@farcaster/frame-wagmi-connector",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "type": "module",
   "main": "dist/index.js",
   "scripts": {
@@ -25,7 +25,7 @@
     "access": "public"
   },
   "peerDependencies": {
-    "@farcaster/frame-sdk": "^0.0.21",
+    "@farcaster/frame-sdk": "^0.0.22",
     "viem": "^2.21.55",
     "@wagmi/core": "^2.14.1"
   }

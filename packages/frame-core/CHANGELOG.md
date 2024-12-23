@@ -1,5 +1,11 @@
 # @farcaster/frame-core
 
+## 0.0.21
+
+### Patch Changes
+
+- 1c4c66a: add embed to location context
+
 ## 0.0.20
 
 ### Patch Changes
