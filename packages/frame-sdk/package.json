@@ -5,7 +5,7 @@
   "scripts": {
     "clean": "rm -rf dist",
     "prebuild": "npm run clean",
-    "build": "yarn build:cjs && yarn build:umd",
+    "build": "pnpm build:cjs && pnpm build:umd",
     "build:cjs": "tsc",
     "build:umd": "node scripts/build.js",
     "typecheck": "tsc --noEmit"
@@ -15,12 +15,12 @@
     "src"
   ],
   "devDependencies": {
-    "@farcaster/tsconfig": "*",
+    "@farcaster/tsconfig": "workspace:*",
     "esbuild": "^0.24.0",
     "typescript": "^5.6.3"
   },
   "dependencies": {
-    "@farcaster/frame-core": "^0.0.19",
+    "@farcaster/frame-core": "workspace:*",
     "comlink": "^4.4.2",
     "eventemitter3": "^5.0.1",
     "ox": "^0.4.0"
