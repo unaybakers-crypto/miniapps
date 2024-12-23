@@ -17,10 +17,6 @@
     "node": ">=18"
   },
   "packageManager": "pnpm@9.15.1",
-  "workspaces": [
-    "examples/*",
-    "packages/*"
-  ],
   "dependencies": {
     "@changesets/cli": "^2.27.10"
   }
