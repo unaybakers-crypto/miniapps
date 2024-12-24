@@ -7,6 +7,6 @@ esbuild.buildSync({
   sourcemap: true,
   format: 'iife',
   target: 'esnext',
-  globalName: 'frame', 
-  outfile: 'dist/index.min.js'
+  globalName: 'frame',
+  outfile: 'dist/index.min.js',
 })

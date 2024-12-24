@@ -18,4 +18,3 @@ export type OneOf<
   : never
 
 export type KeyofUnion<type> = type extends type ? keyof type : never
-

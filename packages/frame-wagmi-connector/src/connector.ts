@@ -1,6 +1,10 @@
 import FrameSDK from '@farcaster/frame-sdk'
+import {
+  ChainNotConfiguredError,
+  type Connector,
+  createConnector,
+} from '@wagmi/core'
 import { SwitchChainError, fromHex, getAddress, numberToHex } from 'viem'
-import { ChainNotConfiguredError, Connector, createConnector } from '@wagmi/core'
 
 farcasterFrame.type = 'farcasterFrame' as const
 

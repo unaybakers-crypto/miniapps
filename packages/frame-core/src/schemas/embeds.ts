@@ -1,35 +1,35 @@
-import { z } from "zod";
+import { z } from 'zod'
 import {
-  hexColorSchema,
-  frameNameSchema,
-  secureUrlSchema,
   buttonTitleSchema,
-} from "./shared";
+  frameNameSchema,
+  hexColorSchema,
+  secureUrlSchema,
+} from './shared'
 
 export const actionLaunchFrameSchema = z.object({
-  type: z.literal("launch_frame"),
+  type: z.literal('launch_frame'),
   name: frameNameSchema,
   url: secureUrlSchema,
   splashImageUrl: secureUrlSchema.optional(),
   splashBackgroundColor: hexColorSchema.optional(),
-});
+})
 
-export const actionSchema = z.discriminatedUnion("type", [
+export const actionSchema = z.discriminatedUnion('type', [
   actionLaunchFrameSchema,
-]);
+])
 
 export const buttonSchema = z.object({
   title: buttonTitleSchema,
   action: actionSchema,
-});
+})
 
 export const frameEmbedNextSchema = z.object({
-  version: z.literal("next"),
+  version: z.literal('next'),
   imageUrl: secureUrlSchema,
   button: buttonSchema,
-});
+})
 
 export const safeParseFrameEmbed = (rawResponse: unknown) =>
-  frameEmbedNextSchema.safeParse(rawResponse);
+  frameEmbedNextSchema.safeParse(rawResponse)
 
-export type FrameEmbedNext = z.infer<typeof frameEmbedNextSchema>;
+export type FrameEmbedNext = z.infer<typeof frameEmbedNextSchema>

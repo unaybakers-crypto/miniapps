@@ -1,20 +1,24 @@
-import { serverEventSchema } from "@farcaster/frame-core";
+import { serverEventSchema } from '@farcaster/frame-core'
 import {
-  VerifyJsonFarcasterSignature,
+  type VerifyJsonFarcasterSignature,
   verifyJsonFarcasterSignature,
-} from "./jfs";
-import { BaseError, ParseWebhookEventResult, VerifyAppKey } from "./types";
+} from './jfs'
+import {
+  BaseError,
+  type ParseWebhookEventResult,
+  type VerifyAppKey,
+} from './types'
 
 export declare namespace ParseWebhookEvent {
   type ErrorType =
     | VerifyJsonFarcasterSignature.ErrorType
-    | InvalidEventDataError;
+    | InvalidEventDataError
 }
 
 export class InvalidEventDataError<
   C extends Error | undefined = undefined,
 > extends BaseError<C> {
-  override readonly name = "VerifyJsonFarcasterSignature.InvalidEventDataError";
+  override readonly name = 'VerifyJsonFarcasterSignature.InvalidEventDataError'
 }
 
 export async function parseWebhookEvent(
@@ -24,23 +28,23 @@ export async function parseWebhookEvent(
   const { fid, appFid, payload } = await verifyJsonFarcasterSignature(
     rawData,
     verifyAppKey,
-  );
+  )
 
   // Pase and validate event payload
-  let payloadJson;
+  let payloadJson: any
   try {
-    payloadJson = JSON.parse(Buffer.from(payload).toString("utf-8"));
+    payloadJson = JSON.parse(Buffer.from(payload).toString('utf-8'))
   } catch (error: unknown) {
     throw new InvalidEventDataError(
-      "Error decoding and parsing payload",
+      'Error decoding and parsing payload',
       error instanceof Error ? error : undefined,
-    );
+    )
   }
 
-  const event = serverEventSchema.safeParse(payloadJson);
+  const event = serverEventSchema.safeParse(payloadJson)
   if (event.success === false) {
-    throw new InvalidEventDataError("Invalid event payload", event.error);
+    throw new InvalidEventDataError('Invalid event payload', event.error)
   }
 
-  return { fid, appFid, event: event.data };
+  return { fid, appFid, event: event.data }
 }
