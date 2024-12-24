@@ -29,10 +29,10 @@ importers:
     dependencies:
       '@farcaster/frame-host':
         specifier: '*'
-        version: 0.0.19(typescript@5.6.3)(zod@3.24.1)
+        version: 0.0.19(typescript@5.6.3)
       '@farcaster/frame-sdk':
         specifier: '*'
-        version: 0.0.20(typescript@5.6.3)(zod@3.24.1)
+        version: 0.0.20(typescript@5.6.3)
     devDependencies:
       typescript:
         specifier: ~5.6.2
@@ -81,6 +81,9 @@ importers:
 
   packages/frame-host-react-native:
     dependencies:
+      '@farcaster/frame-core':
+        specifier: workspace:*
+        version: link:../frame-core
       '@farcaster/frame-host':
         specifier: workspace:*
         version: link:../frame-host
@@ -112,9 +115,15 @@ importers:
       '@farcaster/frame-core':
         specifier: workspace:*
         version: link:../frame-core
+      '@noble/curves':
+        specifier: ^1.7.0
+        version: 1.7.0
       ox:
         specifier: ^0.4.0
         version: 0.4.1(typescript@5.7.2)(zod@3.24.1)
+      zod:
+        specifier: ^3.23.8
+        version: 3.24.1
     devDependencies:
       '@farcaster/tsconfig':
         specifier: workspace:*
@@ -4813,20 +4822,20 @@ snapshots:
     transitivePeerDependencies:
       - typescript
 
-  '@farcaster/frame-host@0.0.19(typescript@5.6.3)(zod@3.24.1)':
+  '@farcaster/frame-host@0.0.19(typescript@5.6.3)':
     dependencies:
       '@farcaster/frame-core': 0.0.19(typescript@5.6.3)
-      ox: 0.4.1(typescript@5.6.3)(zod@3.24.1)
+      ox: 0.4.1(typescript@5.6.3)
     transitivePeerDependencies:
       - typescript
       - zod
 
-  '@farcaster/frame-sdk@0.0.20(typescript@5.6.3)(zod@3.24.1)':
+  '@farcaster/frame-sdk@0.0.20(typescript@5.6.3)':
     dependencies:
       '@farcaster/frame-core': 0.0.19(typescript@5.6.3)
       comlink: 4.4.2
       eventemitter3: 5.0.1
-      ox: 0.4.1(typescript@5.6.3)(zod@3.24.1)
+      ox: 0.4.1(typescript@5.6.3)
     transitivePeerDependencies:
       - typescript
       - zod
@@ -6582,6 +6591,20 @@ snapshots:
       eventemitter3: 5.0.1
     optionalDependencies:
       typescript: 5.7.2
+    transitivePeerDependencies:
+      - zod
+
+  ox@0.4.1(typescript@5.6.3):
+    dependencies:
+      '@adraffy/ens-normalize': 1.11.0
+      '@noble/curves': 1.7.0
+      '@noble/hashes': 1.6.1
+      '@scure/bip32': 1.6.0
+      '@scure/bip39': 1.5.0
+      abitype: 1.0.7(typescript@5.6.3)(zod@3.24.1)
+      eventemitter3: 5.0.1
+    optionalDependencies:
+      typescript: 5.6.3
     transitivePeerDependencies:
       - zod
 
