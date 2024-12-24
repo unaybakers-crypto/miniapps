@@ -25,7 +25,8 @@
   },
   "dependencies": {
     "@farcaster/frame-core": "workspace:*",
-    "ox": "^0.4.0"
+    "ox": "^0.4.0",
+    "zod": "^3.23.8"
   },
   "publishConfig": {
     "access": "public"
