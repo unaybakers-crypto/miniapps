@@ -1,15 +1,17 @@
-import { RefObject } from "react";
-import WebView, { WebViewMessageEvent } from "react-native-webview";
-import { HostEndpoint } from "@farcaster/frame-host";
+import type { HostEndpoint } from '@farcaster/frame-host'
 
-export const SYMBOL_IGNORING_RPC_RESPONSE_ERROR: symbol = Symbol();
+import type { RefObject } from 'react'
+import type WebView from 'react-native-webview'
+import type { WebViewMessageEvent } from 'react-native-webview'
+
+export const SYMBOL_IGNORING_RPC_RESPONSE_ERROR: symbol = Symbol()
 
 export type WebViewEndpoint = HostEndpoint & {
   /**
    * Manually distribute events to listeners as an alternative to `document.addEventHandler` which is unavailable in React Native.
    */
-  onMessage: (e: WebViewMessageEvent) => void;
-};
+  onMessage: (e: WebViewMessageEvent) => void
+}
 
 /**
  * An endpoint of communicating with WebView
@@ -17,81 +19,81 @@ export type WebViewEndpoint = HostEndpoint & {
 export function createWebViewRpcEndpoint(
   ref: RefObject<WebView>,
 ): WebViewEndpoint {
-  const listeners: EventListenerOrEventListenerObject[] = [];
+  const listeners: EventListenerOrEventListenerObject[] = []
   return {
     addEventListener: (type, listener) => {
-      if (type !== "message") {
+      if (type !== 'message') {
         throw Error(
           `Got an unexpected event type "${type}". Expected "message".`,
-        );
+        )
       }
-      listeners.push(listener);
+      listeners.push(listener)
     },
     removeEventListener: (type, listener) => {
-      if (type !== "message") {
+      if (type !== 'message') {
         throw Error(
           `Got an unexpected event type "${type}". Expected "message".`,
-        );
+        )
       }
-      listeners.splice(listeners.findIndex((l) => l === listener));
+      listeners.splice(listeners.findIndex((l) => l === listener))
     },
     postMessage: (data) => {
       if (!ref.current) {
         if (
-          "value" in data &&
+          'value' in data &&
           data.value === SYMBOL_IGNORING_RPC_RESPONSE_ERROR
         ) {
-          return;
+          return
         }
-        throw Error("Failed to return RPC response to WebView via postMessage");
+        throw Error('Failed to return RPC response to WebView via postMessage')
       }
-      console.debug("[webview:res]", data);
-      const dataStr = JSON.stringify(data);
+      console.debug('[webview:res]', data)
+      const dataStr = JSON.stringify(data)
       return ref.current.injectJavaScript(`
         console.debug('[webview:res]', ${dataStr});
         document.dispatchEvent(new MessageEvent('FarcasterFrameCallback', { data: ${dataStr} }));
-      `);
+      `)
     },
     onMessage: (e) => {
-      const data = JSON.parse(e.nativeEvent.data);
-      console.debug("[webview:req]", data);
-      const messageEvent = new MessageEvent(data);
-      listeners.forEach((l) => {
-        if (typeof l === "function") {
+      const data = JSON.parse(e.nativeEvent.data)
+      console.debug('[webview:req]', data)
+      const messageEvent = new MessageEvent(data)
+      for (const l of listeners) {
+        if (typeof l === 'function') {
           // Actually, messageEvent doesn't satisfy Event interface,
           // but it satisfies the minimum properties that Comlink's listener requires.
-          l(messageEvent as unknown as Event);
+          l(messageEvent as unknown as Event)
         } else {
-          l.handleEvent(messageEvent as unknown as Event);
+          l.handleEvent(messageEvent as unknown as Event)
         }
-      });
+      }
     },
     emit: (data) => {
       if (!ref.current) {
-        throw Error("Failed to send Event to WebView via postMessage");
+        throw Error('Failed to send Event to WebView via postMessage')
       }
-      console.debug("[webview:emit]", data);
-      const dataStr = JSON.stringify(data);
+      console.debug('[webview:emit]', data)
+      const dataStr = JSON.stringify(data)
       return ref.current.injectJavaScript(`
         console.debug('[webview:emit]', ${dataStr});
         document.dispatchEvent(new MessageEvent('FarcasterFrameEvent', { data: ${dataStr} }));
-      `);
+      `)
     },
     emitEthProvider: (event, params) => {
       if (!ref.current) {
         throw Error(
-          "Failed to send EthProvider Event to WebView via postMessage",
-        );
+          'Failed to send EthProvider Event to WebView via postMessage',
+        )
       }
-      console.debug("[emit:ethProvider]", event, params);
-      const wireEvent = { event, params };
-      const dataStr = JSON.stringify(wireEvent);
+      console.debug('[emit:ethProvider]', event, params)
+      const wireEvent = { event, params }
+      const dataStr = JSON.stringify(wireEvent)
       return ref.current.injectJavaScript(`
         console.debug('[webview:emit:ethProvider]', ${dataStr});
         document.dispatchEvent(new MessageEvent('FarcasterFrameEthProviderEvent', { data: ${dataStr} }));
-      `);
+      `)
     },
-  };
+  }
 }
 
 /**
@@ -99,6 +101,6 @@ export function createWebViewRpcEndpoint(
  * Instead, implement our own MessageEvent with the minimum properties required by Comlink implementation.
  */
 class MessageEvent {
-  public origin = "ReactNativeWebView";
+  public origin = 'ReactNativeWebView'
   constructor(public data: unknown) {}
 }

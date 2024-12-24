@@ -1,23 +1,23 @@
-import { createVerifyAppKeyWithHub } from "./farcaster";
-import { VerifyAppKey, VerifyAppKeyResult } from "./types";
+import { createVerifyAppKeyWithHub } from './farcaster'
+import type { VerifyAppKey, VerifyAppKeyResult } from './types'
 
-const apiKey = process.env.NEYNAR_API_KEY || "";
+const apiKey = process.env.NEYNAR_API_KEY || ''
 
 export const verifyAppKeyWithNeynar: VerifyAppKey = async (
   fid: number,
-  appKey: string
+  appKey: string,
 ): Promise<VerifyAppKeyResult> => {
   if (!apiKey) {
     throw new Error(
-      "Environment variable NEYNAR_API_KEY needs to be set to use Neynar for app key verification"
-    );
+      'Environment variable NEYNAR_API_KEY needs to be set to use Neynar for app key verification',
+    )
   }
 
-  const verifier = createVerifyAppKeyWithHub("https://hub-api.neynar.com", {
+  const verifier = createVerifyAppKeyWithHub('https://hub-api.neynar.com', {
     headers: {
-      "x-api-key": apiKey,
+      'x-api-key': apiKey,
     },
-  });
+  })
 
-  return verifier(fid, appKey);
-};
+  return verifier(fid, appKey)
+}

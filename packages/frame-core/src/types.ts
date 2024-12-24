@@ -1,106 +1,99 @@
+import type { Address, Provider, RpcRequest, RpcResponse, RpcSchema } from 'ox'
+import type * as SignIn from './actions/signIn'
 import type {
-  Address,
-  Provider,
-  RpcRequest,
-  RpcResponse,
-  RpcSchema,
-} from "ox";
-import {
-  FrameNotificationDetails,
   EventFrameAdded,
   EventFrameRemoved,
-  EventNotificationsEnabled,
   EventNotificationsDisabled,
-} from "./schemas";
-import * as SignIn from "./actions/signIn";
+  EventNotificationsEnabled,
+  FrameNotificationDetails,
+} from './schemas'
 
 export type SetPrimaryButton = (options: {
-  text: string;
-  loading?: boolean;
-  disabled?: boolean;
-  hidden?: boolean;
-}) => void;
+  text: string
+  loading?: boolean
+  disabled?: boolean
+  hidden?: boolean
+}) => void
 
-export type EthProviderRequest = Provider.RequestFn<RpcSchema.Default>;
+export type EthProviderRequest = Provider.RequestFn<RpcSchema.Default>
 
 export type AccountLocation = {
-  placeId: string;
+  placeId: string
   /**
    * Human-readable string describing the location
    */
-  description: string;
-};
+  description: string
+}
 
 export type FrameLocationContextCastEmbed = {
-  type: "cast_embed";
-  embed: string;
+  type: 'cast_embed'
+  embed: string
   cast: {
-    fid: number;
-    hash: string;
-  };
-};
+    fid: number
+    hash: string
+  }
+}
 
 export type FrameLocationContextNotification = {
-  type: "notification";
+  type: 'notification'
   notification: {
-    notificationId: string;
-    title: string;
-    body: string;
-  };
-};
+    notificationId: string
+    title: string
+    body: string
+  }
+}
 
 export type FrameLocationContextLauncher = {
-  type: "launcher";
-};
+  type: 'launcher'
+}
 
 export type FrameLocationContext =
   | FrameLocationContextCastEmbed
   | FrameLocationContextNotification
-  | FrameLocationContextLauncher;
-
+  | FrameLocationContextLauncher
 
 export type SafeAreaInsets = {
-  top: number;
-  bottom: number;
-  left: number;
-  right: number;
+  top: number
+  bottom: number
+  left: number
+  right: number
 }
 
 export type FrameContext = {
   user: {
-    fid: number;
-    username?: string;
-    displayName?: string;
+    fid: number
+    username?: string
+    displayName?: string
     /**
      * Profile image URL
      */
-    pfpUrl?: string;
-    location?: AccountLocation;
-  };
-  location?: FrameLocationContext;
+    pfpUrl?: string
+    location?: AccountLocation
+  }
+  location?: FrameLocationContext
   client: {
-    clientFid: number;
-    added: boolean;
-    notificationDetails?: FrameNotificationDetails;
-    safeAreaInsets?: SafeAreaInsets;
-  };
-};
+    clientFid: number
+    added: boolean
+    notificationDetails?: FrameNotificationDetails
+    safeAreaInsets?: SafeAreaInsets
+  }
+}
 
 export type AddFrameRejectedReason =
-  | "invalid_domain_manifest"
-  | "rejected_by_user";
+  | 'invalid_domain_manifest'
+  | 'rejected_by_user'
 
 export type AddFrameResult =
   | {
-      added: true;
-      notificationDetails?: FrameNotificationDetails;
+      added: true
+      notificationDetails?: FrameNotificationDetails
     }
   | {
-      added: false;
-      reason: AddFrameRejectedReason;
-    };
+      added: false
+      reason: AddFrameRejectedReason
+    }
 
-export type AddFrame = () => Promise<AddFrameResult>;
+export type AddFrame = () => Promise<AddFrameResult>
 
 export type ReadyOptions = {
   /**
@@ -109,105 +102,105 @@ export type ReadyOptions = {
    *
    * @defaultValue false
    */
-  disableNativeGestures: boolean;
-};
+  disableNativeGestures: boolean
+}
 
 export const DEFAULT_READY_OPTIONS: ReadyOptions = {
   disableNativeGestures: false,
-};
+}
 
 export type SignInOptions = {
   /**
    * A random string used to prevent replay attacks.
    */
-  nonce: string;
+  nonce: string
 
   /**
    * Start time at which the signature becomes valid.
    * ISO 8601 datetime.
    */
-  notBefore?: string;
+  notBefore?: string
 
   /**
    * Expiration time at which the signature is no longer valid.
    * ISO 8601 datetime.
    */
-  expirationTime?: string;
-};
+  expirationTime?: string
+}
 
 export type WireFrameHost = {
-  context: FrameContext;
-  close: () => void;
-  ready: (options?: Partial<ReadyOptions>) => void;
-  openUrl: (url: string) => void;
-  signIn: SignIn.WireSignIn;
-  setPrimaryButton: SetPrimaryButton;
-  ethProviderRequest: EthProviderRequest;
-  ethProviderRequestV2: RpcTransport;
-  addFrame: AddFrame;
-};
+  context: FrameContext
+  close: () => void
+  ready: (options?: Partial<ReadyOptions>) => void
+  openUrl: (url: string) => void
+  signIn: SignIn.WireSignIn
+  setPrimaryButton: SetPrimaryButton
+  ethProviderRequest: EthProviderRequest
+  ethProviderRequestV2: RpcTransport
+  addFrame: AddFrame
+}
 
 export type FrameHost = {
-  context: FrameContext;
-  close: () => void;
-  ready: (options?: Partial<ReadyOptions>) => void;
-  openUrl: (url: string) => void;
-  signIn: SignIn.SignIn;
-  setPrimaryButton: SetPrimaryButton;
-  ethProviderRequest: EthProviderRequest;
-  ethProviderRequestV2: RpcTransport;
-  addFrame: AddFrame;
-};
+  context: FrameContext
+  close: () => void
+  ready: (options?: Partial<ReadyOptions>) => void
+  openUrl: (url: string) => void
+  signIn: SignIn.SignIn
+  setPrimaryButton: SetPrimaryButton
+  ethProviderRequest: EthProviderRequest
+  ethProviderRequestV2: RpcTransport
+  addFrame: AddFrame
+}
 
 export type FrameEthProviderEventData = {
-  type: "frame_eth_provider_event";
-} & EthProviderWireEvent;
+  type: 'frame_eth_provider_event'
+} & EthProviderWireEvent
 
 export type RpcTransport = (
   request: RpcRequest.RpcRequest,
-) => Promise<RpcResponse.RpcResponse>;
+) => Promise<RpcResponse.RpcResponse>
 
 export type ProviderRpcError = {
-  code: number;
-  details?: string;
-  message?: string;
-};
+  code: number
+  details?: string
+  message?: string
+}
 
 export type EthProviderWireEvent =
   | {
-      event: "accountsChanged";
-      params: [readonly Address.Address[]];
+      event: 'accountsChanged'
+      params: [readonly Address.Address[]]
     }
   | {
-      event: "chainChanged";
-      params: [string];
+      event: 'chainChanged'
+      params: [string]
     }
   | {
-      event: "connect";
-      params: [Provider.ConnectInfo];
+      event: 'connect'
+      params: [Provider.ConnectInfo]
     }
   | {
-      event: "disconnect";
-      params: [ProviderRpcError];
+      event: 'disconnect'
+      params: [ProviderRpcError]
     }
   | {
-      event: "message";
-      params: [Provider.Message];
-    };
+      event: 'message'
+      params: [Provider.Message]
+    }
 
-export type EmitEthProvider = <event extends EthProviderWireEvent["event"]>(
+export type EmitEthProvider = <event extends EthProviderWireEvent['event']>(
   event: event,
-  params: Extract<EthProviderWireEvent, { event: event }>["params"],
-) => void;
+  params: Extract<EthProviderWireEvent, { event: event }>['params'],
+) => void
 
 export type EventFrameAddRejected = {
-  event: "frame_add_rejected";
-  reason: AddFrameRejectedReason;
-};
+  event: 'frame_add_rejected'
+  reason: AddFrameRejectedReason
+}
 
 export type EventPrimaryButtonClicked = {
-  event: "primary_button_clicked";
-};
+  event: 'primary_button_clicked'
+}
 
 export type FrameClientEvent =
   | EventFrameAdded
@@ -215,4 +208,4 @@ export type FrameClientEvent =
   | EventFrameRemoved
   | EventNotificationsEnabled
   | EventNotificationsDisabled
-  | EventPrimaryButtonClicked;
+  | EventPrimaryButtonClicked

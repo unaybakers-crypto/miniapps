@@ -1,8 +1,8 @@
-import * as Comlink from "./comlink";
-import type { Provider } from "ox";
-import { FrameHost } from "@farcaster/frame-core";
-import { HostEndpoint } from "./types";
-import { exposeToEndpoint } from "./helpers/endpoint";
+import type { FrameHost } from '@farcaster/frame-core'
+import type { Provider } from 'ox'
+import * as Comlink from './comlink'
+import { exposeToEndpoint } from './helpers/endpoint'
+import type { HostEndpoint } from './types'
 
 /**
  * An endpoint of communicating with an iFrame
@@ -12,39 +12,39 @@ export function createIframeEndpoint({
   targetOrigin,
   debug = true,
 }: {
-  iframe: HTMLIFrameElement;
-  targetOrigin: string;
-  debug?: boolean;
+  iframe: HTMLIFrameElement
+  targetOrigin: string
+  debug?: boolean
 }): HostEndpoint {
   return {
     // when is contentWindow null
     ...Comlink.windowEndpoint(iframe.contentWindow!),
     emit: (event) => {
       if (debug) {
-        console.debug("frameEvent", event);
+        console.debug('frameEvent', event)
       }
 
       const wireEvent = {
-        type: "frameEvent",
+        type: 'frameEvent',
         event,
-      };
+      }
 
-      iframe.contentWindow?.postMessage(wireEvent, targetOrigin);
+      iframe.contentWindow?.postMessage(wireEvent, targetOrigin)
     },
     emitEthProvider: (event, params) => {
       if (debug) {
-        console.debug("fc:emitEthProvider", event, params);
+        console.debug('fc:emitEthProvider', event, params)
       }
 
       const wireEvent = {
-        type: "frameEthProviderEvent",
+        type: 'frameEthProviderEvent',
         event,
         params,
-      };
+      }
 
-      iframe.contentWindow?.postMessage(wireEvent, targetOrigin);
+      iframe.contentWindow?.postMessage(wireEvent, targetOrigin)
     },
-  };
+  }
 }
 
 export function exposeToIframe({
@@ -54,27 +54,27 @@ export function exposeToIframe({
   frameOrigin,
   debug = false,
 }: {
-  iframe: HTMLIFrameElement;
-  sdk: Omit<FrameHost, "ethProviderRequestV2">;
-  frameOrigin: string;
-  ethProvider?: Provider.Provider;
-  debug?: boolean;
+  iframe: HTMLIFrameElement
+  sdk: Omit<FrameHost, 'ethProviderRequestV2'>
+  frameOrigin: string
+  ethProvider?: Provider.Provider
+  debug?: boolean
 }) {
   const endpoint = createIframeEndpoint({
     iframe,
     targetOrigin: frameOrigin,
     debug,
-  });
+  })
   const cleanup = exposeToEndpoint({
     endpoint,
     sdk,
     ethProvider,
     frameOrigin,
     debug,
-  });
+  })
 
   return {
     endpoint,
     cleanup,
-  };
+  }
 }

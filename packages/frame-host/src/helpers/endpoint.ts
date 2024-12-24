@@ -1,10 +1,10 @@
-import { FrameHost } from "@farcaster/frame-core";
-import { Provider } from "ox";
-import * as Comlink from "../comlink";
-import { HostEndpoint } from "../types";
-import { forwardProviderEvents, wrapProviderRequest } from "./provider";
-import { wrapHandlers } from "./sdk";
-import { useEffect } from "react";
+import type { FrameHost } from '@farcaster/frame-core'
+import type { Provider } from 'ox'
+import { useEffect } from 'react'
+import * as Comlink from '../comlink'
+import type { HostEndpoint } from '../types'
+import { forwardProviderEvents, wrapProviderRequest } from './provider'
+import { wrapHandlers } from './sdk'
 
 /**
  * @returns function to cleanup provider listeners
@@ -16,29 +16,29 @@ export function exposeToEndpoint({
   ethProvider,
   debug = false,
 }: {
-  endpoint: HostEndpoint;
-  sdk: Omit<FrameHost, "ethProviderRequestV2">;
-  frameOrigin: string;
-  ethProvider?: Provider.Provider;
-  debug?: boolean;
+  endpoint: HostEndpoint
+  sdk: Omit<FrameHost, 'ethProviderRequestV2'>
+  frameOrigin: string
+  ethProvider?: Provider.Provider
+  debug?: boolean
 }) {
-  const extendedSdk = wrapHandlers(sdk as FrameHost);
+  const extendedSdk = wrapHandlers(sdk as FrameHost)
 
-  let cleanup: () => void | undefined;
+  let cleanup: (() => void) | undefined
   if (ethProvider) {
     extendedSdk.ethProviderRequestV2 = wrapProviderRequest({
       provider: ethProvider,
       debug,
-    });
-    cleanup = forwardProviderEvents({ provider: ethProvider, endpoint });
+    })
+    cleanup = forwardProviderEvents({ provider: ethProvider, endpoint })
   }
 
-  const unexpose = Comlink.expose(extendedSdk, endpoint, [frameOrigin]);
+  const unexpose = Comlink.expose(extendedSdk, endpoint, [frameOrigin])
 
   return () => {
-    cleanup?.();
-    unexpose();
-  };
+    cleanup?.()
+    unexpose()
+  }
 }
 
 export function useExposeToEndpoint({
@@ -48,15 +48,15 @@ export function useExposeToEndpoint({
   ethProvider,
   debug = false,
 }: {
-  endpoint: HostEndpoint | undefined;
-  sdk: Omit<FrameHost, "ethProviderRequestV2">;
-  frameOrigin: string;
-  ethProvider?: Provider.Provider;
-  debug?: boolean;
+  endpoint: HostEndpoint | undefined
+  sdk: Omit<FrameHost, 'ethProviderRequestV2'>
+  frameOrigin: string
+  ethProvider?: Provider.Provider
+  debug?: boolean
 }) {
   useEffect(() => {
     if (!endpoint) {
-      return;
+      return
     }
 
     const cleanup = exposeToEndpoint({
@@ -65,8 +65,8 @@ export function useExposeToEndpoint({
       frameOrigin,
       ethProvider,
       debug,
-    });
+    })
 
-    return cleanup;
-  }, [endpoint, sdk, ethProvider, frameOrigin, debug]);
+    return cleanup
+  }, [endpoint, sdk, ethProvider, frameOrigin, debug])
 }

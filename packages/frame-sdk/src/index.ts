@@ -1,6 +1,6 @@
-import { sdk } from "./sdk";
+import { sdk } from './sdk'
 
-export * from "./sdk";
-export * from "@farcaster/frame-core";
+export * from './sdk'
+export * from '@farcaster/frame-core'
 
-export default sdk;
+export default sdk

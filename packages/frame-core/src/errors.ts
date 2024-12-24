@@ -1,12 +1,12 @@
 export class BaseError<
-  cause extends Error | undefined = undefined
+  cause extends Error | undefined = undefined,
 > extends Error {
-  override name = "BaseError";
-  cause: cause;
+  override name = 'BaseError'
+  cause: cause
 
   constructor(message: string, options: BaseError.Options<cause> = {}) {
     super(message, options.cause ? { cause: options.cause } : undefined)
-    this.cause = options.cause as any;
+    this.cause = options.cause as any
   }
 }
 
