@@ -22,6 +22,7 @@
     "react-native-webview": ">=13.0.0"
   },
   "dependencies": {
+    "@farcaster/frame-core": "workspace:*",
     "@farcaster/frame-host": "workspace:*",
     "ox": "^0.4.0"
   }
