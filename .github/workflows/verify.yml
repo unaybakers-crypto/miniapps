@@ -23,3 +23,18 @@ jobs:
 
       - name: Check types
         run: pnpm check:types
+
+  test:
+    name: Tests 
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v4
+        with: 
+          submodules: 'recursive'
+
+      - name: Install dependencies
+        uses: ./.github/actions/install-dependencies
+
+      - name: Run tests
+        run: pnpm test
