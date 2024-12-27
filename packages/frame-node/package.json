@@ -19,14 +19,14 @@
     "@farcaster/tsconfig": "workspace:*",
     "@types/node": "^22.10.2",
     "@vitest/coverage-v8": "^2.1.8",
-    "typescript": "^5.6.3",
+    "typescript": "^5.7.2",
     "vitest": "^2.1.8"
   },
   "dependencies": {
     "@farcaster/frame-core": "workspace:*",
     "@noble/curves": "^1.7.0",
-    "ox": "^0.4.0",
-    "zod": "^3.23.8"
+    "ox": "^0.4.4",
+    "zod": "^3.24.1"
   },
   "publishConfig": {
     "access": "public"
