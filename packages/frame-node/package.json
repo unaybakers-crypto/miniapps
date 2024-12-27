@@ -14,11 +14,7 @@
     "test:watch": "vitest",
     "test:coverage": "vitest --coverage"
   },
-  "files": [
-    "dist",
-    "esm",
-    "src"
-  ],
+  "files": ["dist", "esm", "src"],
   "devDependencies": {
     "@farcaster/tsconfig": "workspace:*",
     "@types/node": "^22.10.2",

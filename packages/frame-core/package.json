@@ -11,11 +11,7 @@
     "build:esm": "tsc -p tsconfig.json",
     "typecheck": "tsc --noEmit"
   },
-  "files": [
-    "dist",
-    "esm",
-    "src"
-  ],
+  "files": ["dist", "esm", "src"],
   "devDependencies": {
     "@farcaster/tsconfig": "workspace:*",
     "tsup": "^8.3.5",
