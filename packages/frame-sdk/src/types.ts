@@ -4,6 +4,7 @@ import type {
   FrameContext,
   FrameNotificationDetails,
   ReadyOptions,
+  SetPrimaryButtonOptions,
   SignIn,
 } from '@farcaster/frame-core'
 import type { EventEmitter } from 'eventemitter3'
@@ -20,7 +21,7 @@ declare global {
 
 /** Combines members of an intersection into a readable type. */
 // https://twitter.com/mattpocockuk/status/1622730173446557697?s=20&t=v01xkqU3KO0Mg
-export type Compute<type> = { [key in keyof type]: type[key] } & unknown
+type Compute<type> = { [key in keyof type]: type[key] } & unknown
 
 export type EventMap = {
   primaryButtonClicked: () => void
@@ -41,12 +42,7 @@ export type EventMap = {
 
 export type Emitter = Compute<EventEmitter<EventMap>>
 
-export type SetPrimaryButton = (options: {
-  text: string
-  loading?: boolean
-  disabled?: boolean
-  hidden?: boolean
-}) => Promise<void>
+type SetPrimaryButton = (options: SetPrimaryButtonOptions) => Promise<void>
 
 export type FrameSDK = {
   context: Promise<FrameContext>

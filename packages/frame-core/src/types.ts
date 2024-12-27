@@ -8,12 +8,14 @@ import type {
   FrameNotificationDetails,
 } from './schemas'
 
-export type SetPrimaryButton = (options: {
+export type SetPrimaryButtonOptions = {
   text: string
   loading?: boolean
   disabled?: boolean
   hidden?: boolean
-}) => void
+}
+
+export type SetPrimaryButton = (options: SetPrimaryButtonOptions) => void
 
 export type EthProviderRequest = Provider.RequestFn<RpcSchema.Default>
 

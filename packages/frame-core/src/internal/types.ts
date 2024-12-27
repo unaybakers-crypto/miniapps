@@ -1,4 +1,6 @@
-export type Compute<type> = { [key in keyof type]: type[key] } & unknown
+type Compute<type> = { [key in keyof type]: type[key] } & unknown
+
+type KeyofUnion<type> = type extends type ? keyof type : never
 
 export type OneOf<
   union extends object,
@@ -17,4 +19,3 @@ export type OneOf<
     >
   : never
 
-export type KeyofUnion<type> = type extends type ? keyof type : never
