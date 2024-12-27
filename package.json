@@ -12,6 +12,7 @@
     "format": "biome format --write",
     "knip": "knip",
     "preinstall": "only-allow pnpm",
+    "prepare": "pnpm simple-git-hooks",
     "publish-packages": "turbo run build typecheck && changeset version && changeset publish",
     "test": "turbo test",
     "typecheck": "turbo typecheck"
