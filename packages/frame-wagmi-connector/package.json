@@ -13,17 +13,17 @@
   "devDependencies": {
     "@farcaster/frame-sdk": "workspace:*",
     "@farcaster/tsconfig": "workspace:*",
+    "@wagmi/core": "^2.14.1",
     "tsup": "^8.3.5",
     "typescript": "^5.6.3",
-    "viem": "^2.21.55",
-    "@wagmi/core": "^2.14.1"
+    "viem": "^2.21.55"
   },
   "publishConfig": {
     "access": "public"
   },
   "peerDependencies": {
     "@farcaster/frame-sdk": "^0.0.22",
-    "viem": "^2.21.55",
-    "@wagmi/core": "^2.14.1"
+    "@wagmi/core": "^2.14.1",
+    "viem": "^2.21.55"
   }
 }
