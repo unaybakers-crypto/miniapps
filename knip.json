@@ -1,0 +1,16 @@
+{
+  "workspaces": {
+    "packages/*": {
+      "entry": "src/index.ts",
+      "project": "**/*.ts"
+    },
+    "packages/frame-host": {
+      "entry": "src/index.ts",
+      "project": "**/*.ts",
+      "ignore": ["src/comlink/**/*.ts"]
+    },
+    "examples/vanilla": {
+      "entry": ["src/main.ts", "frame/index.ts"]
+    }
+  }
+}
