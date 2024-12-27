@@ -7,10 +7,6 @@ settings:
 importers:
 
   .:
-    dependencies:
-      '@changesets/cli':
-        specifier: ^2.27.10
-        version: 2.27.10
     devDependencies:
       '@biomejs/biome':
         specifier: 1.9.4
@@ -18,28 +14,34 @@ importers:
       '@changesets/changelog-github':
         specifier: ^0.5.0
         version: 0.5.0
+      '@changesets/cli':
+        specifier: ^2.27.10
+        version: 2.27.10
       prettier:
         specifier: ^3.2.5
         version: 3.4.2
+      sherif:
+        specifier: ^1.1.1
+        version: 1.1.1
       turbo:
         specifier: ^2.3.1
         version: 2.3.3
       typescript:
-        specifier: 5.5.4
-        version: 5.5.4
+        specifier: ^5.6.3
+        version: 5.7.2
 
   examples/vanilla:
     dependencies:
       '@farcaster/frame-host':
         specifier: '*'
-        version: 0.0.19(typescript@5.6.3)
+        version: 0.0.19(typescript@5.7.2)
       '@farcaster/frame-sdk':
         specifier: '*'
-        version: 0.0.20(typescript@5.6.3)
+        version: 0.0.20(typescript@5.7.2)
     devDependencies:
       typescript:
-        specifier: ~5.6.2
-        version: 5.6.3
+        specifier: ^5.6.3
+        version: 5.7.2
       vite:
         specifier: ^6.0.1
         version: 6.0.3(@types/node@22.10.2)(jiti@2.4.1)(terser@5.37.0)
@@ -3102,6 +3104,40 @@ packages:
     resolution: {integrity: sha512-AzqKpGKjrj7EM6rKVQEPpB288oCfnrEIuyoT9cyF4nmGa7V8Zk6f7RRqYisX8X9m+Q7bd632aZW4ky7EhbQztA==}
     engines: {node: '>= 0.4'}
 
+  sherif-darwin-arm64@1.1.1:
+    resolution: {integrity: sha512-67WeOqkp6/glNIvNINi5FjFmyJU65XUmA+ow16DBHXaR3C7mA6eQNjP3Ro3EMLRXzzvj9cMJ0k7vLsbxWCzBkw==}
+    cpu: [arm64]
+    os: [darwin]
+
+  sherif-darwin-x64@1.1.1:
+    resolution: {integrity: sha512-FVRuABcXT5cNcCLrWyH0WomkHQ/HMQodwklUVPpuDg08p7dZo8AZNsRmmCh//l8U6G56LW9dQJbkgOq8yI4MHg==}
+    cpu: [x64]
+    os: [darwin]
+
+  sherif-linux-arm64@1.1.1:
+    resolution: {integrity: sha512-jFZMQ5v/R0dUcER4zR9NG/y1tGwdDI5R+ZqBG6iyDwviT5jpRTGXBQSSss4yaflLbOq1HpQeXzfMJX408BWklg==}
+    cpu: [arm64]
+    os: [linux]
+
+  sherif-linux-x64@1.1.1:
+    resolution: {integrity: sha512-l3N+wwDjCSCC/MKI9/4RLIpMVfnMlQ2EhzmimhZuLt3v8+lfkG7+at0De5idkJXejoHyXNLKAiTRxYaVsXwGpQ==}
+    cpu: [x64]
+    os: [linux]
+
+  sherif-windows-arm64@1.1.1:
+    resolution: {integrity: sha512-eRt/4GWSeJUdaP3Gu38zpK/mCTLRQl+KaPfBbJ9CC+jzUxsiFE0+hMcvc0gecvMqAHYpQAWJ2y3oiMuJ2mwQ8A==}
+    cpu: [arm64]
+    os: [win32]
+
+  sherif-windows-x64@1.1.1:
+    resolution: {integrity: sha512-yRBJMcoyqederEv+Jgz8Nnv63xXRppZn/XUCTukFDKgY41v8JDnU3CeS79F7DxakS8vu9Y6kGATvwpShbGYzeA==}
+    cpu: [x64]
+    os: [win32]
+
+  sherif@1.1.1:
+    resolution: {integrity: sha512-571FkeQKaRZJJj4w55LEATkUC2kkoxkdlYuBx3V5N+O3P++4dgpCO1+goQBHbVJivmTpL7zkcLWLfymWf1BtUw==}
+    hasBin: true
+
   siginfo@2.0.0:
     resolution: {integrity: sha512-ybx0WO1/8bSBLEWXZvEd7gMW3Sn3JFlW3TvX1nREbDLRNQNaeNN8WK0meBwPdAaOI7TtRRRJn/Es1zhrrCHu7g==}
 
@@ -3357,16 +3393,6 @@ packages:
   type-fest@0.7.1:
     resolution: {integrity: sha512-Ne2YiiGN8bmrmJJEuTWTLJR32nh/JdL1+PSicowtNb0WFpn59GK8/lfD61bVtzguz7b3PBt74nxpv/Pw5po5Rg==}
     engines: {node: '>=8'}
-
-  typescript@5.5.4:
-    resolution: {integrity: sha512-Mtq29sKDAEYP7aljRgtPOpTvOfbwRWlS6dPRzwjdE+C0R4brX/GUyhHSecbHMFLNBLcJIPt9nl9yG5TZ1weH+Q==}
-    engines: {node: '>=14.17'}
-    hasBin: true
-
-  typescript@5.6.3:
-    resolution: {integrity: sha512-hjcS1mhfuyi4WW8IWtjP7brDrG2cuDZukyrYrSauoXGNgx0S7zceP07adYkJycEr56BOUTNPzbInooiN3fn1qw==}
-    engines: {node: '>=14.17'}
-    hasBin: true
 
   typescript@5.7.2:
     resolution: {integrity: sha512-i5t66RHxDvVN40HfDd1PsEThGNnlMCMT3jMUuoh9/0TaqWevNontacunWyN02LA9/fIbEWlcHZcgTKb9QoaLfg==}
@@ -4846,27 +4872,27 @@ snapshots:
   '@esbuild/win32-x64@0.24.0':
     optional: true
 
-  '@farcaster/frame-core@0.0.19(typescript@5.6.3)':
+  '@farcaster/frame-core@0.0.19(typescript@5.7.2)':
     dependencies:
-      ox: 0.4.1(typescript@5.6.3)(zod@3.24.1)
+      ox: 0.4.1(typescript@5.7.2)(zod@3.24.1)
       zod: 3.24.1
     transitivePeerDependencies:
       - typescript
 
-  '@farcaster/frame-host@0.0.19(typescript@5.6.3)':
+  '@farcaster/frame-host@0.0.19(typescript@5.7.2)':
     dependencies:
-      '@farcaster/frame-core': 0.0.19(typescript@5.6.3)
-      ox: 0.4.1(typescript@5.6.3)
+      '@farcaster/frame-core': 0.0.19(typescript@5.7.2)
+      ox: 0.4.1(typescript@5.7.2)(zod@3.24.1)
     transitivePeerDependencies:
       - typescript
       - zod
 
-  '@farcaster/frame-sdk@0.0.20(typescript@5.6.3)':
+  '@farcaster/frame-sdk@0.0.20(typescript@5.7.2)':
     dependencies:
-      '@farcaster/frame-core': 0.0.19(typescript@5.6.3)
+      '@farcaster/frame-core': 0.0.19(typescript@5.7.2)
       comlink: 4.4.2
       eventemitter3: 5.0.1
-      ox: 0.4.1(typescript@5.6.3)
+      ox: 0.4.1(typescript@5.7.2)(zod@3.24.1)
     transitivePeerDependencies:
       - typescript
       - zod
@@ -5363,15 +5389,6 @@ snapshots:
       - immer
       - react
       - use-sync-external-store
-
-  abitype@1.0.7(typescript@5.6.3):
-    optionalDependencies:
-      typescript: 5.6.3
-
-  abitype@1.0.7(typescript@5.6.3)(zod@3.24.1):
-    optionalDependencies:
-      typescript: 5.6.3
-      zod: 3.24.1
 
   abitype@1.0.7(typescript@5.7.2)(zod@3.24.1):
     optionalDependencies:
@@ -6633,34 +6650,6 @@ snapshots:
     transitivePeerDependencies:
       - zod
 
-  ox@0.4.1(typescript@5.6.3):
-    dependencies:
-      '@adraffy/ens-normalize': 1.11.0
-      '@noble/curves': 1.7.0
-      '@noble/hashes': 1.6.1
-      '@scure/bip32': 1.6.0
-      '@scure/bip39': 1.5.0
-      abitype: 1.0.7(typescript@5.6.3)
-      eventemitter3: 5.0.1
-    optionalDependencies:
-      typescript: 5.6.3
-    transitivePeerDependencies:
-      - zod
-
-  ox@0.4.1(typescript@5.6.3)(zod@3.24.1):
-    dependencies:
-      '@adraffy/ens-normalize': 1.11.0
-      '@noble/curves': 1.7.0
-      '@noble/hashes': 1.6.1
-      '@scure/bip32': 1.6.0
-      '@scure/bip39': 1.5.0
-      abitype: 1.0.7(typescript@5.6.3)(zod@3.24.1)
-      eventemitter3: 5.0.1
-    optionalDependencies:
-      typescript: 5.6.3
-    transitivePeerDependencies:
-      - zod
-
   ox@0.4.1(typescript@5.7.2)(zod@3.24.1):
     dependencies:
       '@adraffy/ens-normalize': 1.11.0
@@ -7025,6 +7014,33 @@ snapshots:
 
   shell-quote@1.8.2: {}
 
+  sherif-darwin-arm64@1.1.1:
+    optional: true
+
+  sherif-darwin-x64@1.1.1:
+    optional: true
+
+  sherif-linux-arm64@1.1.1:
+    optional: true
+
+  sherif-linux-x64@1.1.1:
+    optional: true
+
+  sherif-windows-arm64@1.1.1:
+    optional: true
+
+  sherif-windows-x64@1.1.1:
+    optional: true
+
+  sherif@1.1.1:
+    optionalDependencies:
+      sherif-darwin-arm64: 1.1.1
+      sherif-darwin-x64: 1.1.1
+      sherif-linux-arm64: 1.1.1
+      sherif-linux-x64: 1.1.1
+      sherif-windows-arm64: 1.1.1
+      sherif-windows-x64: 1.1.1
+
   siginfo@2.0.0: {}
 
   signal-exit@3.0.7: {}
@@ -7257,10 +7273,6 @@ snapshots:
   type-detect@4.0.8: {}
 
   type-fest@0.7.1: {}
-
-  typescript@5.5.4: {}
-
-  typescript@5.6.3: {}
 
   typescript@5.7.2: {}
 
