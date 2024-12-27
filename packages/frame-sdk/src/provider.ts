@@ -10,7 +10,7 @@ type GenericProviderRpcError = {
   details?: string
 }
 
-export function toProviderRpcError({
+function toProviderRpcError({
   code,
   details,
 }: GenericProviderRpcError): Provider.ProviderRpcError {
