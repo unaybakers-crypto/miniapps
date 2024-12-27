@@ -9,9 +9,10 @@
     "check:write": "biome check --write --unsafe .",
     "dev": "turbo dev",
     "format": "biome format --write",
+    "preinstall": "npx only-allow pnpm",
+    "publish-packages": "turbo run build typecheck && changeset version && changeset publish",
     "test": "turbo test",
-    "typecheck": "turbo typecheck",
-    "publish-packages": "turbo run build typecheck && changeset version && changeset publish"
+    "typecheck": "turbo typecheck"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
