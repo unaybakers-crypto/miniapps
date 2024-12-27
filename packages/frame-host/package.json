@@ -11,11 +11,11 @@
   "files": ["dist", "src"],
   "devDependencies": {
     "@farcaster/tsconfig": "workspace:*",
-    "@types/react": "^18.3.12",
-    "typescript": "^5.6.3"
+    "@types/react": "^18.3.18",
+    "typescript": "^5.7.2"
   },
   "dependencies": {
     "@farcaster/frame-core": "workspace:*",
-    "ox": "^0.4.0"
+    "ox": "^0.4.4"
   }
 }
