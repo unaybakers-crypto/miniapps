@@ -1,4 +1,3 @@
-import type { Address } from 'ox'
 import * as Errors from '../errors'
 import type { OneOf } from '../internal/types'
 
@@ -28,17 +27,17 @@ export type SignInResult = {
 
 export type SignIn = (options: SignInOptions) => Promise<SignInResult>
 
-export type RejectedByUserError = {
+type RejectedByUserJsonError = {
   type: 'rejected_by_user'
 }
 
-export type JsonSignInError = RejectedByUserError
+export type SignInJsonError = RejectedByUserJsonError
 
-export type WireSignInResponse = OneOf<
-  { result: SignInResult } | { error: JsonSignInError }
+export type SignInJsonResult = OneOf<
+  { result: SignInResult } | { error: SignInJsonError }
 >
 
-export type WireSignIn = (options: SignInOptions) => Promise<WireSignInResponse>
+export type WireSignIn = (options: SignInOptions) => Promise<SignInJsonResult>
 
 /**
  * Thrown when a sign in action was rejected.
