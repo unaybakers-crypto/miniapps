@@ -1,4 +1,4 @@
-import { type FrameClientEvent, SignIn } from '@farcaster/frame-core'
+import { AddFrame, type FrameClientEvent, SignIn } from '@farcaster/frame-core'
 import { EventEmitter } from 'eventemitter3'
 import { frameHost } from './frameHost'
 import { provider } from './provider'
@@ -51,7 +51,22 @@ export const sdk: FrameSDK = {
     openUrl: (url: string) => {
       return frameHost.openUrl(url.trim())
     },
-    addFrame: frameHost.addFrame.bind(frameHost),
+    addFrame: async () => {
+      const response = await frameHost.addFrame()
+      if (response.result) {
+        return response.result
+      }
+
+      if (response.error.type === 'invalid_domain_manifest') {
+        throw new AddFrame.InvalidDomainManifest()
+      }
+
+      if (response.error.type === 'rejected_by_user') {
+        throw new AddFrame.RejectedByUser()
+      }
+
+      throw new Error('Unreachable')
+    },
   },
   wallet: {
     ethProvider: provider,
