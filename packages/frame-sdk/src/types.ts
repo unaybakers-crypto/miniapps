@@ -1,6 +1,5 @@
 import type {
   AddFrame,
-  AddFrameRejectedReason,
   FrameContext,
   FrameNotificationDetails,
   ReadyOptions,
@@ -30,7 +29,9 @@ export type EventMap = {
   }: {
     notificationDetails?: FrameNotificationDetails
   }) => void
-  frameAddRejected: ({ reason }: { reason: AddFrameRejectedReason }) => void
+  frameAddRejected: ({
+    reason,
+  }: { reason: AddFrame.AddFrameRejectedReason }) => void
   frameRemoved: () => void
   notificationsEnabled: ({
     notificationDetails,
@@ -52,7 +53,7 @@ export type FrameSDK = {
     signIn: SignIn.SignIn
     close: () => Promise<void>
     setPrimaryButton: SetPrimaryButton
-    addFrame: AddFrame
+    addFrame: AddFrame.AddFrame
   }
   wallet: {
     ethProvider: Provider.Provider

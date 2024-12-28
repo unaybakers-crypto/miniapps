@@ -1,5 +1,5 @@
 import type { Address, Provider, RpcRequest, RpcResponse, RpcSchema } from 'ox'
-import type * as SignIn from './actions/SignIn'
+import type { AddFrame, SignIn } from './actions'
 import type {
   EventFrameAdded,
   EventFrameRemoved,
@@ -81,22 +81,6 @@ export type FrameContext = {
   }
 }
 
-export type AddFrameRejectedReason =
-  | 'invalid_domain_manifest'
-  | 'rejected_by_user'
-
-export type AddFrameResult =
-  | {
-      added: true
-      notificationDetails?: FrameNotificationDetails
-    }
-  | {
-      added: false
-      reason: AddFrameRejectedReason
-    }
-
-export type AddFrame = () => Promise<AddFrameResult>
-
 export type ReadyOptions = {
   /**
    * Disable native gestures. Use this option if your frame uses gestures
@@ -139,7 +123,7 @@ export type WireFrameHost = {
   setPrimaryButton: SetPrimaryButton
   ethProviderRequest: EthProviderRequest
   ethProviderRequestV2: RpcTransport
-  addFrame: AddFrame
+  addFrame: AddFrame.WireAddFrame
 }
 
 export type FrameHost = {
@@ -151,7 +135,7 @@ export type FrameHost = {
   setPrimaryButton: SetPrimaryButton
   ethProviderRequest: EthProviderRequest
   ethProviderRequestV2: RpcTransport
-  addFrame: AddFrame
+  addFrame: AddFrame.AddFrame
 }
 
 export type FrameEthProviderEventData = {
@@ -197,7 +181,7 @@ export type EmitEthProvider = <event extends EthProviderWireEvent['event']>(
 
 export type EventFrameAddRejected = {
   event: 'frame_add_rejected'
-  reason: AddFrameRejectedReason
+  reason: AddFrame.AddFrameRejectedReason
 }
 
 export type EventPrimaryButtonClicked = {
