@@ -31,7 +31,7 @@ type RejectedByUserJsonError = {
   type: 'rejected_by_user'
 }
 
-export type SignInJsonError = RejectedByUserJsonError;
+export type SignInJsonError = RejectedByUserJsonError
 
 export type SignInJsonResult = OneOf<
   { result: SignInResult } | { error: SignInJsonError }
