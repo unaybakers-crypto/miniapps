@@ -1,5 +1,5 @@
 import type { Address, Provider, RpcRequest, RpcResponse, RpcSchema } from 'ox'
-import type * as SignIn from './actions/signIn'
+import type * as SignIn from './actions/SignIn'
 import type {
   EventFrameAdded,
   EventFrameRemoved,
