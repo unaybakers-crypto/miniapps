@@ -18,11 +18,14 @@ jobs:
       - name: Install dependencies
         uses: ./.github/actions/install-dependencies
 
-      - name: Check code
-        run: pnpm check:write
-
       - name: Check types
         run: pnpm check:types
+
+      - name: Run knip
+        run: pnpm knip
+
+      - name: Check code
+        run: pnpm check:write
 
       - uses: stefanzweifel/git-auto-commit-action@v5
         env:
@@ -38,8 +41,6 @@ jobs:
     steps:
       - name: Clone repository
         uses: actions/checkout@v4
-        with: 
-          submodules: 'recursive'
 
       - name: Install dependencies
         uses: ./.github/actions/install-dependencies
