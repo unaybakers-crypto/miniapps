@@ -86,6 +86,9 @@ importers:
       '@types/react':
         specifier: ^18.3.18
         version: 18.3.18
+      react:
+        specifier: ^18.3.1
+        version: 18.3.1
       typescript:
         specifier: ^5.7.2
         version: 5.7.2
