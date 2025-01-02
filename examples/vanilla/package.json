@@ -13,7 +13,7 @@
     "vite": "^6.0.6"
   },
   "dependencies": {
-    "@farcaster/frame-host": "*",
-    "@farcaster/frame-sdk": "*"
+    "@farcaster/frame-host": "workspace:*",
+    "@farcaster/frame-sdk": "workspace:*"
   }
 }

@@ -42,11 +42,11 @@ importers:
   examples/vanilla:
     dependencies:
       '@farcaster/frame-host':
-        specifier: '*'
-        version: 0.0.19(typescript@5.7.2)(zod@3.24.1)
+        specifier: workspace:*
+        version: link:../../packages/frame-host
       '@farcaster/frame-sdk':
-        specifier: '*'
-        version: 0.0.20(typescript@5.7.2)(zod@3.24.1)
+        specifier: workspace:*
+        version: link:../../packages/frame-sdk
     devDependencies:
       typescript:
         specifier: ^5.7.2
@@ -1287,15 +1287,6 @@ packages:
     engines: {node: '>=18'}
     cpu: [x64]
     os: [win32]
-
-  '@farcaster/frame-core@0.0.19':
-    resolution: {integrity: sha512-/0XjVZa/rUuUR16GVhhKnAQI33SXI61bB24jNA1DD0L0ytcKsM14wBptW9CF4RDiYIXxtt4mXmnQ+rMhO38RcA==}
-
-  '@farcaster/frame-host@0.0.19':
-    resolution: {integrity: sha512-4Svhipw24PAcux4vCHlXA6L3sVi248Ad4bDuXVgqvOEgQ3Ue1Ic4iDQ/bgF+LG3/hLh5UvYJ4csz0xOEwRNT0Q==}
-
-  '@farcaster/frame-sdk@0.0.20':
-    resolution: {integrity: sha512-9EbB3A9V1ZSH4NvhHVbylcDVNevJqpuGkwz4I+0bKF2936qxvMlcWclDZVEmfO/woYH0ZQgy47YYRIiS3YpIQw==}
 
   '@isaacs/cliui@8.0.2':
     resolution: {integrity: sha512-O8jcjabXaleOG9DQ0+ARXWZBTfnP4WNAqzuiJK7ll44AmxGKv/J2M4TPjxjY3znBCfvBXFzucm1twdyFybFqEA==}
@@ -2777,14 +2768,6 @@ packages:
 
   ox@0.1.2:
     resolution: {integrity: sha512-ak/8K0Rtphg9vnRJlbOdaX9R7cmxD2MiSthjWGaQdMk3D7hrAlDoM+6Lxn7hN52Za3vrXfZ7enfke/5WjolDww==}
-    peerDependencies:
-      typescript: '>=5.4.0'
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-
-  ox@0.4.1:
-    resolution: {integrity: sha512-N6W5Y9j6d7SjW/5lvQfgGNVYqW0oEb70yP9stkNqYICbxqiQvKJgiVYxn2n+yt+PedgcspFd+EtAAk14P4Impg==}
     peerDependencies:
       typescript: '>=5.4.0'
     peerDependenciesMeta:
@@ -4850,31 +4833,6 @@ snapshots:
   '@esbuild/win32-x64@0.24.2':
     optional: true
 
-  '@farcaster/frame-core@0.0.19(typescript@5.7.2)':
-    dependencies:
-      ox: 0.4.4(typescript@5.7.2)(zod@3.24.1)
-      zod: 3.24.1
-    transitivePeerDependencies:
-      - typescript
-
-  '@farcaster/frame-host@0.0.19(typescript@5.7.2)(zod@3.24.1)':
-    dependencies:
-      '@farcaster/frame-core': 0.0.19(typescript@5.7.2)
-      ox: 0.4.1(typescript@5.7.2)(zod@3.24.1)
-    transitivePeerDependencies:
-      - typescript
-      - zod
-
-  '@farcaster/frame-sdk@0.0.20(typescript@5.7.2)(zod@3.24.1)':
-    dependencies:
-      '@farcaster/frame-core': 0.0.19(typescript@5.7.2)
-      comlink: 4.4.2
-      eventemitter3: 5.0.1
-      ox: 0.4.1(typescript@5.7.2)(zod@3.24.1)
-    transitivePeerDependencies:
-      - typescript
-      - zod
-
   '@isaacs/cliui@8.0.2':
     dependencies:
       string-width: 5.1.2
@@ -6645,20 +6603,6 @@ snapshots:
   outdent@0.5.0: {}
 
   ox@0.1.2(typescript@5.7.2)(zod@3.24.1):
-    dependencies:
-      '@adraffy/ens-normalize': 1.11.0
-      '@noble/curves': 1.7.0
-      '@noble/hashes': 1.6.1
-      '@scure/bip32': 1.6.0
-      '@scure/bip39': 1.5.0
-      abitype: 1.0.7(typescript@5.7.2)(zod@3.24.1)
-      eventemitter3: 5.0.1
-    optionalDependencies:
-      typescript: 5.7.2
-    transitivePeerDependencies:
-      - zod
-
-  ox@0.4.1(typescript@5.7.2)(zod@3.24.1):
     dependencies:
       '@adraffy/ens-normalize': 1.11.0
       '@noble/curves': 1.7.0
