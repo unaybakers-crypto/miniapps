@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@farcaster/frame-host": "workspace:*",
-    "@farcaster/frame-sdk": "workspace:*"
+    "@farcaster/frame-sdk": "workspace:*",
+    "mipd": "^0.0.7"
   }
 }
