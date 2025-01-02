@@ -4,10 +4,9 @@
     "@changesets/changelog-github",
     { "repo": "farcasterxyz/frames" }
   ],
-  "commit": true,
+  "commit": ["@changesets/cli/commit", { "skipCI": false }],
   "fixed": [],
   "linked": [],
-  "skipCI": false,
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",

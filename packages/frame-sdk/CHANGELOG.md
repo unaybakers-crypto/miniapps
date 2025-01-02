@@ -1,5 +1,11 @@
 # @farcaster/frame-kit
 
+## 0.0.24
+
+### Patch Changes
+
+- [`81eb169`](https://github.com/farcasterxyz/frames/commit/81eb1694a15e5704dd22ae5ceb1daceb81e79890) Thanks [@deodad](https://github.com/deodad)! - fix webview listener for eip6963:announceProvider
+
 ## 0.0.23
 
 ### Patch Changes
