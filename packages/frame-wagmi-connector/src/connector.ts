@@ -13,7 +13,7 @@ let chainChanged: Connector['onChainChanged'] | undefined
 let disconnect: Connector['onDisconnect'] | undefined
 
 export function farcasterFrame() {
-  let connected = true
+  let connected = false
 
   return createConnector<typeof FrameSDK.wallet.ethProvider>((config) => ({
     id: 'farcaster',
@@ -22,9 +22,6 @@ export function farcasterFrame() {
     icon: 'https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/055c25d6-7fe7-4a49-abf9-49772021cf00/original',
     type: farcasterFrame.type,
 
-    async setup() {
-      this.connect({ chainId: config.chains[0].id })
-    },
     async connect({ chainId } = {}) {
       const provider = await this.getProvider()
       const accounts = await provider.request({
