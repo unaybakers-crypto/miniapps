@@ -1,4 +1,13 @@
-import type { EthProviderWireEvent } from '@farcaster/frame-core'
+import type {
+  EthProviderWireEvent,
+  FrameClientEvent,
+} from '@farcaster/frame-core'
+import type {
+  AnnounceProviderParameters,
+  AnnounceProviderReturnType,
+  EIP1193Provider,
+  EIP6963ProviderDetail,
+} from 'mipd'
 import { Provider, RpcRequest, RpcResponse } from 'ox'
 import { frameHost } from './frameHost'
 
@@ -72,8 +81,28 @@ export const provider: Provider.Provider = Provider.from({
   },
 })
 
+function announceProvider(
+  detail: AnnounceProviderParameters,
+): AnnounceProviderReturnType {
+  const event: CustomEvent<EIP6963ProviderDetail> = new CustomEvent(
+    'eip6963:announceProvider',
+    { detail: Object.freeze(detail) },
+  )
+
+  window.dispatchEvent(event)
+
+  const handler = () => window.dispatchEvent(event)
+  window.addEventListener('eip6963:requestProvider', handler)
+  return () => window.removeEventListener('eip6963:requestProvider', handler)
+}
+
 // Required to pass SSR
 if (typeof document !== 'undefined') {
+  // forward eip6963:requestProvider events to the host
+  document.addEventListener('eip6963:requestProvider', () => {
+    frameHost.eip6963RequestProvider()
+  })
+
   // react native webview events
   document.addEventListener('FarcasterFrameEthProviderEvent', (event) => {
     if (event instanceof MessageEvent) {
@@ -82,10 +111,27 @@ if (typeof document !== 'undefined') {
       emitter.emit(ethProviderEvent.event, ...ethProviderEvent.params)
     }
   })
+
+  window.addEventListener('FarcasterFrameEvent', (event) => {
+    if (event instanceof MessageEvent) {
+      const frameEvent = event.data.event as FrameClientEvent
+      if (frameEvent.event === 'eip6963:announceProvider') {
+        announceProvider({
+          info: frameEvent.info,
+          provider: provider as EIP1193Provider,
+        })
+      }
+    }
+  })
 }
 
 // Required to pass SSR
 if (typeof window !== 'undefined') {
+  // forward eip6963:requestProvider events to the host
+  window.addEventListener('eip6963:requestProvider', () => {
+    frameHost.eip6963RequestProvider()
+  })
+
   // web events
   window.addEventListener('message', (event) => {
     if (event instanceof MessageEvent) {
@@ -93,6 +139,20 @@ if (typeof window !== 'undefined') {
         const ethProviderEvent = event.data as EthProviderWireEvent
         // @ts-expect-error
         emitter.emit(ethProviderEvent.event, ...ethProviderEvent.params)
+      }
+    }
+  })
+
+  window.addEventListener('message', (event) => {
+    if (event instanceof MessageEvent) {
+      if (event.data.type === 'frameEvent') {
+        const frameEvent = event.data.event as FrameClientEvent
+        if (frameEvent.event === 'eip6963:announceProvider') {
+          announceProvider({
+            info: frameEvent.info,
+            provider: provider as EIP1193Provider,
+          })
+        }
       }
     }
   })

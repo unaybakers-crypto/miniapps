@@ -47,6 +47,9 @@ importers:
       '@farcaster/frame-sdk':
         specifier: workspace:*
         version: link:../../packages/frame-sdk
+      mipd:
+        specifier: ^0.0.7
+        version: 0.0.7(typescript@5.7.2)
     devDependencies:
       typescript:
         specifier: ^5.7.2
@@ -176,6 +179,9 @@ importers:
       esbuild:
         specifier: ^0.24.2
         version: 0.24.2
+      mipd:
+        specifier: ^0.0.7
+        version: 0.0.7(typescript@5.7.2)
       typescript:
         specifier: ^5.7.2
         version: 5.7.2

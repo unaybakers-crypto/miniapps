@@ -1,4 +1,13 @@
 import { sdk } from '@farcaster/frame-sdk'
+import { createStore } from 'mipd'
+
+const store = createStore()
+
+let providers = store.getProviders()
+store.subscribe((providerDetails) => {
+  providers = providerDetails
+  console.debug('updated providers', providers)
+})
 
 setTimeout(() => {
   sdk.actions.ready()

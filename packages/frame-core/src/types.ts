@@ -123,6 +123,7 @@ export type WireFrameHost = {
   setPrimaryButton: SetPrimaryButton
   ethProviderRequest: EthProviderRequest
   ethProviderRequestV2: RpcTransport
+  eip6963RequestProvider: () => void
   addFrame: AddFrame.WireAddFrame
 }
 
@@ -135,6 +136,11 @@ export type FrameHost = {
   setPrimaryButton: SetPrimaryButton
   ethProviderRequest: EthProviderRequest
   ethProviderRequestV2: RpcTransport
+  /**
+   * Receive forwarded eip6963:requestProvider events from the frame document.
+   * Hosts must emit an EventEip6963AnnounceProvider in response.
+   */
+  eip6963RequestProvider: () => void
   addFrame: AddFrame.AddFrame
 }
 
@@ -188,6 +194,21 @@ export type EventPrimaryButtonClicked = {
   event: 'primary_button_clicked'
 }
 
+/**
+ * Metadata of the EIP-1193 Provider.
+ */
+export interface EIP6963ProviderInfo {
+  icon: `data:image/${string}` // RFC-2397
+  name: string
+  rdns: string
+  uuid: string
+}
+
+export type EventEip6963AnnounceProvider = {
+  event: 'eip6963:announceProvider'
+  info: EIP6963ProviderInfo
+}
+
 export type FrameClientEvent =
   | EventFrameAdded
   | EventFrameAddRejected
@@ -195,3 +216,4 @@ export type FrameClientEvent =
   | EventNotificationsEnabled
   | EventNotificationsDisabled
   | EventPrimaryButtonClicked
+  | EventEip6963AnnounceProvider
