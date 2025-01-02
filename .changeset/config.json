@@ -7,6 +7,7 @@
   "commit": true,
   "fixed": [],
   "linked": [],
+  "skipCI": false,
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",

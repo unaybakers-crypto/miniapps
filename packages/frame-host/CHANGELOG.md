@@ -1,5 +1,18 @@
 # @farcaster/frame-host
 
+## 0.0.22
+
+### Patch Changes
+
+- [#68](https://github.com/farcasterxyz/frames/pull/68) [`937fc7c`](https://github.com/farcasterxyz/frames/commit/937fc7cecd66412077f790c92b12750b7ac3a99f) Thanks [@deodad](https://github.com/deodad)! - update dependencies
+
+- [#81](https://github.com/farcasterxyz/frames/pull/81) [`ad850ba`](https://github.com/farcasterxyz/frames/commit/ad850ba7f17601c462e3a7b3d41ace784436d27e) Thanks [@deodad](https://github.com/deodad)! - add missing react peerDependency
+
+- [#71](https://github.com/farcasterxyz/frames/pull/71) [`4cf0e2d`](https://github.com/farcasterxyz/frames/commit/4cf0e2d5fbf6cb577351e49df78bb946823e72be) Thanks [@deodad](https://github.com/deodad)! - refactor AddFrame into module
+
+- Updated dependencies [[`2ada8e7`](https://github.com/farcasterxyz/frames/commit/2ada8e7b06dcc2b7b43363ffa619c0d19726a2f7), [`937fc7c`](https://github.com/farcasterxyz/frames/commit/937fc7cecd66412077f790c92b12750b7ac3a99f), [`b7624a6`](https://github.com/farcasterxyz/frames/commit/b7624a69fac63f4a533848ec470430c66d8b03e2), [`4cf0e2d`](https://github.com/farcasterxyz/frames/commit/4cf0e2d5fbf6cb577351e49df78bb946823e72be), [`0006dde`](https://github.com/farcasterxyz/frames/commit/0006dde9b1ad9046962f02178daa4cc7529f1df8)]:
+  - @farcaster/frame-core@0.0.22
+
 ## 0.0.21
 
 ### Patch Changes
