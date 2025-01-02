@@ -2,6 +2,21 @@ import { sdk } from '@farcaster/frame-sdk'
 
 setTimeout(() => {
   sdk.actions.ready()
+  Promise.race([
+    sdk.context,
+    new Promise<never>((_, reject) => {
+      setTimeout(() => {
+        reject(new Error('timed out waiting context'))
+      }, 50)
+    }),
+  ])
+    .then((ctx) => {
+      // biome-ignore lint/suspicious/noConsoleLog: <explanation>
+      console.log(ctx)
+    })
+    .catch((e) => {
+      console.warn(e.message)
+    })
 
   document.querySelector<HTMLDivElement>('#sign')!.onclick = () => {
     sdk.wallet.ethProvider
@@ -20,5 +35,3 @@ setTimeout(() => {
       })
   }
 }, 750)
-
-sdk.wallet.ethProvider.on('chainChanged', (chainId) => {})
