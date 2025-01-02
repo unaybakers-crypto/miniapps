@@ -112,9 +112,9 @@ if (typeof document !== 'undefined') {
     }
   })
 
-  window.addEventListener('FarcasterFrameEvent', (event) => {
+  document.addEventListener('FarcasterFrameEvent', (event) => {
     if (event instanceof MessageEvent) {
-      const frameEvent = event.data.event as FrameClientEvent
+      const frameEvent = event.data as FrameClientEvent
       if (frameEvent.event === 'eip6963:announceProvider') {
         announceProvider({
           info: frameEvent.info,
