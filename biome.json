@@ -5,7 +5,8 @@
       "tsconfig.json",
       "tsconfig.*.json",
       "packages/tsconfig",
-      "frame-host/src/comlink"
+      "frame-host/src/comlink",
+      "package.json"
     ]
   },
   "organizeImports": {
