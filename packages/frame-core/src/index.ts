@@ -1,4 +1,4 @@
 export * from './actions'
-export * from './context'
+export * as Context from './context'
 export * from './types'
 export * from './schemas'

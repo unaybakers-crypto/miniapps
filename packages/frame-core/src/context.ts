@@ -48,13 +48,6 @@ export type LocationContext =
   | LauncherLocationContext
   | ChannelLocationContext
 
-export type SafeAreaInsets = {
-  top: number
-  bottom: number
-  left: number
-  right: number
-}
-
 export type AccountLocation = {
   placeId: string
 
@@ -74,6 +67,13 @@ export type UserContext = {
    */
   pfpUrl?: string
   location?: AccountLocation
+}
+
+export type SafeAreaInsets = {
+  top: number
+  bottom: number
+  left: number
+  right: number
 }
 
 export type ClientContext = {
