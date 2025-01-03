@@ -1,5 +1,11 @@
 # @farcaster/frame-wagmi-connector
 
+## 0.0.11
+
+### Patch Changes
+
+- [#87](https://github.com/farcasterxyz/frames/pull/87) [`9e6ba97`](https://github.com/farcasterxyz/frames/commit/9e6ba975211cb3e4e76522aa47233b0b3ce3b636) Thanks [@horsefacts](https://github.com/horsefacts)! - remove eager connect in Wagmi connector
+
 ## 0.0.10
 
 ### Patch Changes
