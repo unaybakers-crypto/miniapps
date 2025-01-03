@@ -1,6 +1,6 @@
 import type {
   AddFrame,
-  FrameContext,
+  Context,
   FrameNotificationDetails,
   ReadyOptions,
   SetPrimaryButtonOptions,
@@ -46,7 +46,7 @@ export type Emitter = Compute<EventEmitter<EventMap>>
 type SetPrimaryButton = (options: SetPrimaryButtonOptions) => Promise<void>
 
 export type FrameSDK = {
-  context: Promise<FrameContext>
+  context: Promise<Context.FrameContext>
   actions: {
     ready: (options?: Partial<ReadyOptions>) => Promise<void>
     openUrl: (url: string) => Promise<void>

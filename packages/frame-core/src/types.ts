@@ -1,11 +1,11 @@
 import type { Address, Provider, RpcRequest, RpcResponse, RpcSchema } from 'ox'
 import type { AddFrame, SignIn } from './actions'
+import type { FrameContext } from './context'
 import type {
   EventFrameAdded,
   EventFrameRemoved,
   EventNotificationsDisabled,
   EventNotificationsEnabled,
-  FrameNotificationDetails,
 } from './schemas'
 
 export type SetPrimaryButtonOptions = {
@@ -18,68 +18,6 @@ export type SetPrimaryButtonOptions = {
 export type SetPrimaryButton = (options: SetPrimaryButtonOptions) => void
 
 export type EthProviderRequest = Provider.RequestFn<RpcSchema.Default>
-
-export type AccountLocation = {
-  placeId: string
-  /**
-   * Human-readable string describing the location
-   */
-  description: string
-}
-
-export type FrameLocationContextCastEmbed = {
-  type: 'cast_embed'
-  embed: string
-  cast: {
-    fid: number
-    hash: string
-  }
-}
-
-export type FrameLocationContextNotification = {
-  type: 'notification'
-  notification: {
-    notificationId: string
-    title: string
-    body: string
-  }
-}
-
-export type FrameLocationContextLauncher = {
-  type: 'launcher'
-}
-
-export type FrameLocationContext =
-  | FrameLocationContextCastEmbed
-  | FrameLocationContextNotification
-  | FrameLocationContextLauncher
-
-export type SafeAreaInsets = {
-  top: number
-  bottom: number
-  left: number
-  right: number
-}
-
-export type FrameContext = {
-  user: {
-    fid: number
-    username?: string
-    displayName?: string
-    /**
-     * Profile image URL
-     */
-    pfpUrl?: string
-    location?: AccountLocation
-  }
-  location?: FrameLocationContext
-  client: {
-    clientFid: number
-    added: boolean
-    notificationDetails?: FrameNotificationDetails
-    safeAreaInsets?: SafeAreaInsets
-  }
-}
 
 export type ReadyOptions = {
   /**
