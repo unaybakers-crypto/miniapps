@@ -36,6 +36,7 @@ export const sdk: FrameSDK = {
     setPrimaryButton: frameHost.setPrimaryButton.bind(frameHost),
     ready: frameHost.ready.bind(frameHost),
     close: frameHost.close.bind(frameHost),
+    viewProfile: frameHost.viewProfile.bind(frameHost),
     signIn: async (options) => {
       const response = await frameHost.signIn(options)
       if (response.result) {

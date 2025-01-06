@@ -5,6 +5,7 @@ import type {
   ReadyOptions,
   SetPrimaryButtonOptions,
   SignIn,
+  ViewProfile,
 } from '@farcaster/frame-core'
 import type { EventEmitter } from 'eventemitter3'
 import type { Provider } from 'ox'
@@ -50,10 +51,11 @@ export type FrameSDK = {
   actions: {
     ready: (options?: Partial<ReadyOptions>) => Promise<void>
     openUrl: (url: string) => Promise<void>
-    signIn: SignIn.SignIn
     close: () => Promise<void>
     setPrimaryButton: SetPrimaryButton
     addFrame: AddFrame.AddFrame
+    signIn: SignIn.SignIn
+    viewProfile: ViewProfile.ViewProfile
   }
   wallet: {
     ethProvider: Provider.Provider
