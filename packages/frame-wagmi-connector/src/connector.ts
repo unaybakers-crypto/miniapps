@@ -13,8 +13,6 @@ let chainChanged: Connector['onChainChanged'] | undefined
 let disconnect: Connector['onDisconnect'] | undefined
 
 export function farcasterFrame() {
-  let connected = false
-
   return createConnector<typeof FrameSDK.wallet.ethProvider>((config) => ({
     id: 'farcaster',
     name: 'Farcaster Frame',
@@ -48,8 +46,6 @@ export function farcasterFrame() {
         currentChainId = chain.id
       }
 
-      connected = true
-
       return {
         accounts: accounts.map((x) => getAddress(x)),
         chainId: currentChainId,
@@ -73,16 +69,11 @@ export function farcasterFrame() {
         provider.removeListener('disconnect', disconnect)
         disconnect = undefined
       }
-
-      connected = false
     },
     async getAccounts() {
-      if (!connected) {
-        throw new Error('Not connected')
-      }
       const provider = await this.getProvider()
       const accounts = await provider.request({
-        method: 'eth_requestAccounts',
+        method: 'eth_accounts',
       })
       return accounts.map((x) => getAddress(x))
     },
@@ -92,12 +83,12 @@ export function farcasterFrame() {
       return fromHex(hexChainId, 'number')
     },
     async isAuthorized() {
-      if (!connected) {
+      try {
+        const accounts = await this.getAccounts()
+        return !!accounts.length
+      } catch {
         return false
       }
-
-      const accounts = await this.getAccounts()
-      return !!accounts.length
     },
     async switchChain({ chainId }) {
       const provider = await this.getProvider()
@@ -134,7 +125,6 @@ export function farcasterFrame() {
     },
     async onDisconnect() {
       config.emitter.emit('disconnect')
-      connected = false
     },
     async getProvider() {
       return FrameSDK.wallet.ethProvider
