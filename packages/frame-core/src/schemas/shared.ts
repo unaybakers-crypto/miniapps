@@ -9,6 +9,13 @@ export const secureUrlSchema = z
 export const frameNameSchema = z.string().max(32)
 export const buttonTitleSchema = z.string().max(32)
 
+const CAIP_19_REGEX =
+  /^[-a-z0-9]{3,8}:[-_a-zA-Z0-9]{1,32}\/(?:[-a-z0-9]{3,8}:[-.%a-zA-Z0-9]{1,128}(?:\/[-.%a-zA-Z0-9]{1,78})?|native)$/
+
+export const caip19TokenSchema = z
+  .string()
+  .regex(CAIP_19_REGEX, { message: 'Invalid CAIP-19 asset ID' })
+
 export const hexColorSchema = z
   .string()
   .regex(/^#([0-9A-F]{3}|[0-9A-F]{6})$/i, {

@@ -1,6 +1,7 @@
 import { z } from 'zod'
 import {
   buttonTitleSchema,
+  caip19TokenSchema,
   frameNameSchema,
   hexColorSchema,
   secureUrlSchema,
@@ -14,8 +15,14 @@ export const actionLaunchFrameSchema = z.object({
   splashBackgroundColor: hexColorSchema.optional(),
 })
 
+export const actionViewTokenSchema = z.object({
+  type: z.literal('view_token'),
+  token: caip19TokenSchema,
+})
+
 export const actionSchema = z.discriminatedUnion('type', [
   actionLaunchFrameSchema,
+  actionViewTokenSchema,
 ])
 
 export const buttonSchema = z.object({
