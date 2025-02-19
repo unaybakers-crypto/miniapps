@@ -23,6 +23,8 @@ export const hexColorSchema = z
       'Invalid hex color code. It should be in the format #RRGGBB or #RGB.',
   })
 
+export const aspectRatioSchema = z.union([z.literal('1:1'), z.literal('3:2')])
+
 export const encodedJsonFarcasterSignatureSchema = z.object({
   header: z.string(),
   payload: z.string(),
