@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import {
+  aspectRatioSchema,
   buttonTitleSchema,
   caip19TokenSchema,
   frameNameSchema,
@@ -33,6 +34,7 @@ export const buttonSchema = z.object({
 export const frameEmbedNextSchema = z.object({
   version: z.literal('next'),
   imageUrl: secureUrlSchema,
+  aspectRatio: aspectRatioSchema.optional(),
   button: buttonSchema,
 })
 
