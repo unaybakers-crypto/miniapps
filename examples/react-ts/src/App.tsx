@@ -55,7 +55,7 @@ function ConnectMenu() {
 }
 
 function SignButton() {
-  const { signMessage, isPending, data } = useSignMessage()
+  const { signMessage, isPending, data, error } = useSignMessage()
 
   return (
     <>
@@ -70,6 +70,12 @@ function SignButton() {
         <>
           <div>Signature</div>
           <div>{data}</div>
+        </>
+      )}
+      {error && (
+        <>
+          <div>Error</div>
+          <div>{error.message}</div>
         </>
       )}
     </>
