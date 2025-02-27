@@ -1,9 +1,3 @@
-/**
- * @license
- * Copyright 2019 Google LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import {
   type Endpoint,
   type EventSource,
@@ -307,48 +301,60 @@ export function expose(
       path: [] as string[],
       ...(ev.data as Message),
     }
+
     const argumentList = (ev.data.argumentList || []).map(fromWireValue)
     let returnValue
     try {
-      const parent = path.slice(0, -1).reduce((obj, prop) => obj[prop], obj)
-      const rawValue = path.reduce((obj, prop) => obj[prop], obj)
       switch (type) {
         case MessageType.GET:
-          {
-            returnValue = rawValue
+          if (path[0] === 'context') {
+            returnValue = obj.context;
+          } else {
+            throw new Error(`Unsupported GET for ${path.join('/')}`)
           }
           break
+        case MessageType.APPLY: {
+          returnValue = (() => {
+            switch (path[0]) {
+              case 'close':
+                return obj.close();
+              case 'ready':
+                return obj.ready(...argumentList);
+              case 'openUrl':
+                return obj.openUrl(...argumentList);
+              case 'signIn':
+                return obj.signIn(...argumentList);
+              case 'setPrimaryButton':
+                return obj.setPrimaryButton(...argumentList);
+              case 'ethProviderRequest':
+                return obj.ethProviderRequest(...argumentList);
+              case 'ethProviderRequestV2':
+                return obj.ethProviderRequestV2(...argumentList);
+              case 'eip6963RequestProvider':
+                return obj.eip6963RequestProvider(...argumentList);
+              case 'addFrame':
+                return obj.addFrame(...argumentList);
+              case 'viewProfile':
+                return obj.viewProfile(...argumentList);
+              default:
+                throw new Error(`Unsupported APPLY for ${path.join('/')}`)
+            }
+          })()
+          break;
+        }
         case MessageType.SET:
-          break
-        case MessageType.APPLY:
-          {
-            returnValue = rawValue.apply(parent, argumentList)
-          }
-          break
+          throw new Error(`Unsupported SET for ${path.join('/')}`)
         case MessageType.CONSTRUCT:
-          {
-            const value = new rawValue(...argumentList)
-            returnValue = proxy(value)
-          }
-          break
+          throw new Error(`Unsupported CONSTRUCT for ${path.join('/')}`)
         case MessageType.ENDPOINT:
-          {
-            const { port1, port2 } = new MessageChannel()
-            expose(obj, port2)
-            returnValue = transfer(port1, [port1])
-          }
-          break
-        case MessageType.RELEASE:
-          {
-            returnValue = undefined
-          }
-          break
+          throw new Error(`Unsupported ENDPOINT for ${path.join('/')}`)
         default:
           return
       }
     } catch (value) {
       returnValue = { value, [throwMarker]: 0 }
     }
+
     Promise.resolve(returnValue)
       .catch((value) => {
         return { value, [throwMarker]: 0 }
@@ -365,7 +371,7 @@ export function expose(
           }
         }
       })
-      .catch((error) => {
+      .catch(() => {
         // Send Serialization Error To Caller
         const [wireValue, transferables] = toWireValue({
           value: new TypeError('Unserializable return value'),
@@ -500,21 +506,9 @@ function createProxy<T>(
       }
       return createProxy(ep, pendingListeners, [...path, prop])
     },
-    set(_target, prop, rawValue) {
+    set(_target) {
       throwIfProxyReleased(isProxyReleased)
-      // FIXME: ES6 Proxy Handler `set` methods are supposed to return a
-      // boolean. To show good will, we return true asynchronously ¯\_(ツ)_/¯
-      const [value, transferables] = toWireValue(rawValue)
-      return requestResponseMessage(
-        ep,
-        pendingListeners,
-        {
-          type: MessageType.SET,
-          path: [...path, prop].map((p) => p.toString()),
-          value,
-        },
-        transferables,
-      ).then(fromWireValue) as any
+      throw new Error("Unsupported call to set");
     },
     apply(_target, _thisArg, rawArgumentList) {
       throwIfProxyReleased(isProxyReleased)
@@ -540,19 +534,8 @@ function createProxy<T>(
         transferables,
       ).then(fromWireValue)
     },
-    construct(_target, rawArgumentList) {
-      throwIfProxyReleased(isProxyReleased)
-      const [argumentList, transferables] = processArguments(rawArgumentList)
-      return requestResponseMessage(
-        ep,
-        pendingListeners,
-        {
-          type: MessageType.CONSTRUCT,
-          path: path.map((p) => p.toString()),
-          argumentList,
-        },
-        transferables,
-      ).then(fromWireValue)
+    construct(_target) {
+      throw new Error("Unsupported call to construct");
     },
   })
   registerProxy(proxy, ep)
