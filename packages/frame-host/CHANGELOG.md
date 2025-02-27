@@ -1,5 +1,11 @@
 # @farcaster/frame-host
 
+## 0.0.28
+
+### Patch Changes
+
+- [#109](https://github.com/farcasterxyz/frames/pull/109) [`37a3ba2`](https://github.com/farcasterxyz/frames/commit/37a3ba26d11ae7fdf4a1a383a392ab6fb6cac4c9) Thanks [@deodad](https://github.com/deodad)! - reduce surface area exposed by comlink
+
 ## 0.0.27
 
 ### Patch Changes
