@@ -1,5 +1,4 @@
 import type { AddFrame, SignIn, Swap, ViewProfile, ViewToken } from './actions'
-import type { Ethereum } from './wallet'
 import type { FrameContext } from './context'
 import type {
   EventFrameAdded,
@@ -7,6 +6,7 @@ import type {
   EventNotificationsDisabled,
   EventNotificationsEnabled,
 } from './schemas'
+import type { Ethereum } from './wallet'
 
 export type SetPrimaryButtonOptions = {
   text: string
