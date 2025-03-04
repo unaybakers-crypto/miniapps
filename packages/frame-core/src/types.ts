@@ -1,5 +1,5 @@
-import type { Address, Provider, RpcRequest, RpcResponse, RpcSchema } from 'ox'
 import type { AddFrame, SignIn, Swap, ViewProfile, ViewToken } from './actions'
+import type { Ethereum } from './wallet'
 import type { FrameContext } from './context'
 import type {
   EventFrameAdded,
@@ -15,9 +15,10 @@ export type SetPrimaryButtonOptions = {
   hidden?: boolean
 }
 
-export type SetPrimaryButton = (options: SetPrimaryButtonOptions) => void
+// re-exported for backwards compat, remove in 1.0
+export * from './wallet/ethereum'
 
-export type EthProviderRequest = Provider.RequestFn<RpcSchema.Default>
+export type SetPrimaryButton = (options: SetPrimaryButtonOptions) => void
 
 export type ReadyOptions = {
   /**
@@ -59,8 +60,8 @@ export type WireFrameHost = {
   openUrl: (url: string) => void
   signIn: SignIn.WireSignIn
   setPrimaryButton: SetPrimaryButton
-  ethProviderRequest: EthProviderRequest
-  ethProviderRequestV2: RpcTransport
+  ethProviderRequest: Ethereum.EthProvideRequest
+  ethProviderRequestV2: Ethereum.RpcTransport
   eip6963RequestProvider: () => void
   addFrame: AddFrame.WireAddFrame
   viewProfile: ViewProfile.ViewProfile
@@ -75,8 +76,8 @@ export type FrameHost = {
   openUrl: (url: string) => void
   signIn: SignIn.SignIn
   setPrimaryButton: SetPrimaryButton
-  ethProviderRequest: EthProviderRequest
-  ethProviderRequestV2: RpcTransport
+  ethProviderRequest: Ethereum.EthProvideRequest
+  ethProviderRequestV2: Ethereum.RpcTransport
   /**
    * Receive forwarded eip6963:requestProvider events from the frame document.
    * Hosts must emit an EventEip6963AnnounceProvider in response.
@@ -88,47 +89,6 @@ export type FrameHost = {
   swap: Swap.Swap
 }
 
-export type FrameEthProviderEventData = {
-  type: 'frame_eth_provider_event'
-} & EthProviderWireEvent
-
-export type RpcTransport = (
-  request: RpcRequest.RpcRequest,
-) => Promise<RpcResponse.RpcResponse>
-
-export type ProviderRpcError = {
-  code: number
-  details?: string
-  message?: string
-}
-
-export type EthProviderWireEvent =
-  | {
-      event: 'accountsChanged'
-      params: [readonly Address.Address[]]
-    }
-  | {
-      event: 'chainChanged'
-      params: [string]
-    }
-  | {
-      event: 'connect'
-      params: [Provider.ConnectInfo]
-    }
-  | {
-      event: 'disconnect'
-      params: [ProviderRpcError]
-    }
-  | {
-      event: 'message'
-      params: [Provider.Message]
-    }
-
-export type EmitEthProvider = <event extends EthProviderWireEvent['event']>(
-  event: event,
-  params: Extract<EthProviderWireEvent, { event: event }>['params'],
-) => void
-
 export type EventFrameAddRejected = {
   event: 'frame_add_rejected'
   reason: AddFrame.AddFrameRejectedReason
@@ -138,21 +98,6 @@ export type EventPrimaryButtonClicked = {
   event: 'primary_button_clicked'
 }
 
-/**
- * Metadata of the EIP-1193 Provider.
- */
-export interface EIP6963ProviderInfo {
-  icon: `data:image/${string}` // RFC-2397
-  name: string
-  rdns: string
-  uuid: string
-}
-
-export type EventEip6963AnnounceProvider = {
-  event: 'eip6963:announceProvider'
-  info: EIP6963ProviderInfo
-}
-
 export type FrameClientEvent =
   | EventFrameAdded
   | EventFrameAddRejected
@@ -160,4 +105,4 @@ export type FrameClientEvent =
   | EventNotificationsEnabled
   | EventNotificationsDisabled
   | EventPrimaryButtonClicked
-  | EventEip6963AnnounceProvider
+  | Ethereum.EventEip6963AnnounceProvider
