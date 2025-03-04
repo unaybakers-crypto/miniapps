@@ -34,25 +34,6 @@ export const DEFAULT_READY_OPTIONS: ReadyOptions = {
   disableNativeGestures: false,
 }
 
-export type SignInOptions = {
-  /**
-   * A random string used to prevent replay attacks.
-   */
-  nonce: string
-
-  /**
-   * Start time at which the signature becomes valid.
-   * ISO 8601 datetime.
-   */
-  notBefore?: string
-
-  /**
-   * Expiration time at which the signature is no longer valid.
-   * ISO 8601 datetime.
-   */
-  expirationTime?: string
-}
-
 export type WireFrameHost = {
   context: FrameContext
   close: () => void
