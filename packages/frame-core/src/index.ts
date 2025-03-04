@@ -1,4 +1,5 @@
 export * from './actions'
+export * from './wallet'
 export * as Context from './context'
 export * from './types'
 export * from './schemas'

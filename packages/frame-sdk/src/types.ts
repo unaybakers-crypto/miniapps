@@ -2,7 +2,7 @@ import type {
   AddFrame,
   Context,
   FrameNotificationDetails,
-  ReadyOptions,
+  Ready,
   SetPrimaryButtonOptions,
   SignIn,
   Swap,
@@ -51,7 +51,7 @@ type SetPrimaryButton = (options: SetPrimaryButtonOptions) => Promise<void>
 export type FrameSDK = {
   context: Promise<Context.FrameContext>
   actions: {
-    ready: (options?: Partial<ReadyOptions>) => Promise<void>
+    ready: (options?: Partial<Ready.ReadyOptions>) => Promise<void>
     openUrl: (url: string) => Promise<void>
     close: () => Promise<void>
     setPrimaryButton: SetPrimaryButton
