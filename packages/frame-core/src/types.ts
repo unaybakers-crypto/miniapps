@@ -15,8 +15,10 @@ export type SetPrimaryButtonOptions = {
   hidden?: boolean
 }
 
-// re-exported for backwards compat, remove in 1.0
+// start backwards compat, remove in 1.0
 export * from './wallet/ethereum'
+export type SignInOptions = SignIn.SignInOptions
+// end backwards compat
 
 export type SetPrimaryButton = (options: SetPrimaryButtonOptions) => void
 
