@@ -1,4 +1,11 @@
-import type { AddFrame, SignIn, Swap, ViewProfile, ViewToken } from './actions'
+import type {
+  AddFrame,
+  Ready,
+  SignIn,
+  Swap,
+  ViewProfile,
+  ViewToken,
+} from './actions'
 import type { FrameContext } from './context'
 import type {
   EventFrameAdded,
@@ -17,29 +24,16 @@ export type SetPrimaryButtonOptions = {
 
 // start backwards compat, remove in 1.0
 export * from './wallet/ethereum'
+export * from './actions/Ready'
 export type SignInOptions = SignIn.SignInOptions
 // end backwards compat
 
 export type SetPrimaryButton = (options: SetPrimaryButtonOptions) => void
 
-export type ReadyOptions = {
-  /**
-   * Disable native gestures. Use this option if your frame uses gestures
-   * that conflict with native gestures.
-   *
-   * @defaultValue false
-   */
-  disableNativeGestures: boolean
-}
-
-export const DEFAULT_READY_OPTIONS: ReadyOptions = {
-  disableNativeGestures: false,
-}
-
 export type WireFrameHost = {
   context: FrameContext
   close: () => void
-  ready: (options?: Partial<ReadyOptions>) => void
+  ready: Ready.Ready
   openUrl: (url: string) => void
   signIn: SignIn.WireSignIn
   setPrimaryButton: SetPrimaryButton
@@ -55,7 +49,7 @@ export type WireFrameHost = {
 export type FrameHost = {
   context: FrameContext
   close: () => void
-  ready: (options?: Partial<ReadyOptions>) => void
+  ready: Ready.Ready
   openUrl: (url: string) => void
   signIn: SignIn.SignIn
   setPrimaryButton: SetPrimaryButton
