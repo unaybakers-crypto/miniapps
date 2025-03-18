@@ -1,6 +1,10 @@
 <br>
 
 <p align="center">
+  Build onchain social apps
+<p>
+
+<p align="center">
   <a href="https://www.npmjs.com/package/@farcaster/frame-sdk">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="https://img.shields.io/npm/v/@farcaster/frame-sdk?colorA=21262d&colorB=21262d">
