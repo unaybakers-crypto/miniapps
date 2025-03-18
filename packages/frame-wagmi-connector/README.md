@@ -1,16 +1,14 @@
-# Frame Wagmi Connector
+# @farcaster/frame-wagmi-connector
 
-A [Wagmi connector](https://wagmi.sh/) for interacting with wallets in Farcaster Frames.
+A [Wagmi connector](https://wagmi.sh/) for interacting with wallets in Frames.
 
 
-## Install
+## Installation
 
 [Install and setup wagmi](https://wagmi.sh/react/getting-started#manual-installation).
 
-Install the connector:
-
-```
-npm install wagmi @farcaster/frame-wagmi-connector
+```bash
+pnpm add @farcaster/frame-wagmi-connector
 ```
 
 ## Usage
