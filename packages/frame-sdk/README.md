@@ -1,13 +1,11 @@
-# Frame SDK
+# @farcaster/frame-sdk
 
-Not yet stable. [Learn more](https://github.com/farcasterxyz/frames/wiki/frames-v2-developer-playground-preview).
+Build onchain social apps
 
-## Install
+## Installation
 
-Install using your favorite manager:
-
-```
-npm install @farcaster/frame-sdk
+```bash
+pnpm add @farcaster/frame-sdk
 ```
 
 Or include via a CDN and access via `frame`:
@@ -18,3 +16,9 @@ Or include via a CDN and access via `frame`:
   frame.sdk.actions.ready();
 </script>
 ```
+
+## Documentation
+
+For documentation and guides, visit [docs.farcaster.xyz](https://docs.farcaster.xyz/developers/frames/v2/).
+
+
