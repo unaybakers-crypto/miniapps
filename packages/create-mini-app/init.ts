@@ -8,7 +8,7 @@ export type InitParameters = { name: string }
 export async function init(params: InitParameters) {
   intro('Welcome to Farcaster Mini Apps!')
 
-  const templateDir = resolve(__dirname, '../templates/default')
+  const templateDir = resolve(import.meta.dirname, '../templates/default')
 
   const displayName =
     params.name ||

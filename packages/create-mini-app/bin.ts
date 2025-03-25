@@ -1,7 +1,9 @@
 #!/usr/bin/env node
+import { createRequire } from 'node:module'
 import { cac } from 'cac'
 import { type InitParameters, init } from './init.js'
 
+const require = createRequire(import.meta.url)
 const pkg = require('../package.json')
 
 const cli = cac('create-vocs')
