@@ -1,6 +1,6 @@
 {
   "name": "@farcaster/create-mini-app",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Create Farcaster Mini Apps with one command",
   "main": "index.js",
   "bin": {
@@ -22,7 +22,7 @@
   },
   "devDependencies": {
     "@farcaster/tsconfig": "workspace:*",
-    "@types/fs-extra": "^11.0.4",
+    "@types/fs-extra": "^11.0.4"
   },
   "dependencies": {
     "@clack/prompts": "^0.10.0",
