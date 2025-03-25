@@ -1,5 +1,11 @@
 # @farcaster/create-mini-app
 
+## 0.0.5
+
+### Patch Changes
+
+- [#140](https://github.com/farcasterxyz/frames/pull/140) [`5450e82`](https://github.com/farcasterxyz/frames/commit/5450e8238e1a257938fb197754535692cda54ca9) Thanks [@deodad](https://github.com/deodad)! - converted to esm
+
 ## 0.0.4
 
 ### Patch Changes
