@@ -1,0 +1,35 @@
+{
+  "name": "@farcaster/create-mini-app",
+  "version": "0.0.1",
+  "description": "Create Farcaster Mini Apps with one command",
+  "main": "index.js",
+  "bin": {
+    "create-mini-app": "./dist/bin.js"
+  },
+  "keywords": [
+    "farcaster",
+    "mini-apps",
+    "mini apps",
+    "web3",
+    "cli"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "build": "pnpm run clean && tsc --project tsconfig.build.json",
+    "check:types": "tsc --noEmit",
+    "clean": "rm -rf dist tsconfig.tsbuildinfo",
+    "dev": "pnpm run src/cli.ts"
+  },
+  "devDependencies": {
+    "@clack/prompts": "^0.10.0",
+    "@farcaster/tsconfig": "workspace:*",
+    "@types/fs-extra": "^11.0.4",
+    "cac": "^6.7.14",
+    "detect-package-manager": "^3.0.2",
+    "fs-extra": "^11.3.0",
+    "picocolors": "^1.1.1"
+  },
+  "dependencies": {
+    "@farcaster/frame-wagmi-connector": "workspace:*"
+  }
+}
