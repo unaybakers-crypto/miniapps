@@ -4,6 +4,10 @@
       "entry": "src/index.ts",
       "project": "**/*.ts"
     },
+    "packages/create-mini-app": {
+      "entry": ["index.ts", "bin.ts"],
+      "project": "**/*.ts"
+    },
     "packages/frame-host": {
       "entry": "src/index.ts",
       "project": "**/*.ts",

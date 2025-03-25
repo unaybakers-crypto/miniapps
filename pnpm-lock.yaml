@@ -124,9 +124,6 @@ importers:
       cac:
         specifier: ^6.7.14
         version: 6.7.14
-      detect-package-manager:
-        specifier: ^3.0.2
-        version: 3.0.2
       fs-extra:
         specifier: ^11.3.0
         version: 11.3.0
