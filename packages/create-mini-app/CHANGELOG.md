@@ -1,5 +1,11 @@
 # @farcaster/create-mini-app
 
+## 0.0.4
+
+### Patch Changes
+
+- [`34563f5`](https://github.com/farcasterxyz/frames/commit/34563f5944b063912b65ff5fe424149ef9341809) Thanks [@deodad](https://github.com/deodad)! - removed unneeded buffer polyfill
+
 ## 0.0.3
 
 ### Patch Changes
