@@ -118,19 +118,9 @@ importers:
 
   packages/create-mini-app:
     dependencies:
-      '@farcaster/frame-wagmi-connector':
-        specifier: workspace:*
-        version: link:../frame-wagmi-connector
-    devDependencies:
       '@clack/prompts':
         specifier: ^0.10.0
         version: 0.10.0
-      '@farcaster/tsconfig':
-        specifier: workspace:*
-        version: link:../tsconfig
-      '@types/fs-extra':
-        specifier: ^11.0.4
-        version: 11.0.4
       cac:
         specifier: ^6.7.14
         version: 6.7.14
@@ -143,6 +133,13 @@ importers:
       picocolors:
         specifier: ^1.1.1
         version: 1.1.1
+    devDependencies:
+      '@farcaster/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
+      '@types/fs-extra':
+        specifier: ^11.0.4
+        version: 11.0.4
 
   packages/frame-core:
     dependencies:

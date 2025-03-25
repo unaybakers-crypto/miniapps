@@ -3,6 +3,7 @@
   "version": "0.0.4",
   "description": "Create Farcaster Mini Apps with one command",
   "main": "index.js",
+  "type": "module",
   "bin": {
     "create-mini-app": "./dist/bin.js"
   },
