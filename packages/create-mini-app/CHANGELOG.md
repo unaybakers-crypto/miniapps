@@ -1,5 +1,11 @@
 # @farcaster/create-mini-app
 
+## 0.0.7
+
+### Patch Changes
+
+- [`79e0b7a`](https://github.com/farcasterxyz/frames/commit/79e0b7aed34a9623aaace90677eafda8e4e1f09c) Thanks [@deodad](https://github.com/deodad)! - fixed lint warnings
+
 ## 0.0.6
 
 ### Patch Changes
