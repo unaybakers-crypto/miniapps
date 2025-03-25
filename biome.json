@@ -6,6 +6,7 @@
       "tsconfig.*.json",
       "packages/tsconfig",
       "frame-host/src/comlink",
+      "packages/create-mini-app/templates",
       "package.json"
     ]
   },
