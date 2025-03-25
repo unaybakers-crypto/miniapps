@@ -5,11 +5,11 @@ Get up and running quickly with [Mini Apps](https://miniapps.xyz) by using the `
 ## Installation
 
 ```bash
-npm create @farcaster/create-mini-app
+npm create @farcaster/mini-app
 # or
-pnpm create @farcaster/create-mini-app
+pnpm create @farcaster/mini-app
 # or
-yarn create @farcaster/create-mini-app
+yarn create @farcaster/mini-app
 ```
 
 ## Documentation
