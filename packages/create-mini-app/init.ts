@@ -1,5 +1,6 @@
 import { resolve } from 'node:path'
-import { intro, log, outro, text } from '@clack/prompts'
+import { intro, log, outro, select, text } from '@clack/prompts'
+import { init as initNeynar } from '@neynar/create-farcaster-mini-app'
 import { default as fs } from 'fs-extra'
 import pc from 'picocolors'
 
@@ -7,6 +8,25 @@ export type InitParameters = { name: string }
 
 export async function init(params: InitParameters) {
   intro('Welcome to Farcaster Mini Apps!')
+
+  const projectType = await select({
+    message: 'Select a template:',
+    options: [
+      {
+        value: 'basic',
+        label: 'Basic static site (Vite + TS + React + Wagmi)',
+      },
+      {
+        value: 'neynar',
+        label: 'Fully featured with Neynar integration (Next)',
+      },
+    ],
+  })
+
+  if (projectType === 'neynar') {
+    await initNeynar()
+    return
+  }
 
   const templateDir = resolve(import.meta.dirname, '../templates/default')
 
@@ -52,7 +72,7 @@ export async function init(params: InitParameters) {
   )
   log.step(`4. Head to ${pc.blue('http://localhost:5173')}`)
 
-  outro('Happy documenting! 📝')
+  outro('Happy Mini App building!')
 }
 
 type PackageManager = 'npm' | 'yarn' | 'pnpm' | 'bun'
