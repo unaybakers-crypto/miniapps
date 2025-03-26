@@ -6,6 +6,8 @@ The `/.well-known/farcaster.json` is served from the [public
 directory](https://vite.dev/guide/assets) and can be updated by editing
 `./public/.well-known/farcaster.json`.
 
+You can also use the `public` directory to serve a static image for `splashBackgroundImageUrl`.
+
 ## Frame Embed
 
 Add a the `fc:frame` in `index.html` to make your root app URL sharable in feeds:
