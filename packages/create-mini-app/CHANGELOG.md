@@ -1,5 +1,11 @@
 # @farcaster/create-mini-app
 
+## 0.0.8
+
+### Patch Changes
+
+- [#143](https://github.com/farcasterxyz/frames/pull/143) [`9253759`](https://github.com/farcasterxyz/frames/commit/925375929d1ee9f7ab7b70df95222624f0fded9a) Thanks [@deodad](https://github.com/deodad)! - Added sections on farcaster.json and Frame Embed to README
+
 ## 0.0.7
 
 ### Patch Changes
