@@ -5,6 +5,7 @@
 ### Patch Changes
 
 - [#143](https://github.com/farcasterxyz/frames/pull/143) [`9253759`](https://github.com/farcasterxyz/frames/commit/925375929d1ee9f7ab7b70df95222624f0fded9a) Thanks [@deodad](https://github.com/deodad)! - Added sections on farcaster.json and Frame Embed to README
+- [#144](https://github.com/farcasterxyz/frames/pull/144) [`3a9178b`](https://github.com/farcasterxyz/frames/commit/3a9178b14585acdf3158577101e0eed45f8513bc) Thanks [@deodad](https://github.com/deodad)! - added support for @neynar/create-farcaster-mini-app
 
 ## 0.0.7
 
