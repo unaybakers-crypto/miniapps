@@ -1,0 +1,57 @@
+---
+title: signIn
+description: Sign in the user with Farcaster.
+---
+
+import { Caption } from '../../../components/Caption';
+
+# signIn
+
+Sign in the user using [Sign In with Farcaster](https://github.com/farcasterxyz/protocol/discussions/110).
+
+![signing in a user](/sign_in_preview.png)
+
+<Caption>
+  A users opens an app and is automatically signed in
+</Caption>
+
+## Usage
+
+```ts twoslash
+/**
+ * Cryptographically secure nonce generated on the server and associated with
+ * the user's session.
+ */ 
+const nonce = 'securenonce';
+
+// ---cut---
+import { sdk } from '@farcaster/frame-sdk'
+
+await sdk.actions.signIn({ 
+  nonce 
+})
+```
+
+## Parameters
+
+### nonce
+
+- **Type:** `string`
+
+A random string used to prevent replay attacks, at least 8 alphanumeric
+characters.
+
+## Return Value
+
+The SIWF message and signature.
+
+```
+type SignInResult = {
+  signature: string;
+  message: string;
+}
+```
+
+This message should be verified using
+[verifySignInMessage](https://docs.farcaster.xyz/aut-kit/client/app/verify-sign-in-message#verifysigninmessage)
+from `@farcaster/auth-kit`.

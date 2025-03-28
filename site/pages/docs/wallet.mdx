@@ -1,1 +1,24 @@
+---
+title: Wallet
+description: Interact with the users wallet
+---
+
+import { Caption } from '../../components/Caption';
+
 # Wallet
+
+![users taking onchain action from app](/transaction-preview.png)
+
+<Caption>
+  A user minting an NFT using the Warpcast Wallet.
+</Caption>
+
+The SDK exposes an [EIP-1193 Ethereum Provider
+](https://eips.ethereum.org/EIPS/eip-1193) at `sdk.wallet.ethProvider`. You can
+interact with this object directly or use it with ecosystem tools like
+[Wagmi](https://wagmi.sh/) or [Ethers](https://docs.ethers.org/v6/).
+
+For more information:
+- [EIP-1193 Ethereum Provider API](https://eips.ethereum.org/EIPS/eip-1193)
+- [Guide on interacting with wallets](/docs/guides/wallets)
+

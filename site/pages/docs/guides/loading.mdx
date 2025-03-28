@@ -1,0 +1,52 @@
+---
+title: Loading your app
+section_title: Guide
+---
+
+import { Caption } from '../../../components/Caption';
+
+# Loading your app
+
+When users open Mini Apps in Farcaster they are shown a branded splash screen
+instead of a blank loading page like they would in a browser. Once your interface
+is ready to show the splash screen can be hidden.
+
+![calling ready to hide the splash screen](/ready_preview.png)
+
+<Caption>
+  Dismiss the Splash Screen with ready.
+</Caption>
+
+
+## Calling ready
+
+Call [ready](/docs/actions/ready) when your interface is ready to be displayed:
+
+```ts twoslash
+import { sdk } from '@farcaster/frame-sdk'
+
+await sdk.actions.ready();
+```
+
+To make the animation smooth it's generally recommended to wait until all the
+elements in your interface are loaded before calling ready. This will avoid a
+jarring effect where the user sees a cascade of loading screens.
+
+
+### Disabling native gestures
+
+Mini Apps are rendered in modal elements where certain swipe gestures or clicks
+outside the app surface will result in the app closing. If your app has conflicting 
+gestures you can use this option to disable these native gestures.
+
+
+## Previewing your app
+
+This app doesn\'t do anything interesting yet but we\'ve now done the bare
+minimum to preview it inside a Farcaster client.
+
+Let's preview it in Warpcast:
+1. Open the [Mini App Debug Tool](https://warpcast.com/~/developers/mini-apps/debug)
+on desktop
+2. Enter your app url
+3. Hit _Preview_

@@ -8,13 +8,16 @@
     "preview": "vocs preview"
   },
   "dependencies": {
+    "@farcaster/frame-core": "workspace:*",
+    "@farcaster/frame-node": "workspace:*",
+    "@farcaster/frame-sdk": "workspace:*",
+    "@farcaster/frame-wagmi-connector": "workspace:*",
     "react": "latest",
     "react-dom": "latest",
-    "vocs": "latest"
+    "vocs": "latest",
+    "wagmi": "^2.14.12"
   },
   "devDependencies": {
-    "@farcaster/frame-core": "workspace:*",
-    "@farcaster/frame-sdk": "workspace:*",
     "@types/react": "latest",
     "typescript": "latest"
   }

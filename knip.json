@@ -17,7 +17,14 @@
       "entry": ["src/main.ts", "frame/index.ts"]
     },
     "site": {
-      "ignoreDependencies": ["@farcaster/frame-core", "@farcaster/frame-sdk"],
+      "ignoreDependencies": [
+        "@farcaster/frame-core",
+        "@farcaster/frame-sdk",
+        "@farcaster/frame-node",
+        "@farcaster/frame-wagmi-connector",
+        "wagmi"
+      ],
+      "project": "**/*.mdx",
       "ignore": ["vocs.config.ts"]
     }
   }

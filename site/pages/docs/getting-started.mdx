@@ -1,19 +1,51 @@
+---
+title: Getting Started
+section_title: Guide
+description: Get started building Mini Apps
+---
+
 # Getting Started
+
+import { Caption } from '../../components/Caption';
 
 ## Overview
 
-Frames are web apps built with HTML, CSS, and JavaScript that use the Frames
-SDK to integrate natively within a Farcaster client.
+Mini apps are web apps built with HTML, CSS, and Javascript that can be discovered
+and used within Farcaster clients. You can use an SDK to access native
+Farcaster features, like authentication, sending notifications, and interacting
+with the user's wallet. 
 
-You can use your favorite web framework for developing a Frame. 
+
+## Quick Start
+
+For new projects, you can set up an app using the
+[@farcaster/create-mini-app](https://github.com/farcasterxyz/frames/tree/main/packages/create-mini-app)
+CLI. This will prompt you to set up a project for your app.
+
+:::code-group
+
+```bash [npm]
+npm create @farcaster/mini-app
+```
+
+```bash [pnpm]
+pnpm add @farcaster/mini-app
+```
+
+```bash [yarn]
+yarn add @farcaster/mini-app
+```
+:::
+
+Remember, you can use whatever your favorite web framework is to build Mini
+Apps so if these options aren't appealing you can setup the SDK in your own
+project by following the instructions below.
 
 
-In this guide we'll use [Vite](https://vitejs.dev) and
-[React](https://react.dev).
+## Manual Setup
 
-## Installation
+For existing projects, install the Frames SDK:
 
-Install the Frames SDK into your project.
 
 ### Package Manager
 
@@ -33,6 +65,7 @@ yarn add @farcaster/frame-sdk
 
 :::
 
+
 ### CDN
 
 If you're not using a package manager, you can also use the Frame SDK via an
@@ -45,31 +78,41 @@ the bottom of your HTML file with the following content.
 </script>
 ```
 
-## Calling ready
 
-When a user launches a frame, a splash screen is shown (more on this later) to
-the user until the application signals that it's ready to be shown to the user:
+## Building with AI
 
-```ts twoslash
-import { sdk } from '@farcaster/frame-sdk'
+These docs are LLM friendly so that you use the latest models to build your
+applications.
 
-// ---cut---
-await sdk.actions.ready();
-```
+1. Use the Ask in ChatGPT buttons available on each page to interact with the
+documentation.
 
-## Previewing your frame
+<video autoPlay muted playsInline loop>
+  <source src="/ask_in_chatgpt.mp4" type="video/mp4" />
+  Your browser does not support the video tag.
+</video>
 
-There is a lot you can do to make an engaging social application but this is
-minimum you need to do to turn your application into a frame.
+2. Use the <a class="vocs_Anchor vocs_Link vocs_Link_accent" href="/llms-full.txt">llms-full.txt</a> to keep your LLM up to date with these docs:
 
-Let's preview it in Warpcast:
+<picture>
+  <img alt="setup mini app docs in cursor" src="/cursor-setup.png" width="auto" />
+</picture>
 
-1. Open the [Warpcast Frame Developer Tools](https://warpcast.com/~/developers/frames) on desktop
-2. Enter your web app url in _Frame URL_ in the **Preview Frame** tool
-3. Hit _Preview_
+<br/>
 
+<Caption>
+  Adding the Mini App docs to Cursor
+</Caption>
 
-## Verifying your frame
+### How does this work?
 
-TODO
+This entire site is converted into a single markdown doc that can fit inside
+the context window of most LLMs. See [The /llms.txt file](https://llmstxt.org/)
+standards proposal for more information.
+
+## Next Steps
+
+You'll need to do a few more things before distributing your app to users:
+1. publish the app by providing information about who created it and how it should displayed
+2. make it sharable in feeds
 
