@@ -3,8 +3,8 @@
 <p align="center">
   <a href="https://miniapps.farcaster.xyz">
       <picture>
-        <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/farcasterxyz/frames/main/.github/gh-logo-dark.svg">
-        <img alt="farcaster frames logo" src="https://raw.githubusercontent.com/farcasterxyz/frames/main/.github/gh-logo-light.svg" width="auto" height="30">
+        <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/farcasterxyz/miniapps/main/.github/gh-logo-dark.svg">
+        <img alt="farcaster mini apps logo" src="https://raw.githubusercontent.com/farcasterxyz/miniapps/main/.github/gh-logo-light.svg" width="auto" height="30">
       </picture>
   </a>
 </p>
@@ -44,7 +44,7 @@ For documentation and guides, visit [miniapps.farcaster.xyz](https://miniapps.fa
 
 For fast, casual conversations:
 
-[Join the Frames Developer Chat on Warpcast](https://warpcast.com/~/group/X2P7HNc4PHTriCssYHNcmQ)
+[Join the Mini Apps Developer Chat on Warpcast](https://warpcast.com/~/group/X2P7HNc4PHTriCssYHNcmQ)
 
 For slow, formal conversations that would benefit from being searchable:
 
