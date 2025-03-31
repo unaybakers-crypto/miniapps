@@ -40,11 +40,6 @@ export type EthProviderWireEvent =
       params: [Provider.Message]
     }
 
-export type EmitEthProvider = <event extends EthProviderWireEvent['event']>(
-  event: event,
-  params: Extract<EthProviderWireEvent, { event: event }>['params'],
-) => void
-
 /**
  * Metadata of the EIP-1193 Provider.
  */

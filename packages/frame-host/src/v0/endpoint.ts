@@ -1,9 +1,8 @@
 import type { FrameHost } from '@farcaster/frame-core'
-import type { Provider } from 'ox'
+import type { Provider as EthProvider } from 'ox'
 import { useEffect } from 'react'
-import * as Comlink from '../comlink'
-import type { HostEndpoint } from '../types'
-import { forwardProviderEvents, wrapProviderRequest } from './provider'
+import * as Comlink from './comlink'
+import { wrapProviderRequest } from './provider'
 import { wrapHandlers } from './sdk'
 
 /**
@@ -16,29 +15,22 @@ export function exposeToEndpoint({
   ethProvider,
   debug = false,
 }: {
-  endpoint: HostEndpoint
+  endpoint: Comlink.Endpoint
   sdk: Omit<FrameHost, 'ethProviderRequestV2'>
   frameOrigin: string
-  ethProvider?: Provider.Provider
+  ethProvider?: EthProvider.Provider
   debug?: boolean
 }) {
   const extendedSdk = wrapHandlers(sdk as FrameHost)
 
-  let cleanup: (() => void) | undefined
   if (ethProvider) {
     extendedSdk.ethProviderRequestV2 = wrapProviderRequest({
       provider: ethProvider,
       debug,
     })
-    cleanup = forwardProviderEvents({ provider: ethProvider, endpoint })
   }
 
-  const unexpose = Comlink.expose(extendedSdk, endpoint, [frameOrigin])
-
-  return () => {
-    cleanup?.()
-    unexpose()
-  }
+  return Comlink.expose(extendedSdk, endpoint, [frameOrigin])
 }
 
 export function useExposeToEndpoint({
@@ -48,10 +40,10 @@ export function useExposeToEndpoint({
   ethProvider,
   debug = false,
 }: {
-  endpoint: HostEndpoint | undefined
+  endpoint: Comlink.Endpoint | undefined
   sdk: Omit<FrameHost, 'ethProviderRequestV2'>
   frameOrigin: string
-  ethProvider?: Provider.Provider
+  ethProvider?: EthProvider.Provider
   debug?: boolean
 }) {
   useEffect(() => {

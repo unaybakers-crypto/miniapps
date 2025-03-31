@@ -1,12 +1,11 @@
-import type { HostEndpoint } from '@farcaster/frame-host'
-
+import type { Channel } from '@farcaster/frame-core'
 import type { RefObject } from 'react'
 import type WebView from 'react-native-webview'
 import type { WebViewMessageEvent } from 'react-native-webview'
 
 export const SYMBOL_IGNORING_RPC_RESPONSE_ERROR: symbol = Symbol()
 
-export type WebViewEndpoint = HostEndpoint & {
+export type WebViewEndpoint = Channel.Endpoint & {
   /**
    * Manually distribute events to listeners as an alternative to `document.addEventHandler` which is unavailable in React Native.
    */

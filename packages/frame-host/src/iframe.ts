@@ -1,8 +1,12 @@
-import type { FrameHost } from '@farcaster/frame-core'
+import type { Channel, FrameHost } from '@farcaster/frame-core'
 import type { Provider } from 'ox'
-import * as Comlink from './comlink'
-import { exposeToEndpoint } from './helpers/endpoint'
-import type { HostEndpoint } from './types'
+import { exposeProvider } from './appProvider'
+import { createChannel } from './channel'
+import { exposeProvider as exposeEthProvider } from './ethProvider'
+import { fromHost } from './host'
+import { exposeToEndpoint } from './v0/endpoint'
+import { wrapProviderRequest } from './v0/provider'
+import { wrapHandlers } from './v0/sdk'
 
 /**
  * An endpoint of communicating with an iFrame
@@ -10,40 +14,16 @@ import type { HostEndpoint } from './types'
 export function createIframeEndpoint({
   iframe,
   targetOrigin,
-  debug = true,
 }: {
   iframe: HTMLIFrameElement
   targetOrigin: string
-  debug?: boolean
-}): HostEndpoint {
+}): Channel.Endpoint {
   return {
-    // when is contentWindow null
-    ...Comlink.windowEndpoint(iframe.contentWindow!),
-    emit: (event) => {
-      if (debug) {
-        console.debug('frameEvent', event)
-      }
-
-      const wireEvent = {
-        type: 'frameEvent',
-        event,
-      }
-
-      iframe.contentWindow?.postMessage(wireEvent, targetOrigin)
+    postMessage: (msg: unknown) => {
+      iframe.contentWindow?.postMessage(msg, targetOrigin)
     },
-    emitEthProvider: (event, params) => {
-      if (debug) {
-        console.debug('fc:emitEthProvider', event, params)
-      }
-
-      const wireEvent = {
-        type: 'frameEthProviderEvent',
-        event,
-        params,
-      }
-
-      iframe.contentWindow?.postMessage(wireEvent, targetOrigin)
-    },
+    addEventListener: window.addEventListener.bind(window),
+    removeEventListener: window.removeEventListener.bind(window),
   }
 }
 
@@ -63,9 +43,10 @@ export function exposeToIframe({
   const endpoint = createIframeEndpoint({
     iframe,
     targetOrigin: frameOrigin,
-    debug,
   })
-  const cleanup = exposeToEndpoint({
+
+  // support for < 1.0 frame-sdk
+  const comlinkCleanup = exposeToEndpoint({
     endpoint,
     sdk,
     ethProvider,
@@ -73,8 +54,41 @@ export function exposeToIframe({
     debug,
   })
 
+  // support for < 1.0 frame-sdk
+  const extendedSdk = wrapHandlers(sdk as FrameHost)
+  if (ethProvider) {
+    extendedSdk.ethProviderRequestV2 = wrapProviderRequest({
+      provider: ethProvider,
+      debug,
+    })
+  }
+
+  const channel = createChannel({ endpoint, frameOrigin })
+  const unexposeEthProvider = (() => {
+    if (ethProvider) {
+      return exposeEthProvider({
+        channel,
+        provider: ethProvider,
+      })
+    }
+  })()
+
+  // adapt from 1.0 frame-sdk, might be a better way to do this
+  const frameProvider = fromHost({
+    host: extendedSdk,
+  })
+
+  const unexposeProvider = exposeProvider({
+    channel,
+    frameProvider,
+  })
+
   return {
     endpoint,
-    cleanup,
+    cleanup: () => {
+      unexposeProvider()
+      unexposeEthProvider?.()
+      comlinkCleanup()
+    },
   }
 }

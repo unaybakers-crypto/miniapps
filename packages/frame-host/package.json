@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "@farcaster/frame-core": "workspace:*",
+    "eventemitter3": "^5.0.1",
     "ox": "^0.4.4"
   },
   "peerDependencies": {

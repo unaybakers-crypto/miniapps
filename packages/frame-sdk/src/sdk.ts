@@ -1,40 +1,71 @@
-import { AddFrame, type FrameClientEvent, SignIn } from '@farcaster/frame-core'
-import { EventEmitter } from 'eventemitter3'
+import {
+  Add,
+  AddFrame,
+  type FrameClientEvent,
+  JsonRpc,
+  Provider,
+  Ready,
+  SignIn,
+} from '@farcaster/frame-core'
+import { channel } from './channel'
+import * as EthProvider from './ethProvider'
 import { frameHost } from './frameHost'
-import { provider } from './provider'
-import type { Emitter, EventMap, FrameSDK } from './types'
+import type { FrameSDK } from './types'
 
-export function createEmitter(): Emitter {
-  const emitter = new EventEmitter<EventMap>()
+const pendingRequestCallbacks: Record<string, (response: never) => void> = {}
 
-  return {
-    get eventNames() {
-      return emitter.eventNames.bind(emitter)
-    },
-    get listenerCount() {
-      return emitter.listenerCount.bind(emitter)
-    },
-    get listeners() {
-      return emitter.listeners.bind(emitter)
-    },
-    addListener: emitter.addListener.bind(emitter),
-    emit: emitter.emit.bind(emitter),
-    off: emitter.off.bind(emitter),
-    on: emitter.on.bind(emitter),
-    once: emitter.once.bind(emitter),
-    removeAllListeners: emitter.removeAllListeners.bind(emitter),
-    removeListener: emitter.removeListener.bind(emitter),
+const emitter = Provider.createEmitter()
+const transport = JsonRpc.createTransport({
+  async request(request) {
+    return new Promise((resolve, reject) => {
+      pendingRequestCallbacks[request.id] = (response) => {
+        try {
+          resolve(response)
+        } catch (e) {
+          reject(e)
+        }
+      }
+
+      channel.postRequest(request)
+    })
+  },
+})
+
+function responseListener(response: JsonRpc.Response<never>) {
+  const callback = pendingRequestCallbacks[response.id]
+  if (callback) {
+    delete pendingRequestCallbacks[response.id]
+    return callback(response as never)
   }
 }
 
-const emitter = createEmitter()
+channel.addListener('response', responseListener)
+
+function eventListener(payload: FrameClientEvent) {
+  if (payload.event === 'eip6963:announceProvider') {
+    return
+  }
+
+  const { event, ...data } = payload
+  emitter.emit(event, data as never)
+  return
+}
+
+channel.addListener('event', eventListener)
 
 export const sdk: FrameSDK = {
   ...emitter,
-  context: frameHost.context,
+  get context() {
+    return transport.request({ method: 'app_context' })
+  },
   actions: {
+    add() {
+      return Add.add(transport)
+    },
+    async ready(options?: Ready.ready.Options) {
+      return Ready.ready(transport, options ?? {})
+    },
     setPrimaryButton: frameHost.setPrimaryButton.bind(frameHost),
-    ready: frameHost.ready.bind(frameHost),
     close: frameHost.close.bind(frameHost),
     viewProfile: frameHost.viewProfile.bind(frameHost),
     viewToken: frameHost.viewToken.bind(frameHost),
@@ -72,62 +103,6 @@ export const sdk: FrameSDK = {
     },
   },
   wallet: {
-    ethProvider: provider,
+    ethProvider: EthProvider.provider,
   },
-}
-
-// Required to pass SSR
-if (typeof document !== 'undefined') {
-  // react native webview events
-  document.addEventListener('FarcasterFrameEvent', (event) => {
-    if (event instanceof MessageEvent) {
-      const frameEvent = event.data as FrameClientEvent
-      if (frameEvent.event === 'primary_button_clicked') {
-        emitter.emit('primaryButtonClicked')
-      } else if (frameEvent.event === 'frame_added') {
-        emitter.emit('frameAdded', {
-          notificationDetails: frameEvent.notificationDetails,
-        })
-      } else if (frameEvent.event === 'frame_add_rejected') {
-        emitter.emit('frameAddRejected', { reason: frameEvent.reason })
-      } else if (frameEvent.event === 'frame_removed') {
-        emitter.emit('frameRemoved')
-      } else if (frameEvent.event === 'notifications_enabled') {
-        emitter.emit('notificationsEnabled', {
-          notificationDetails: frameEvent.notificationDetails,
-        })
-      } else if (frameEvent.event === 'notifications_disabled') {
-        emitter.emit('notificationsDisabled')
-      }
-    }
-  })
-}
-
-// Required to pass SSR
-if (typeof window !== 'undefined') {
-  // web events
-  window.addEventListener('message', (event) => {
-    if (event instanceof MessageEvent) {
-      if (event.data.type === 'frameEvent') {
-        const frameEvent = event.data.event as FrameClientEvent
-        if (frameEvent.event === 'primary_button_clicked') {
-          emitter.emit('primaryButtonClicked')
-        } else if (frameEvent.event === 'frame_added') {
-          emitter.emit('frameAdded', {
-            notificationDetails: frameEvent.notificationDetails,
-          })
-        } else if (frameEvent.event === 'frame_add_rejected') {
-          emitter.emit('frameAddRejected', { reason: frameEvent.reason })
-        } else if (frameEvent.event === 'frame_removed') {
-          emitter.emit('frameRemoved')
-        } else if (frameEvent.event === 'notifications_enabled') {
-          emitter.emit('notificationsEnabled', {
-            notificationDetails: frameEvent.notificationDetails,
-          })
-        } else if (frameEvent.event === 'notifications_disabled') {
-          emitter.emit('notificationsDisabled')
-        }
-      }
-    }
-  })
 }

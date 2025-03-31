@@ -1,7 +1,7 @@
 import type {
   AddFrame,
   Context,
-  FrameNotificationDetails,
+  Provider,
   Ready,
   SetPrimaryButtonOptions,
   SignIn,
@@ -9,8 +9,7 @@ import type {
   ViewProfile,
   ViewToken,
 } from '@farcaster/frame-core'
-import type { EventEmitter } from 'eventemitter3'
-import type { Provider } from 'ox'
+import type { Provider as EthProvider } from 'ox'
 
 declare global {
   interface Window {
@@ -21,37 +20,13 @@ declare global {
   }
 }
 
-/** Combines members of an intersection into a readable type. */
-// https://twitter.com/mattpocockuk/status/1622730173446557697?s=20&t=v01xkqU3KO0Mg
-type Compute<type> = { [key in keyof type]: type[key] } & unknown
-
-export type EventMap = {
-  primaryButtonClicked: () => void
-  frameAdded: ({
-    notificationDetails,
-  }: {
-    notificationDetails?: FrameNotificationDetails
-  }) => void
-  frameAddRejected: ({
-    reason,
-  }: { reason: AddFrame.AddFrameRejectedReason }) => void
-  frameRemoved: () => void
-  notificationsEnabled: ({
-    notificationDetails,
-  }: {
-    notificationDetails: FrameNotificationDetails
-  }) => void
-  notificationsDisabled: () => void
-}
-
-export type Emitter = Compute<EventEmitter<EventMap>>
-
 type SetPrimaryButton = (options: SetPrimaryButtonOptions) => Promise<void>
 
 export type FrameSDK = {
   context: Promise<Context.FrameContext>
   actions: {
-    ready: (options?: Partial<Ready.ReadyOptions>) => Promise<void>
+    add: () => Promise<void>
+    ready: (options?: Partial<Ready.ready.Options>) => Promise<void>
     openUrl: (url: string) => Promise<void>
     close: () => Promise<void>
     setPrimaryButton: SetPrimaryButton
@@ -62,6 +37,6 @@ export type FrameSDK = {
     swap: Swap.Swap
   }
   wallet: {
-    ethProvider: Provider.Provider
+    ethProvider: EthProvider.Provider
   }
-} & Emitter
+} & Provider.Emitter

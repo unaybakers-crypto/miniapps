@@ -11,6 +11,7 @@ store.subscribe((providerDetails) => {
 
 setTimeout(() => {
   sdk.actions.ready()
+
   Promise.race([
     sdk.context,
     new Promise<never>((_, reject) => {
@@ -42,5 +43,12 @@ setTimeout(() => {
       .then((signature) => {
         alert('You signed:\n' + signature)
       })
+      .catch((error) => {
+        console.warn('sign failed: ', error)
+      })
+  }
+
+  document.querySelector<HTMLDivElement>('#close')!.onclick = () => {
+    sdk.actions.close()
   }
 }, 750)
