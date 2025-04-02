@@ -71,6 +71,9 @@ export const sdk: FrameSDK = {
 
       throw new Error('Unreachable')
     },
+    composeCast(options = {}) {
+      return frameHost.composeCast(options) as never
+    },
   },
   wallet: {
     ethProvider: provider,

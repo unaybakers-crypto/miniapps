@@ -1,5 +1,6 @@
 import type {
   AddFrame,
+  ComposeCast,
   Context,
   FrameNotificationDetails,
   Ready,
@@ -60,6 +61,9 @@ export type FrameSDK = {
     viewProfile: ViewProfile.ViewProfile
     viewToken: ViewToken.ViewToken
     swap: Swap.Swap
+    composeCast: <close extends boolean | undefined = undefined>(
+      options?: ComposeCast.Options<close>,
+    ) => Promise<ComposeCast.Result<close>>
   }
   wallet: {
     ethProvider: Provider.Provider

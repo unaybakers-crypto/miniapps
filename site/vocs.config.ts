@@ -24,7 +24,9 @@ export default defineConfig({
     '/': OG_BASE_URL + '?title=%title&description=%description&',
     '/docs/guides':
       OG_BASE_URL + '?title=%title&description=%description&section=Guide',
-    '/docs/actions':
+    '/docs/sdk':
+      OG_BASE_URL + '?title=%title&description=%description&section=SDK',
+    '/docs/sdk/actions':
       OG_BASE_URL + '?title=%title&description=%description&section=Action',
   },
   theme: {
@@ -82,49 +84,57 @@ export default defineConfig({
         ],
       },
       {
-        text: 'API',
+        text: 'SDK',
         items: [
           {
+            text: "What's New",
+            link: '/docs/sdk/changelog',
+          },
+          {
             text: 'Context',
-            link: '/docs/context',
+            link: '/docs/sdk/context',
           },
           {
             text: 'Actions',
             collapsed: true,
             items: [
               {
-                text: 'ready',
-                link: '/docs/actions/ready',
-              },
-              {
                 text: 'addFrame',
-                link: '/docs/actions/add-frame',
-              },
-              {
-                text: 'signIn',
-                link: '/docs/actions/sign-in',
-              },
-              {
-                text: 'openUrl',
-                link: '/docs/actions/open-url',
-              },
-              {
-                text: 'viewProfile',
-                link: '/docs/actions/view-profile',
+                link: '/docs/sdk/actions/add-frame',
               },
               {
                 text: 'close',
-                link: '/docs/actions/close',
+                link: '/docs/sdk/actions/close',
+              },
+              {
+                text: 'composeCast',
+                link: '/docs/sdk/actions/compose-cast',
+              },
+              {
+                text: 'ready',
+                link: '/docs/sdk/actions/ready',
+              },
+              {
+                text: 'openUrl',
+                link: '/docs/sdk/actions/open-url',
+              },
+              {
+                text: 'signIn',
+                link: '/docs/sdk/actions/sign-in',
+              },
+              {
+                text: 'viewProfile',
+                link: '/docs/sdk/actions/view-profile',
               },
             ],
           },
           {
             text: 'Wallet',
-            link: '/docs/wallet',
+            link: '/docs/sdk/wallet',
           },
           {
             text: 'Events',
-            link: '/docs/events',
+            link: '/docs/sdk/events',
           },
         ],
       },
