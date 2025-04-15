@@ -15,7 +15,10 @@ const mockEndpoint: Endpoint = {
 const webViewEndpoint: Endpoint = {
   postMessage: (data: unknown) => {
     console.debug('[webview:req]', data)
-    window.ReactNativeWebView.postMessage(JSON.stringify(data))
+    const originToken = window.__WEBVIEW_ORIGIN_TOKEN
+      ? window.__WEBVIEW_ORIGIN_TOKEN
+      : undefined
+    window.ReactNativeWebView.postMessage(JSON.stringify({ data, originToken }))
   },
   addEventListener: (_, listener, ...args) => {
     document.addEventListener('FarcasterFrameCallback', listener, ...args)

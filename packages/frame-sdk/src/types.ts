@@ -19,6 +19,7 @@ declare global {
     ReactNativeWebView: {
       postMessage: (message: string) => void
     }
+    __WEBVIEW_ORIGIN_TOKEN?: string
   }
 }
 

@@ -1,4 +1,5 @@
 import type { HostEndpoint } from '@farcaster/frame-host'
+import 'react-native-get-random-values'
 
 import type { RefObject } from 'react'
 import type WebView from 'react-native-webview'
@@ -11,6 +12,16 @@ export type WebViewEndpoint = HostEndpoint & {
    * Manually distribute events to listeners as an alternative to `document.addEventHandler` which is unavailable in React Native.
    */
   onMessage: (e: WebViewMessageEvent) => void
+  /**
+   * Inject origin token into WebView window. Host app should pass this as WebView's onLoadEnd prop.
+   */
+  onLoadEnd: () => void
+}
+
+function generateOriginToken() {
+  const array = new Uint8Array(32)
+  crypto.getRandomValues(array)
+  return Buffer.from(array).toString('hex')
 }
 
 /**
@@ -20,7 +31,17 @@ export function createWebViewRpcEndpoint(
   ref: RefObject<WebView>,
 ): WebViewEndpoint {
   const listeners: EventListenerOrEventListenerObject[] = []
+  const originToken = generateOriginToken()
+
   return {
+    onLoadEnd: () => {
+      if (ref.current) {
+        ref.current.injectJavaScript(`
+          window.__WEBVIEW_ORIGIN_TOKEN = "${originToken}";
+          true;
+        `)
+      }
+    },
     addEventListener: (type, listener) => {
       if (type !== 'message') {
         throw Error(
@@ -55,9 +76,14 @@ export function createWebViewRpcEndpoint(
       `)
     },
     onMessage: (e) => {
-      const data = JSON.parse(e.nativeEvent.data)
-      console.debug('[webview:req]', data)
-      const messageEvent = new MessageEvent(data)
+      const msgData = JSON.parse(e.nativeEvent.data)
+      console.debug('[webview:req]', msgData)
+      if (!msgData.originToken || msgData.originToken !== originToken) {
+        console.warn('Invalid or missing origin token, ignoring')
+        return
+      }
+
+      const messageEvent = new MessageEvent(msgData.data)
       for (const l of listeners) {
         if (typeof l === 'function') {
           // Actually, messageEvent doesn't satisfy Event interface,
@@ -102,5 +128,6 @@ export function createWebViewRpcEndpoint(
  */
 class MessageEvent {
   public origin = 'ReactNativeWebView'
+
   constructor(public data: unknown) {}
 }

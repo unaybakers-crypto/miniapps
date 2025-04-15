@@ -6,7 +6,6 @@ import {
   useCallback,
   useEffect,
   useMemo,
-  useRef,
   useState,
 } from 'react'
 import type WebView from 'react-native-webview'
@@ -44,7 +43,7 @@ export function useWebViewRpcAdapter({
       endpoint: newEndpoint,
       sdk,
       ethProvider,
-      frameOrigin: 'ReactNativeWebView',
+      frameOrigin: 'ReactNativeWebview',
       debug,
     })
 
@@ -74,6 +73,10 @@ export function useWebViewRpcEndpoint(webViewRef: RefObject<WebView>) {
     [endpoint],
   )
 
+  const onLoadEnd: WebViewProps['onLoadEnd'] = useCallback(() => {
+    endpoint?.onLoadEnd()
+  }, [endpoint])
+
   useEffect(() => {
     const newEndpoint = createWebViewRpcEndpoint(webViewRef)
     setEndpoint(newEndpoint)
@@ -86,9 +89,10 @@ export function useWebViewRpcEndpoint(webViewRef: RefObject<WebView>) {
   return useMemo(
     () => ({
       endpoint,
+      onLoadEnd,
       onMessage,
     }),
-    [endpoint, onMessage],
+    [endpoint, onLoadEnd, onMessage],
   )
 }
 
