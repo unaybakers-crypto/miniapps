@@ -1,15 +1,6 @@
 ---
-title: What's New
-description: Recent changes to the Mini Apps SDK
+"@farcaster/frame-core": patch
 ---
-
-# What's New
-
-## April 16, 2025 (0.0.35)
 
 - Introduced new manifest metadata fields (see [discussions/191](https://github.com/farcasterxyz/miniapps/discussions/191))
 - Deprecated `imageUrl` and `buttonTitle` (see [discussions/194](https://github.com/farcasterxyz/miniapps/discussions/194))
-
-## April 6, 2024 (0.0.34)
-
-- Increased URL max length to 1024 characters
