@@ -2,8 +2,9 @@ import type {
   AddFrame,
   ComposeCast,
   Ready,
+  SendToken,
   SignIn,
-  Swap,
+  SwapToken,
   ViewProfile,
   ViewToken,
 } from './actions'
@@ -44,7 +45,8 @@ export type WireFrameHost = {
   addFrame: AddFrame.WireAddFrame
   viewProfile: ViewProfile.ViewProfile
   viewToken: ViewToken.ViewToken
-  swap: Swap.Swap
+  sendToken: SendToken.SendToken
+  swapToken: SwapToken.SwapToken
   composeCast: <close extends boolean | undefined = undefined>(
     options: ComposeCast.Options<close>,
   ) => Promise<ComposeCast.Result<close>>
@@ -67,7 +69,8 @@ export type FrameHost = {
   addFrame: AddFrame.AddFrame
   viewProfile: ViewProfile.ViewProfile
   viewToken: ViewToken.ViewToken
-  swap: Swap.Swap
+  sendToken: SendToken.SendToken
+  swapToken: SwapToken.SwapToken
   composeCast: <close extends boolean | undefined = undefined>(
     options: ComposeCast.Options<close>,
   ) => Promise<ComposeCast.Result<close>>

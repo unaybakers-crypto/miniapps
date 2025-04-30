@@ -338,6 +338,12 @@ export function expose(
                 return obj.composeCast(...argumentList);
               case 'viewProfile':
                 return obj.viewProfile(...argumentList);
+              case 'viewToken':
+                return obj.viewToken(...argumentList);
+              case 'swapToken':
+                return obj.swapToken(...argumentList);
+              case 'sendToken':
+                return obj.sendToken(...argumentList);
               default:
                 throw new Error(`Unsupported APPLY for ${path.join('/')}`)
             }
