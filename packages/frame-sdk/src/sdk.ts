@@ -1,23 +1,8 @@
-import {
-  AddFrame,
-  type FrameClientEvent,
-  type ShareStateProvider,
-  SignIn,
-} from '@farcaster/frame-core'
-import { proxy } from 'comlink'
+import { AddFrame, type FrameClientEvent, SignIn } from '@farcaster/frame-core'
 import { EventEmitter } from 'eventemitter3'
 import { frameHost } from './frameHost'
 import { provider } from './provider'
-import {
-  initializeReactNativeSDK,
-  isInReactNativeWebViewEnvironment,
-} from './rn'
 import type { Emitter, EventMap, FrameSDK } from './types'
-
-// We need to ensure the React Native specific parts of the SDK are initialized
-// before the SDK is used. Otherwise certain functionality, such as proxied function
-// calls, will not work.
-initializeReactNativeSDK()
 
 export function createEmitter(): Emitter {
   const emitter = new EventEmitter<EventMap>()
@@ -138,13 +123,6 @@ export const sdk: FrameSDK = {
   },
   wallet: {
     ethProvider: provider,
-  },
-  setShareStateProvider: (fn: ShareStateProvider) => {
-    if (isInReactNativeWebViewEnvironment()) {
-      frameHost.setShareStateProvider.bind(frameHost)(fn as any)
-    } else {
-      frameHost.setShareStateProvider.bind(frameHost)(proxy(fn))
-    }
   },
 }
 
