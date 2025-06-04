@@ -14,6 +14,7 @@ import type {
   ViewProfile,
   ViewToken,
 } from './actions/index.ts'
+import type { UpdateBackState } from './back.ts'
 import type { FrameContext } from './context.ts'
 import type {
   EventFrameAdded,
@@ -60,6 +61,7 @@ export const miniAppHostCapabilityList: [string, ...string[]] = [
   'haptics.impactOccurred',
   'haptics.notificationOccurred',
   'haptics.selectionChanged',
+  'back',
 ]
 
 export type MiniAppHostCapability =
@@ -80,6 +82,7 @@ export type MiniAppHostCapability =
   | 'haptics.impactOccurred'
   | 'haptics.notificationOccurred'
   | 'haptics.selectionChanged'
+  | 'back'
 
 export type GetCapabilities = () => Promise<MiniAppHostCapability[]>
 
@@ -111,6 +114,7 @@ export type WireFrameHost = {
   selectionChanged: SelectionChanged
   getCapabilities: GetCapabilities
   getChains: GetChains
+  updateBackState: UpdateBackState
 }
 
 export type FrameHost = {
@@ -142,6 +146,7 @@ export type FrameHost = {
   selectionChanged: SelectionChanged
   getCapabilities: GetCapabilities
   getChains: GetChains
+  updateBackState: UpdateBackState
 }
 
 export type EventFrameAddRejected = {
@@ -153,6 +158,10 @@ export type EventPrimaryButtonClicked = {
   event: 'primary_button_clicked'
 }
 
+export type EventBackNavigationTriggered = {
+  event: 'back_navigation_triggered'
+}
+
 export type FrameClientEvent =
   | EventFrameAdded
   | EventFrameAddRejected
@@ -160,4 +169,5 @@ export type FrameClientEvent =
   | EventNotificationsEnabled
   | EventNotificationsDisabled
   | EventPrimaryButtonClicked
+  | EventBackNavigationTriggered
   | Ethereum.EventEip6963AnnounceProvider

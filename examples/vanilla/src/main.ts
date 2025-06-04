@@ -8,9 +8,23 @@ declare global {
 }
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-  <div id="container">
-    <div id="splash"></div>
-    <iframe src="/frame/" id="iframe" height="695" width="424" style="border:none;" />
+  <div>
+    <div id="header">
+      <button id="back">back</button>
+    </div>
+    <div id="container">
+      <div id="splash"></div>
+      <iframe 
+        src="/frame/" 
+        allow="microphone; camera; clipboard-write 'src'"
+        sandbox="allow-forms allow-scripts allow-same-origin allow-popups"
+        id="iframe" 
+        height="695" 
+        width="424" 
+        style="border:none;" 
+        />
+      <iframe src="/frame/" id="iframe" height="695" width="424" style="border:none;" />
+    </div>
   </div>
 `
 
@@ -27,7 +41,7 @@ const announceProvider = () => {
 }
 
 const frameHost: FrameHost = {
-  ready: (_options) => {
+  ready: () => {
     document.querySelector<HTMLDivElement>('#splash')!.hidden = true
   },
   context: {
@@ -44,6 +58,20 @@ const frameHost: FrameHost = {
     }
 
     throw new Error('Not supported')
+  },
+  close() {
+    document.querySelector<HTMLDivElement>('#splash')!.hidden = false
+  },
+  updateBackState(state) {
+    const btn = document.querySelector<HTMLButtonElement>('#back')
+    if (state.visible) {
+      btn!.hidden = false
+      btn!.onclick = () => {
+        endpoint.emit({ event: 'back_navigation_triggered' })
+      }
+    } else {
+      btn!.hidden = true
+    }
   },
 } as FrameHost
 
