@@ -1,0 +1,94 @@
+---
+title: quickAuth.getToken
+description: Get Quick Auth session token
+---
+
+import { Caption } from '../../../../components/Caption.tsx';
+
+# quickAuth.getToken
+
+Request a signed JWT from a [Farcaster Quick Auth
+Server](https://github.com/farcasterxyz/protocol/discussions/231). 
+
+
+## Usage
+
+```ts twoslash
+// ---cut---
+import { sdk } from '@farcaster/frame-sdk'
+
+const { token } = await sdk.quickAuth.getToken()
+```
+
+You must [validate the token on your server](/docs/sdk/quick-auth#validate-a-session-token).
+
+
+## Parameters
+
+### force
+
+- **Type:** `boolean`
+
+Acquire a new token even if one is already in memory and not expired.
+
+### quickAuthServerOrigin (optional)
+
+- **Type:** `string`
+
+Use a custom Quick Auth Server. Defaults to `https://auth.farcaster.xyz`.
+
+
+## Return Value
+
+A [JWT](https://datatracker.ietf.org/doc/html/rfc7519) issued by the Quick Auth
+Server based on the Sign In with Farcaster credential signed by the user.
+
+```ts 
+{ token: string; }
+```
+
+You must [validate the token on your server](/docs/sdk/quick-auth#validate-a-session-token).
+
+
+### JWT Payload
+
+```json
+{
+  "iat": 1747764819,
+  "iss": "https://auth.farcaster.xyz",
+  "exp": 1747768419,
+  "sub": 6841,
+  "aud": "miniapps.farcaster.xyz"
+}
+```
+
+#### sub
+
+- **Type:** `number`
+
+The FID of the signed in user. 
+
+
+#### iss
+
+- **Type:** `string`
+
+The Quick Auth server that verified the SIWF credential and issued the JWT.
+
+#### aud
+
+- **Type:** `string`
+
+The domain this token was issued to.
+
+#### exp
+
+- **Type:** `number`
+
+The JWT expiration time.
+
+#### iat
+
+- **Type:** `number`
+
+The JWT issued at time.

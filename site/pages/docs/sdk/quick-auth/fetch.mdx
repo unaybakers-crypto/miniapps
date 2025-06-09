@@ -1,0 +1,40 @@
+---
+title: quickAuth.fetch
+description: Make an authenticated fetch request with a Quick Auth session token
+---
+
+# quickAuth.fetch
+
+Make a [Fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) request
+with `Authorization` header set to `Bearer ${token}` where token is a with a
+Quick Auth session token.
+
+:::note
+This is a convenience function that makes it easy to make authenticated
+requests but using it is not a requirement. Use
+[getToken](/docs/sdk/quick-auth/get-token) to get a token directly and attach
+it to requests using the library and format of your choosing.
+:::
+
+
+## Usage
+
+```ts twoslash
+const url = "https://example.com";
+
+// ---cut---
+import { sdk } from '@farcaster/frame-sdk'
+
+await sdk.quickAuth.fetch(url)
+```
+
+You must [validate the token on your server](/docs/sdk/quick-auth#validate-a-session-token).
+
+## Parameters
+
+See [Fetch parameters](https://developer.mozilla.org/en-US/docs/Web/API/Window/fetch#parameters).
+
+
+## Return Value
+
+See [Fetch return value](https://developer.mozilla.org/en-US/docs/Web/API/Window/fetch#return_value).

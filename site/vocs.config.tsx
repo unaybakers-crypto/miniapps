@@ -130,12 +130,19 @@ export default defineConfig({
             link: '/docs/sdk/context',
           },
           {
-            text: 'Mini app detection',
-            link: '/docs/sdk/is-in-mini-app',
-          },
-          {
-            text: 'Detecting chains & capabilities',
-            link: '/docs/sdk/detecting-capabilities',
+            text: 'Quick Auth',
+            link: '/docs/sdk/quick-auth',
+            collapsed: true,
+            items: [
+              {
+                text: '.getToken',
+                link: '/docs/sdk/quick-auth/get-token',
+              },
+              {
+                text: '.fetch',
+                link: '/docs/sdk/quick-auth/fetch',
+              },
+            ],
           },
           {
             text: 'Actions',
@@ -182,10 +189,6 @@ export default defineConfig({
                 link: '/docs/sdk/actions/send-token',
               },
               {
-                text: 'quickAuth',
-                link: '/docs/sdk/actions/quick-auth',
-              },
-              {
                 text: 'viewToken',
                 link: '/docs/sdk/actions/view-token',
               },
@@ -206,6 +209,14 @@ export default defineConfig({
           {
             text: 'Solana wallet',
             link: '/docs/sdk/solana',
+          },
+          {
+            text: 'Detecting chains & capabilities',
+            link: '/docs/sdk/detecting-capabilities',
+          },
+          {
+            text: 'Mini app detection',
+            link: '/docs/sdk/is-in-mini-app',
           },
           {
             text: 'Events',
