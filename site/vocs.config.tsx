@@ -118,6 +118,14 @@ export default defineConfig({
         text: 'Concepts',
         items: [
           {
+            text: 'Manifest',
+            link: '/docs/concepts/manifest',
+          },
+          {
+            text: 'Embeds',
+            link: '/docs/concepts/embeds',
+          },
+          {
             text: 'Universal Links',
             link: '/docs/concepts/universal-links',
           },
