@@ -1,5 +1,7 @@
 import type { MiniAppNotificationDetails } from './schemas/index.ts'
 
+export type MiniAppPlatformType = 'web' | 'mobile'
+
 export type MiniAppUser = {
   fid: number
   username?: string
@@ -63,12 +65,18 @@ export type ChannelLocationContext = {
   }
 }
 
+export type OpenMiniAppLocationContext = {
+  type: 'open_miniapp'
+  referrerDomain: string
+}
+
 export type LocationContext =
   | CastEmbedLocationContext
   | CastShareLocationContext
   | NotificationLocationContext
   | LauncherLocationContext
   | ChannelLocationContext
+  | OpenMiniAppLocationContext
 
 export type AccountLocation = {
   placeId: string
@@ -99,6 +107,7 @@ export type SafeAreaInsets = {
 }
 
 export type ClientContext = {
+  platformType?: MiniAppPlatformType
   clientFid: number
   added: boolean
   notificationDetails?: MiniAppNotificationDetails
