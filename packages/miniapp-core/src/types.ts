@@ -19,8 +19,6 @@ import type {
 import type { UpdateBackState } from './back.ts'
 import type { MiniAppContext } from './context.ts'
 import type {
-  EventFrameAdded,
-  EventFrameRemoved,
   EventMiniAppAdded,
   EventMiniAppRemoved,
   EventNotificationsDisabled,
@@ -143,11 +141,6 @@ export type MiniAppHost = {
   updateBackState: UpdateBackState
 }
 
-export type EventFrameAddRejected = {
-  event: 'frame_add_rejected'
-  reason: AddMiniApp.AddMiniAppRejectedReason
-}
-
 export type EventMiniAppAddRejected = {
   event: 'miniapp_add_rejected'
   reason: AddMiniApp.AddMiniAppRejectedReason
@@ -170,6 +163,3 @@ export type MiniAppClientEvent =
   | EventPrimaryButtonClicked
   | EventBackNavigationTriggered
   | Ethereum.EventEip6963AnnounceProvider
-  | EventFrameAdded
-  | EventFrameAddRejected
-  | EventFrameRemoved
