@@ -303,6 +303,16 @@ export function expose(
     }
 
     const argumentList = (ev.data.argumentList || []).map(fromWireValue)
+
+    // Enforce that `path` is exactly one non-empty string for all message types
+    if (
+      !Array.isArray(path) ||
+      path.length !== 1 ||
+      typeof path[0] !== 'string' ||
+      path[0].trim() === ''
+    ) {
+      throw new Error(`Invalid path: ${path.join('/')}`)
+    }
     let returnValue
     try {
       switch (type) {
